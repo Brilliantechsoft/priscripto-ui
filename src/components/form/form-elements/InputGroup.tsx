@@ -10,6 +10,7 @@ export default function InputGroup() {
     { code: "GB", label: "+44" },
     { code: "CA", label: "+1" },
     { code: "AU", label: "+61" },
+    { code: "IN", label: "+91" },
   ];
   const handlePhoneNumberChange = (phoneNumber: string) => {
     console.log("Updated phone number:", phoneNumber);
