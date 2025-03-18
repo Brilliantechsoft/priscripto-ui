@@ -1,6 +1,4 @@
-import React from 'react'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../ui/table'
-import Badge from '../../ui/badge/Badge';
 import Button from '../../ui/button/Button';
 
 const DoctorsListTable = () => {
