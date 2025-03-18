@@ -11,16 +11,24 @@ const CreateDoctorsForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        specialization: "",
         qualification: "",
-        experience: "",
-        age: "",
+        experience: 0,
+        age: 0,
         phone: "",
+        city: "",
+        address: "",
+        available: false
     });
     const [error, setError] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: name === "experience" || name === "age" ? Number(value) : value,
+        }));
 
         // Validate email separately
         if (name === "email") validateEmail(value);
@@ -75,16 +83,20 @@ const CreateDoctorsForm = () => {
                             />
                         </div>
                         <div>
+                            <Label htmlFor="input">Specialization</Label>
+                            <Input type="text" id="specialization" name='specialization' onChange={handleInputChange} value={formData.specialization} placeholder="Enter Your Specialization" />
+                        </div>
+                        <div>
                             <Label htmlFor="input">Qualification</Label>
                             <Input type="text" id="qualification" name='qualification' onChange={handleInputChange} value={formData.qualification} placeholder="Enter Your Qualification" />
                         </div>
                         <div>
                             <Label htmlFor="input">Experience</Label>
-                            <Input type="text" value={formData.experience} onChange={handleInputChange} id="experience" name="experience" placeholder="Enter Your Experience" />
+                            <Input type="number" value={formData.experience} onChange={handleInputChange} id="experience" name="experience" placeholder="Enter Your Experience" />
                         </div>
                         <div>
                             <Label htmlFor="input">Age</Label>
-                            <Input type="text" value={formData.age} onChange={handleInputChange} name='age' id="age" placeholder="Enter Your Age" />
+                            <Input type="number" value={formData.age} onChange={handleInputChange} name='age' id="age" placeholder="Enter Your Age" />
                         </div>
                         <div>
                             <div>
@@ -96,6 +108,14 @@ const CreateDoctorsForm = () => {
                                     onChange={handlePhoneNumberChange}
                                 />
                             </div>{" "}
+                        </div>
+                        <div>
+                            <Label htmlFor="input">City</Label>
+                            <Input type="text" id="city" name='city' onChange={handleInputChange} value={formData.city} placeholder="Enter Your Specialization" />
+                        </div>
+                        <div>
+                            <Label htmlFor="input">Address</Label>
+                            <Input type="text" id="address" name='address' onChange={handleInputChange} value={formData.address} placeholder="Enter Your Specialization" />
                         </div>
                         <Button size="sm" variant="primary">
                             Create Doctor
