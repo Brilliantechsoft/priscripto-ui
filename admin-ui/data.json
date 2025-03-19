@@ -1,0 +1,26 @@
+{  "doctors":[
+    {
+      "name": "Lindsey Curtis",
+      "email": "Lindsey@gmail.com",
+      "qualification": "MBBS",
+      "experience": "3.9",
+      "age": "23",
+      "phone": "7347384734"
+    },
+    {
+      "name": "Lindsey Curtis",
+      "email": "Lindsey@gmail.com",
+      "qualification": "MBBS",
+      "experience": "3.9",
+      "age": "23",
+      "phone": "7347384734"
+    },
+    {
+      "name": "Lindsey Curtis",
+      "email": "Lindsey@gmail.com",
+      "qualification": "MBBS",
+      "experience": "3.9",
+      "age": "23",
+      "phone": "7347384734"
+    }
+  ]}

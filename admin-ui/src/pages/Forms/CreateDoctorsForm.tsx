@@ -117,9 +117,11 @@ const CreateDoctorsForm = () => {
                             <Label htmlFor="input">Address</Label>
                             <Input type="text" id="address" name='address' onChange={handleInputChange} value={formData.address} placeholder="Enter Your Specialization" />
                         </div>
-                        <Button size="sm" variant="primary">
+                        <div>                            
+                        <Button size="vs" variant="primary">
                             Create Doctor
                         </Button>
+                        </div>
                     </div>
                     {/* <div className="space-y-6">
                     </div> */}
