@@ -8,10 +8,12 @@ import {
   } from "../../ui/table";
   import Button from "../../ui/button/Button";
 import { patientTableData } from '../../../types/patientTableData';
+import { Link } from 'react-router';
 const PatientListTable = () => {
 
      const patientData: patientTableData[] = [
         {
+         id:1,
           name: "John Doe",
           email: "john.doe@example.com",
           phoneNumber: 9876543210,
@@ -20,6 +22,7 @@ const PatientListTable = () => {
           blood_group: "O+",
         },
         {
+            id:2,
           name: "Jane Smith",
           email: "jane.smith@example.com",
           phoneNumber: 9123456789,
@@ -28,6 +31,7 @@ const PatientListTable = () => {
           blood_group: "A-",
         },
         {
+            id:3,
           name: "Michael Johnson",
           email: "michael.johnson@example.com",
           phoneNumber: 9988776655,
@@ -36,6 +40,7 @@ const PatientListTable = () => {
           blood_group: "B+",
         },
         {
+            id:4,
           name: "Emily Davis",
           email: "emily.davis@example.com",
           phoneNumber: 9090909090,
@@ -44,6 +49,7 @@ const PatientListTable = () => {
           blood_group: "AB+",
         },
         {
+            id:5,
           name: "David Brown",
           email: "david.brown@example.com",
           phoneNumber: 8787878787,
@@ -109,8 +115,8 @@ const PatientListTable = () => {
               </TableHeader>
 
               {/* Table Body */}<TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
-                {patientData.map((patient , index) => (
-                  <TableRow key={index}>
+                {patientData.map((patient ) => (
+                  <TableRow key={patient.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
                       {patient.name}
                     </TableCell>
@@ -139,7 +145,9 @@ const PatientListTable = () => {
                         <Button>Delete</Button>
                       </div>
                       <div>
+                        <Link to={"/patient/" + patient.id}>
                         <Button>View</Button>
+                        </Link>
                       </div>
                     </TableCell>
                   </TableRow>
