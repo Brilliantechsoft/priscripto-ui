@@ -7,7 +7,8 @@ import {
   DoctorIcon,
   HorizontaLDots,
   ListIcon,
-  TableIcon
+  TableIcon,
+  UserCircleIcon
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 
@@ -29,6 +30,11 @@ const navItems: NavItem[] = [
     name: "Doctors",
     path: "/doctors",
   },
+  {
+    icon :<UserCircleIcon/>,
+    name : "Patients",
+    path: "/patients",
+  }
   // {
   //   icon: <UserCircleIcon />,
   //   name: "User Profile",
