@@ -1,26 +1,73 @@
-{  "doctors":[
-    {
-      "name": "Lindsey Curtis",
-      "email": "Lindsey@gmail.com",
-      "qualification": "MBBS",
-      "experience": "3.9",
-      "age": "23",
-      "phone": "7347384734"
-    },
-    {
-      "name": "Lindsey Curtis",
-      "email": "Lindsey@gmail.com",
-      "qualification": "MBBS",
-      "experience": "3.9",
-      "age": "23",
-      "phone": "7347384734"
-    },
-    {
-      "name": "Lindsey Curtis",
-      "email": "Lindsey@gmail.com",
-      "qualification": "MBBS",
-      "experience": "3.9",
-      "age": "23",
-      "phone": "7347384734"
-    }
-  ]}
+{"doctors":[
+    
+        
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "qualification": "MBBS, MD",
+    "experience": 10,
+    "age": 45,
+    "phone": "+1 555-1234"
+  },
+  {
+    "name": " Jane Smith",
+    "email": "jane.smith@example.com",
+    "qualification": "MBBS, MS",
+    "experience": 12,
+    "age": 50,
+    "phone": "+1 555-5678"
+  },
+  {
+   
+    "name": " Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "qualification": "BDS, MDS",
+    "experience": 8,
+    "age": 40,
+    "phone": "+1 555-9012"
+  },
+  {
+ 
+    "name": " Bob Williams",
+    "email": "bob.williams@example.com",
+    "qualification": "MBBS, DM",
+    "experience": 15,
+    "age": 55,
+    "phone": "+1 555-3456"
+  },
+  {
+   
+    "name": " Michael Brown",
+    "email": "michael.brown@example.com",
+    "qualification": "BHMS",
+    "experience": 7,
+    "age": 38,
+    "phone": "+1 555-7890"
+  },
+  {
+    
+    "name": "Emily Davis",
+    "email": "emily.davis@example.com",
+    "qualification": "MBBS, DNB",
+    "experience": 9,
+    "age": 42,
+    "phone": "+1 555-6543"
+  },
+  {
+    "name": "Lindsey Curtis",
+    "email": "Lindsey@gmail.com",
+    "qualification": "MBBS",
+     "experience": "3.9",
+     "age": "23",
+     "phone": "7347384734"
+  },
+     {
+    "name": "Chandrashekhar Patil",
+    "email": "chandu@gmail.com",
+    "qualification": "MBBS,MD",
+     "experience": "5",
+     "age": "30",
+     "phone": "1237457822"
+  }
+] 
+}
