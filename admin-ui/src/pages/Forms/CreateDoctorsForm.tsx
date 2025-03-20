@@ -62,7 +62,7 @@ const CreateDoctorsForm = () => {
     <div>
       <ComponentCard title="Fill Doctors Details">
         <Form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="grid grid-cols-1 items-center justify-between gap-6 xl:grid-cols-2">
             {/* <div className="space-y-6"> */}
             <div>
               <Label htmlFor="input">Name</Label>
@@ -165,8 +165,8 @@ const CreateDoctorsForm = () => {
                 placeholder="Enter Your Specialization"
               />
             </div>
-            <div>
-              <Button size="vs" variant="primary">
+            <div className="flex items-end h-full">
+              <Button size="md" variant="primary">
                 Create Doctor
               </Button>
             </div>

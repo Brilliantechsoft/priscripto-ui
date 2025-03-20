@@ -17,6 +17,7 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import Patients from "./pages/Patients";
+import PatientCard from "./components/patientCard/PatientCard";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/blank" element={<Blank />} />
             <Route path="/patients" element={<Patients />} />
+            <Route path="/patient/:id" element={<PatientCard />} />
 
             {/* Forms */}
             <Route path="/form-elements" element={<FormElements />} />
