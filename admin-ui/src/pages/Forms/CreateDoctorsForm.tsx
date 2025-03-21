@@ -5,16 +5,26 @@ import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import PhoneInput from "../../components/form/group-input/PhoneInput";
 import Button from "../../components/ui/button/Button";
-import Form from "../../components/form/Form";
+import { addDoctor } from "../../redux/slices/doctorListSlice";
+import { AppDispatch } from "../../redux/store/store";
+import { useDispatch } from "react-redux";
 
-const CreateDoctorsForm = () => {
+interface CreateDoctorsFormProps {
+  closeModal: () => void; // Receive closeModal function as a prop
+}
+
+const CreateDoctorsForm: React.FC<CreateDoctorsFormProps> = ({
+  closeModal,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     specialization: "",
     qualification: "",
-    experience: 0,
-    age: 0,
+    experience: "",
+    age: "",
     phone: "",
     city: "",
     address: "",
@@ -55,14 +65,41 @@ const CreateDoctorsForm = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Form Submitted:", formData);
+
+    if (
+      formData.name &&
+      formData.email &&
+      formData.specialization &&
+      formData.qualification &&
+      formData.experience &&
+      formData.age &&
+      formData.phone &&
+      formData.city &&
+      formData.address
+    ) {
+      dispatch(addDoctor(formData));
+      closeModal();
+
+      setFormData({
+        name: "",
+        email: "",
+        specialization: "",
+        qualification: "",
+        experience: "",
+        age: "",
+        phone: "",
+        city: "",
+        address: "",
+        available: false,
+      });
+    }
   };
 
   return (
     <div>
       <ComponentCard title="Fill Doctors Details">
-        <Form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 items-center justify-between gap-6 xl:grid-cols-2">
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             {/* <div className="space-y-6"> */}
             <div>
               <Label htmlFor="input">Name</Label>
@@ -113,7 +150,7 @@ const CreateDoctorsForm = () => {
             <div>
               <Label htmlFor="input">Experience</Label>
               <Input
-                type="number"
+                type="string"
                 value={formData.experience}
                 onChange={handleInputChange}
                 id="experience"
@@ -124,7 +161,7 @@ const CreateDoctorsForm = () => {
             <div>
               <Label htmlFor="input">Age</Label>
               <Input
-                type="number"
+                type="string"
                 value={formData.age}
                 onChange={handleInputChange}
                 name="age"
@@ -165,8 +202,8 @@ const CreateDoctorsForm = () => {
                 placeholder="Enter Your Specialization"
               />
             </div>
-            <div className="flex items-end h-full">
-              <Button size="md" variant="primary">
+            <div>
+              <Button size="vs" variant="primary">
                 Create Doctor
               </Button>
             </div>
@@ -174,7 +211,7 @@ const CreateDoctorsForm = () => {
           {/* <div className="space-y-6">
                     </div> */}
           {/* </div> */}
-        </Form>
+        </form>
       </ComponentCard>
     </div>
   );
