@@ -125,10 +125,10 @@ const DoctorsListTable = () => {
                     </TableCell>
                     <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                       <div>
-                        <Button>Edit</Button>
+                        <Button size="vs">Edit</Button>
                       </div>
                       <div>
-                        <Button>Delete</Button>
+                        <Button size="vs">Delete</Button>
                       </div>
                     </TableCell>
                   </TableRow>
