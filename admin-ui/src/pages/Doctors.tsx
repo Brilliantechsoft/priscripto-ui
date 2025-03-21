@@ -6,27 +6,26 @@ import { Modal } from "../components/ui/modal";
 import Button from "../components/ui/button/Button";
 
 const Doctors: React.FC = () => {
-      
-  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-    <div className="mb-5"></div>
-    <div>
-      <ComponentCard title="Doctor's Information">
-        <div className="flex flex-col items-end justify-center">
-          {/* Button to Open Modal */}
-          <Button size="vs" onClick={() => setIsModalOpen(true)}>
-            Add Doctor
-          </Button>
-          {/* Modal Component */}
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-            <CreateDoctorsForm />
-          </Modal>
-        </div>
-        <DoctorsListTable />
-      </ComponentCard>
-    </div>
-  </>
-);
+      <div className="mb-5"></div>
+      <div>
+        <ComponentCard title="Doctor's Information">
+          <div className="flex flex-col items-end justify-center">
+            {/* Button to Open Modal */}
+            <Button size="vs" onClick={() => setIsModalOpen(true)}>
+              Add Doctor
+            </Button>
+            {/* Modal Component */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+              <CreateDoctorsForm closeModal={() => setIsModalOpen(false)} />
+            </Modal>
+          </div>
+          <DoctorsListTable />
+        </ComponentCard>
+      </div>
+    </>
+  );
 };
 export default Doctors;

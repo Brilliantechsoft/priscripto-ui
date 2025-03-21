@@ -1,73 +1,206 @@
-{"doctors":[
-    
-        
-  {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "qualification": "MBBS, MD",
-    "experience": 10,
-    "age": 45,
-    "phone": "+1 555-1234"
-  },
-  {
-    "name": " Jane Smith",
-    "email": "jane.smith@example.com",
-    "qualification": "MBBS, MS",
-    "experience": 12,
-    "age": 50,
-    "phone": "+1 555-5678"
-  },
-  {
-   
-    "name": " Alice Johnson",
-    "email": "alice.johnson@example.com",
-    "qualification": "BDS, MDS",
-    "experience": 8,
-    "age": 40,
-    "phone": "+1 555-9012"
-  },
-  {
- 
-    "name": " Bob Williams",
-    "email": "bob.williams@example.com",
-    "qualification": "MBBS, DM",
-    "experience": 15,
-    "age": 55,
-    "phone": "+1 555-3456"
-  },
-  {
-   
-    "name": " Michael Brown",
-    "email": "michael.brown@example.com",
-    "qualification": "BHMS",
-    "experience": 7,
-    "age": 38,
-    "phone": "+1 555-7890"
-  },
-  {
-    
-    "name": "Emily Davis",
-    "email": "emily.davis@example.com",
-    "qualification": "MBBS, DNB",
-    "experience": 9,
-    "age": 42,
-    "phone": "+1 555-6543"
-  },
-  {
-    "name": "Lindsey Curtis",
-    "email": "Lindsey@gmail.com",
-    "qualification": "MBBS",
-     "experience": "3.9",
-     "age": "23",
-     "phone": "7347384734"
-  },
-     {
-    "name": "Chandrashekhar Patil",
-    "email": "chandu@gmail.com",
-    "qualification": "MBBS,MD",
-     "experience": "5",
-     "age": "30",
-     "phone": "1237457822"
-  }
-] 
+{
+  "doctors": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "qualification": "MBBS, MD",
+      "experience": 10,
+      "age": 45,
+      "phone": "+1 555-1234",
+      "id": "7e6a"
+    },
+    {
+      "name": " Jane Smith",
+      "email": "jane.smith@example.com",
+      "qualification": "MBBS, MS",
+      "experience": 12,
+      "age": 50,
+      "phone": "+1 555-5678",
+      "id": "778a"
+    },
+    {
+      "name": " Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "qualification": "BDS, MDS",
+      "experience": 8,
+      "age": 40,
+      "phone": "+1 555-9012",
+      "id": "51fc"
+    },
+    {
+      "name": " Bob Williams",
+      "email": "bob.williams@example.com",
+      "qualification": "MBBS, DM",
+      "experience": 15,
+      "age": 55,
+      "phone": "+1 555-3456",
+      "id": "d0f7"
+    },
+    {
+      "name": " Michael Brown",
+      "email": "michael.brown@example.com",
+      "qualification": "BHMS",
+      "experience": 7,
+      "age": 38,
+      "phone": "+1 555-7890",
+      "id": "1e36"
+    },
+    {
+      "name": "Emily Davis",
+      "email": "emily.davis@example.com",
+      "qualification": "MBBS, DNB",
+      "experience": 9,
+      "age": 42,
+      "phone": "+1 555-6543",
+      "id": "bfc2"
+    },
+    {
+      "name": "Lindsey Curtis",
+      "email": "Lindsey@gmail.com",
+      "qualification": "MBBS",
+      "experience": "3.9",
+      "age": "23",
+      "phone": "7347384734",
+      "id": "aa75"
+    },
+    {
+      "name": "Chandrashekhar Patil",
+      "email": "chandu@gmail.com",
+      "qualification": "MBBS,MD",
+      "experience": "5",
+      "age": "30",
+      "phone": "1237457822",
+      "id": "9d4b"
+    },
+    {
+      "id": "694b",
+      "name": "Kartik Malbhage",
+      "email": "kartik@gmail.com",
+      "specialization": "Dentist",
+      "qualification": "MBBS",
+      "experience": 3,
+      "age": 45,
+      "phone": "+91123345666",
+      "city": "Pune",
+      "address": "1305,maruti tower,baner",
+      "available": false
+    },
+    {
+      "id": "2c57",
+      "name": "hfdjh",
+      "email": "hjfshj@gmai.com",
+      "specialization": "jfdsf",
+      "qualification": "jsdkfds",
+      "experience": 4,
+      "age": 32,
+      "phone": "+913643467343",
+      "city": "Pune",
+      "address": "1305,maruti tower,baner",
+      "available": false
+    },
+    {
+      "id": "02c4",
+      "name": "fkjdsh",
+      "email": "hdskjfh@gmail.com",
+      "specialization": "fdsjf",
+      "qualification": "dshjf",
+      "experience": 6,
+      "age": 7,
+      "phone": "+91",
+      "city": "djskfhjf",
+      "address": "chjdsc",
+      "available": false
+    },
+    {
+      "id": "977e",
+      "name": "name",
+      "email": "djs@gamil.com",
+      "specialization": "ssdefeg",
+      "qualification": "cdjhcdh",
+      "experience": 7,
+      "age": 34,
+      "phone": "+9175645658",
+      "city": "dsffd",
+      "address": "ghfghfgf",
+      "available": false
+    },
+    {
+      "id": "68fa",
+      "name": "Kartik Malbhage",
+      "email": "fdfs@gmail.com",
+      "specialization": "Dentist",
+      "qualification": "djfhjdf",
+      "experience": 6,
+      "age": 45,
+      "phone": "+916546545564",
+      "city": "hgxhsg",
+      "address": "cscscd",
+      "available": false
+    },
+    {
+      "id": "c347",
+      "name": "cccc",
+      "email": "fdjhfjdh@gmai.com",
+      "specialization": "fjdsfkdsjfkj",
+      "qualification": "dsjfdsjfskjd",
+      "experience": 7,
+      "age": 56,
+      "phone": "+913432434324",
+      "city": "vsdfdsfnjds",
+      "address": "hjdsfhjdsfds",
+      "available": false
+    },
+    {
+      "id": "0f6a",
+      "name": "jsakhdkaj",
+      "email": "sjkjjk@gmail.com",
+      "specialization": "jfdsf",
+      "qualification": "MBBS",
+      "experience": 3,
+      "age": 33,
+      "phone": "+912244335355",
+      "city": "njnk",
+      "address": "ktoko",
+      "available": false
+    },
+    {
+      "id": "4702",
+      "name": "dwfde",
+      "email": "dwd@gmail.com",
+      "specialization": "ewe",
+      "qualification": "efef",
+      "experience": 3,
+      "age": 27,
+      "phone": "+914848498984",
+      "city": "jfjkjf",
+      "address": "jefjfi",
+      "available": false
+    },
+    {
+      "id": "6dfa",
+      "name": "prati",
+      "email": "prati@gmail.com",
+      "specialization": "fdgf",
+      "qualification": "ddfdf",
+      "experience": 3,
+      "age": 34,
+      "phone": "+9144858698839",
+      "city": "Pune",
+      "address": "1305,maruti tower,baner",
+      "available": false
+    },
+    {
+      "id": "0d4c",
+      "name": "name",
+      "email": "kartik@gmail.com",
+      "specialization": "fjdskfjkdsf",
+      "qualification": "fdsfdsfdsfdsf",
+      "experience": 3,
+      "age": 27,
+      "phone": "+913473847328",
+      "city": "Pune",
+      "address": "1305,maruti tower,baner",
+      "available": false
+    }
+  ]
 }
