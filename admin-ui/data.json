@@ -201,6 +201,19 @@
       "city": "Pune",
       "address": "1305,maruti tower,baner",
       "available": false
+    },
+    {
+      "id": "551a",
+      "name": "Kartik Malbhage",
+      "email": "apple@gmail.com",
+      "specialization": "fdsfds",
+      "qualification": "MCA",
+      "experience": 2,
+      "age": 25,
+      "phone": "+915455255252",
+      "city": "Deoni",
+      "address": "At. Post Deoni",
+      "available": false
     }
   ]
 }

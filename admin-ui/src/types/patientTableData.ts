@@ -6,5 +6,4 @@ export interface patientTableData {
     age : number;
     illness : string;
     blood_group : string;
-
 }

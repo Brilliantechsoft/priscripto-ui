@@ -36,9 +36,7 @@ export default function FormElements() {
           <DropzoneComponent />
           <Buttons />
         </div>
-        <div>
-
-        </div>
+        <div></div>
       </div>
     </div>
   );
