@@ -12,7 +12,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState, AppDispatch } from "../../../redux/store/store";
-import { fetchDoctors } from "../../../redux/slices/doctorListSlice";
+import {
+  deleteDoctor,
+  fetchDoctors,
+} from "../../../redux/slices/doctorListSlice";
 import { handleSearchDoctors } from "../../../redux/slices/doctorListSlice";
 
 const DoctorsListTable = () => {
@@ -57,6 +60,11 @@ const DoctorsListTable = () => {
   const cancelSearch = () => {
     setSearchTerm(" ");
     dispatch(handleSearchDoctors(doctors));
+  };
+
+  const handleDelete = async (id: number) => {
+    await dispatch(deleteDoctor(id));
+    dispatch(fetchDoctors());
   };
 
   return (
@@ -153,7 +161,7 @@ const DoctorsListTable = () => {
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
                 {displayedDoctors.map((doctor) => (
-                  <TableRow>
+                  <TableRow key={doctor.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
                       {doctor.name}
                     </TableCell>
@@ -179,7 +187,12 @@ const DoctorsListTable = () => {
                         <Button size="vs">Edit</Button>
                       </div>
                       <div>
-                        <Button size="vs">Delete</Button>
+                        <Button
+                          onClick={() => handleDelete(doctor.id)}
+                          size="vs"
+                        >
+                          Delete
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
