@@ -19,7 +19,7 @@ const Doctors: React.FC = () => {
             </Button>
             {/* Modal Component */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-              <CreateDoctorsForm />
+              <CreateDoctorsForm closeModal={() => setIsModalOpen(false)} />
             </Modal>
           </div>
           <DoctorsListTable />
@@ -28,5 +28,4 @@ const Doctors: React.FC = () => {
     </>
   );
 };
-
 export default Doctors;
