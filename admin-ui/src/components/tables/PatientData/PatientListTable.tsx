@@ -66,26 +66,52 @@ const PatientListTable = () => {
             <Table>
               <TableHeader className="border-b border-gray-400 dark:border-white/[0.05]">
                 <TableRow>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Name</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Email</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Illness</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Blood Group</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Age</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Mobile No</TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">Actions</TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Name
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Email
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Illness
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Blood Group
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Age
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Mobile No
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Actions
+                  </TableCell>
                 </TableRow>
               </TableHeader>
               <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
                 {patientData.map((patient) => (
                   <TableRow key={patient.id}>
-                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">{patient.name}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">{patient.email}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">{patient.illness}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">{patient.blood_group}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">{patient.age}</TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">{patient.phoneNumber}</TableCell>
+                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
+                      {patient.name}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.email}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.illness}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.blood_group}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.age}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.phoneNumber}
+                    </TableCell>
                     <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      <Button >Delete</Button>
+                      <Button>Delete</Button>
                       <Link to={`/patient/${patient.id}`}>
                         <Button>View</Button>
                       </Link>
@@ -102,5 +128,3 @@ const PatientListTable = () => {
 };
 
 export default PatientListTable;
-
-  
