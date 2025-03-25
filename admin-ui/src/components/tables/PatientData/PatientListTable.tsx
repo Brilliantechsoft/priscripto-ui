@@ -8,6 +8,7 @@ import {
 import Button from "../../ui/button/Button";
 import { patientTableData } from "../../../types/patientTableData";
 import { Link } from "react-router";
+
 const PatientListTable = () => {
   const patientData: patientTableData[] = [
     {
@@ -56,107 +57,73 @@ const PatientListTable = () => {
       blood_group: "O-",
     },
   ];
+
   return (
-    <>
-      <div>
-        <div className="overflow-hidden rounded-xl border border-gray-400 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-          <div className="max-w-full overflow-x-auto">
-            <div className="min-w-[800px]">
-              <Table>
-                {/* Table Header */}
-                <TableHeader className="border-b border-gray-400 dark:border-white/[0.05]">
-                  <TableRow>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Name
+    <div>
+      <div className="overflow-hidden rounded-xl border border-gray-400 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+        <div className="max-w-full overflow-x-auto">
+          <div className="min-w-[800px]">
+            <Table>
+              <TableHeader className="border-b border-gray-400 dark:border-white/[0.05]">
+                <TableRow>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Name
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Email
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Illness
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Blood Group
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Age
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Mobile No
+                  </TableCell>
+                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
+                    Actions
+                  </TableCell>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
+                {patientData.map((patient) => (
+                  <TableRow key={patient.id}>
+                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
+                      {patient.name}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Email
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.email}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Illness
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.illness}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Blood Group
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.blood_group}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Age
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.age}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Mobile No
+                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      {patient.phoneNumber}
                     </TableCell>
-                    <TableCell
-                      isHeader
-                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
-                    >
-                      Update & Delete & view
+                    <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                      <Button>Delete</Button>
+                      <Link to={`/patient/${patient.id}`}>
+                        <Button>View</Button>
+                      </Link>
                     </TableCell>
                   </TableRow>
-                </TableHeader>
-
-                {/* Table Body */}
-                <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
-                  {patientData.map((patient) => (
-                    <TableRow key={patient.id}>
-                      <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                        {patient.name}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {patient.email}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {/* <div className="flex -space-x-2"> */}
-                        {patient.illness}
-                        {/* </div> */}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {patient.blood_group}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {patient.age}
-                      </TableCell>
-                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {patient.phoneNumber}
-                      </TableCell>
-                      <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        <div>
-                          <Button size="vs">Edit</Button>
-                        </div>
-                        <div>
-                          <Button size="vs">Delete</Button>
-                        </div>
-                        <div>
-                          <Link to={"/patient/" + patient.id}>
-                            <Button size="vs">View</Button>
-                          </Link>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
