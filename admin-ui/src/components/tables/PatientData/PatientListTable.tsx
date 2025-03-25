@@ -60,7 +60,7 @@ const PatientListTable = () => {
       ];
       
   return (
-    <>
+    
         <div>
       <div className="overflow-hidden rounded-xl border border-gray-400 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
         <div className="max-w-full overflow-x-auto">
@@ -138,6 +138,7 @@ const PatientListTable = () => {
                       {patient.phoneNumber}
                     </TableCell>
                     <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                     
                       <div>
                         <Button>Delete</Button>
                       </div>
@@ -156,7 +157,7 @@ const PatientListTable = () => {
         </div>
       </div>
     </div>
-    </>
+  
   )
 }
 
