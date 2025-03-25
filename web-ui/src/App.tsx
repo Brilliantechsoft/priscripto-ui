@@ -8,6 +8,7 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import HomePage from "./pages/Home/home";
+import PatientRegistration from "./pages/PatientRegistration";
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Home />} />
           <Route path="/profile" element={<UserProfiles />} />
-           <Route path="/blank" element={<Blank />} />
+          <Route path="/blank" element={<Blank />} />
+          <Route path="/patient-registration" element={<PatientRegistration />} />
         </Route>
 
         {/* Auth Pages */}
