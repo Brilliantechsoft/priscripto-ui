@@ -153,7 +153,7 @@ const DoctorsListTable = () => {
                     isHeader
                     className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
                   >
-                    Update & Delete
+                   Delete
                   </TableCell>
                 </TableRow>
               </TableHeader>
@@ -182,10 +182,8 @@ const DoctorsListTable = () => {
                     <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                       {doctor.phone}
                     </TableCell>
-                    <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      <div>
-                        <Button size="vs">Edit</Button>
-                      </div>
+                    <TableCell className="flex justify-center gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                     
                       <div>
                         <Button
                           onClick={() => handleDelete(doctor.id)}
