@@ -52,14 +52,6 @@ export const deleteDoctor = createAsyncThunk(
   }
 );
 
-export const editDoctor = createAsyncThunk(
-  "doctors/edit",
-  async (id: number) => {
-    await axios.put<Doctor>(`http://localhost:5000/doctors/${id}`);
-    return id;
-  }
-);
-
 const doctorsListSlice = createSlice({
   name: "doctors",
   initialState,
@@ -98,21 +90,6 @@ const doctorsListSlice = createSlice({
         state.doctors = state.doctors.filter((doctor: any) => doctor.id !== id);
       })
       .addCase(deleteDoctor.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.error = action.error.message || "Something went wrong";
-      })
-      .addCase(editDoctor.pending, (state: any) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(editDoctor.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.loading = false;
-        state.doctors = state.doctors.map((doctor: any) =>
-          doctor.id === action.payload.id ? action.payload : doctor
-        );
-      })
-      .addCase(editDoctor.rejected, (state: any, action: any) => {
         state.loading = false;
         state.error = action.error.message || "Something went wrong";
       });

@@ -1,13 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ComponentCard from "../../components/common/ComponentCard";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import PhoneInput from "../../components/form/group-input/PhoneInput";
 import Button from "../../components/ui/button/Button";
-import { addDoctor, editDoctor } from "../../redux/slices/doctorListSlice";
-import { AppDispatch, RootState } from "../../redux/store/store";
-import { useDispatch, useSelector } from "react-redux";
+import { addDoctor } from "../../redux/slices/doctorListSlice";
+import { AppDispatch } from "../../redux/store/store";
+import { useDispatch } from "react-redux";
 
 interface CreateDoctorsFormProps {
   closeModal: () => void; // Receive closeModal function as a prop
