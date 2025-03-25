@@ -103,3 +103,4 @@ const PatientListTable = () => {
 
 export default PatientListTable;
 
+  
