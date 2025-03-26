@@ -15,4 +15,5 @@ export default defineConfig({
       },
     }),
   ],
+  base: '/priscripto-ui/admin-ui/',
 });
