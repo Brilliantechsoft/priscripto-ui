@@ -14,7 +14,7 @@ const Doctors: React.FC = () => {
         <ComponentCard title="Doctor's Information">
           <div className="flex flex-col items-end justify-center">
             {/* Button to Open Modal */}
-            <Button size="vs" onClick={() => setIsModalOpen(true)}>
+            <Button size="vs" className="position-absolute" onClick={() => setIsModalOpen(true)}>
               Add Doctor
             </Button>
             {/* Modal Component */}
