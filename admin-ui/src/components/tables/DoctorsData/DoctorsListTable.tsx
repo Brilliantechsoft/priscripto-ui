@@ -12,7 +12,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState, AppDispatch } from "../../../redux/store/store";
-import { fetchDoctors } from "../../../redux/slices/doctorListSlice";
+import {
+  deleteDoctor,
+  fetchDoctors,
+} from "../../../redux/slices/doctorListSlice";
 import { handleSearchDoctors } from "../../../redux/slices/doctorListSlice";
 
 const DoctorsListTable = () => {
@@ -37,8 +40,10 @@ const DoctorsListTable = () => {
     setSearchTerm(searchText);
 
     if (searchText.trim()) {
-      const matchedDoctors = doctors.filter((doctor) =>
-        doctor.name.toLowerCase().includes(searchText.toLowerCase())
+      const matchedDoctors = doctors.filter(
+        (doctor) =>
+          doctor.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          doctor.email.toLowerCase().includes(searchText.toLowerCase())
       );
 
       dispatch(handleSearchDoctors(matchedDoctors));
@@ -57,6 +62,11 @@ const DoctorsListTable = () => {
   const cancelSearch = () => {
     setSearchTerm(" ");
     dispatch(handleSearchDoctors(doctors));
+  };
+
+  const handleDelete = async (id: number) => {
+    await dispatch(deleteDoctor(id));
+    dispatch(fetchDoctors());
   };
 
   return (
@@ -145,45 +155,54 @@ const DoctorsListTable = () => {
                     isHeader
                     className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
                   >
-                    Update & Delete
+                    Delete
                   </TableCell>
                 </TableRow>
               </TableHeader>
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
-                {displayedDoctors.map((doctor) => (
+                {displayedDoctors.length > 0 ? (
+                  displayedDoctors.map((doctor) => (
+                    <TableRow key={doctor.id}>
+                      <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
+                        {doctor.name}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.email}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.qualification}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.experience}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.age}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.phone}
+                      </TableCell>
+                      <TableCell className="flex justify-end px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                        <Button
+                          onClick={() => handleDelete(doctor.id)}
+                          size="vs"
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
                   <TableRow>
-                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                      {doctor.name}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.email}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {/* <div className="flex -space-x-2"> */}
-                      {doctor.qualification}
-                      {/* </div> */}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.experience}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.age}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.phone}
-                    </TableCell>
-                    <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      <div>
-                        <Button size="vs">Edit</Button>
-                      </div>
-                      <div>
-                        <Button size="vs">Delete</Button>
-                      </div>
-                    </TableCell>
+                    <td
+                      colSpan={7}
+                      className="px-5 py-4 text-center text-gray-500 text-theme-sm dark:text-white/90"
+                    >
+                      No record found
+                    </td>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>

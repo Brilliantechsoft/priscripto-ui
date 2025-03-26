@@ -44,6 +44,14 @@ export const addDoctor = createAsyncThunk(
   }
 );
 
+export const deleteDoctor = createAsyncThunk(
+  "doctors/delete",
+  async (id: number) => {
+    await axios.delete<Doctor>(`http://localhost:5000/doctors/${id}`);
+    return id;
+  }
+);
+
 const doctorsListSlice = createSlice({
   name: "doctors",
   initialState,
@@ -71,7 +79,20 @@ const doctorsListSlice = createSlice({
         (state: any, action: PayloadAction<Doctor>) => {
           state.doctors.push(action.payload);
         }
-      );
+      )
+      .addCase(deleteDoctor.pending, (state: any) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteDoctor.fulfilled, (state: any, action: any) => {
+        const id = action.payload;
+
+        state.doctors = state.doctors.filter((doctor: any) => doctor.id !== id);
+      })
+      .addCase(deleteDoctor.rejected, (state: any, action: any) => {
+        state.loading = false;
+        state.error = action.error.message || "Something went wrong";
+      });
   },
 });
 
