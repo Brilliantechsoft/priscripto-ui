@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import React from "react";
 import PageMeta from "../../components/common/PageMeta";
 import { Link } from "react-router";
 import ComponentCard from "../../components/common/ComponentCard";
+=======
+import PageMeta from "../../components/common/PageMeta";
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
 
 export default function Home() {
   return (
     <>
       <PageMeta
+<<<<<<< HEAD
         title="Healthcare Dashboard"
         description="Your healthcare management dashboard"
       />
@@ -186,6 +191,13 @@ export default function Home() {
             </div>
           </div>
         </ComponentCard>
+=======
+        title="React.js Ecommerce Dashboard | TailAdmin - React.js Admin Dashboard Template"
+        description="This is React.js Ecommerce Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+      />
+      <div>
+        <h3>Dash-Board</h3>
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
       </div>
     </>
   );

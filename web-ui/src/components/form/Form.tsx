@@ -21,4 +21,7 @@ const Form: FC<FormProps> = ({ onSubmit, children, className }) => {
 };
 
 export default Form;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d

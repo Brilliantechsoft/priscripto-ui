@@ -20,6 +20,7 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
+<<<<<<< HEAD
   {
     icon: <UserCircleIcon />,
     name: "Patient Registration",
@@ -35,6 +36,46 @@ const navItems: NavItem[] = [
     name: "User Profile",
     path: "/profile",
   }
+=======
+  // {
+  //   icon: <GridIcon />,
+  //   name: "Dashboard",
+  //   subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+  // },
+  // {
+  //   icon: <DoctorIcon />,
+  //   name: "Doctors",
+  //   path: "/doctors",
+  // },
+  // {
+  //   icon :<UserCircleIcon/>,
+  //   name : "Patients",
+  //   path: "/patients",
+  // }
+  // {
+  //   icon: <UserCircleIcon />,
+  //   name: "User Profile",
+  //   path: "/profile",
+  // },
+  // {
+  //   name: "Forms",
+  //   icon: <ListIcon />,
+  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  // },
+  // {
+  //   name: "Tables",
+  //   icon: <TableIcon />,
+  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
+  // },
+  // {
+  //   name: "Pages",
+  //   icon: <PageIcon />,
+  //   subItems: [
+  //     { name: "Blank Page", path: "/blank", pro: false },
+  //     { name: "404 Error", path: "/error-404", pro: false },
+  //   ],
+  // },
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
 ];
 
 const AppSidebar: React.FC = () => {

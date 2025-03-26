@@ -2,13 +2,17 @@ import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import Input from "../input/InputField";
 import Label from "../Label";
+<<<<<<< HEAD
 import { validateEmail } from "../../../utils/validation";
 
+=======
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
 export default function InputStates() {
   const [email, setEmail] = useState("");
   const [emailTwo, setEmailTwo] = useState("");
   const [error, setError] = useState(false);
 
+<<<<<<< HEAD
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmail(value);
@@ -21,6 +25,26 @@ export default function InputStates() {
     setError(!validateEmail(value));
   };
 
+=======
+  // Simulate a validation check
+  const validateEmail = (value: string) => {
+    const isValidEmail =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+    setError(!isValidEmail);
+    return isValidEmail;
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    validateEmail(value);
+  };
+  const handleEmailTwoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmailTwo(value);
+    validateEmail(value);
+  };
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
   return (
     <ComponentCard
       title="Input States"
@@ -33,6 +57,7 @@ export default function InputStates() {
           <Input
             type="email"
             value={email}
+<<<<<<< HEAD
             onChange={handleEmailChange}
             placeholder="Enter your email"
             className={error ? "border-error-500" : ""}
@@ -42,10 +67,18 @@ export default function InputStates() {
               Please enter a valid email address
             </p>
           )}
+=======
+            error={error}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            hint={error ? "This is an invalid email address." : ""}
+          />
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
         </div>
 
         {/* Success Input */}
         <div>
+<<<<<<< HEAD
           <Label>Email (with validation)</Label>
           <Input
             type="email"
@@ -59,6 +92,17 @@ export default function InputStates() {
               Please enter a valid email address
             </p>
           )}
+=======
+          <Label>Email</Label>
+          <Input
+            type="email"
+            value={emailTwo}
+            success={!error}
+            onChange={handleEmailTwoChange}
+            placeholder="Enter your email"
+            hint={!error ? "This is an success message." : ""}
+          />
+>>>>>>> dd3918da7b52a53b4efc0026bb7e9b4544c3767d
         </div>
 
         {/* Disabled Input */}
