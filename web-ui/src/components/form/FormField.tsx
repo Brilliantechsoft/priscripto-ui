@@ -1,5 +1,7 @@
 import React from "react";
-import Label from "./Label";
+import { BaseInput } from "./base/BaseInput";
+import { BaseSelect } from "./base/BaseSelect";
+import type { Option } from "./base/BaseSelect";
 
 interface FormFieldProps {
   label: string;
@@ -9,12 +11,10 @@ interface FormFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   placeholder?: string;
   error?: string;
-  options?: { value: string; label: string }[];
-  required?: boolean;
-  className?: string;
+  options?: Option[];
 }
 
-const FormField: React.FC<FormFieldProps> = ({
+export const FormField: React.FC<FormFieldProps> = ({
   label,
   name,
   type = "text",
@@ -23,45 +23,29 @@ const FormField: React.FC<FormFieldProps> = ({
   placeholder,
   error,
   options,
-  required = false,
-  className = "",
 }) => {
-  const inputClasses = `w-full rounded-lg border p-2.5 ${
-    error ? "border-error-500" : "border-gray-300"
-  } ${className}`;
+  if (type === "select" && options) {
+    return (
+      <BaseSelect
+        label={label}
+        name={name}
+        value={value}
+        onChange={onChange}
+        error={error}
+        options={options}
+      />
+    );
+  }
 
   return (
-    <div>
-      <Label>{label}</Label>
-      {type === "select" && options ? (
-        <select
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={inputClasses}
-          required={required}
-        >
-          <option value="">Select {label.toLowerCase()}</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <input
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          className={inputClasses}
-          required={required}
-        />
-      )}
-      {error && <p className="mt-1 text-sm text-error-500">{error}</p>}
-    </div>
+    <BaseInput
+      label={label}
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      error={error}
+    />
   );
-};
-
-export default FormField; 
+}; 
