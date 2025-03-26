@@ -40,8 +40,10 @@ const DoctorsListTable = () => {
     setSearchTerm(searchText);
 
     if (searchText.trim()) {
-      const matchedDoctors = doctors.filter((doctor) =>
-        doctor.name.toLowerCase().includes(searchText.toLowerCase())
+      const matchedDoctors = doctors.filter(
+        (doctor) =>
+          doctor.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          doctor.email.toLowerCase().includes(searchText.toLowerCase())
       );
 
       dispatch(handleSearchDoctors(matchedDoctors));
@@ -153,48 +155,54 @@ const DoctorsListTable = () => {
                     isHeader
                     className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
                   >
-                   Delete
+                    Delete
                   </TableCell>
                 </TableRow>
               </TableHeader>
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
-                {displayedDoctors.map((doctor) => (
-                  <TableRow key={doctor.id}>
-                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                      {doctor.name}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.email}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {/* <div className="flex -space-x-2"> */}
-                      {doctor.qualification}
-                      {/* </div> */}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.experience}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.age}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {doctor.phone}
-                    </TableCell>
-                    <TableCell className="flex justify-center gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                     
-                      <div>
+                {displayedDoctors.length > 0 ? (
+                  displayedDoctors.map((doctor) => (
+                    <TableRow key={doctor.id}>
+                      <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
+                        {doctor.name}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.email}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.qualification}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.experience}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.age}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                        {doctor.phone}
+                      </TableCell>
+                      <TableCell className="flex justify-end px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                         <Button
                           onClick={() => handleDelete(doctor.id)}
                           size="vs"
                         >
                           Delete
                         </Button>
-                      </div>
-                    </TableCell>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <td
+                      colSpan={7}
+                      className="px-5 py-4 text-center text-gray-500 text-theme-sm dark:text-white/90"
+                    >
+                      No record found
+                    </td>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
