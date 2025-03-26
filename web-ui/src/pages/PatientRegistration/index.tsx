@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import PageLayout from "../../components/common/PageLayout";
-import ComponentCard from "../../components/common/ComponentCard";
-import Input from "../../components/form/input/InputField";
-import Label from "../../components/form/Label";
-import Button from "../../components/ui/button/Button";
-import { validateEmail, validatePhoneNumber, validateRequired } from "../../utils/validation";
+import React from "react";
+import { Button } from "../../components/ui/button";
+import FormSection from "../../components/form/FormSection";
+import { useFormValidation } from "../../hooks/useFormValidation";
 
-interface PatientFormData {
+type PatientFormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -20,100 +17,69 @@ interface PatientFormData {
   country: string;
   age: string;
   bloodGroup: string;
-}
+  [key: string]: string; // Add index signature to satisfy Record<string, string>
+};
+
+const validationRules = {
+  firstName: { required: true },
+  lastName: { required: true },
+  email: { required: true, email: true },
+  phone: { required: true, phone: true },
+  dateOfBirth: { required: true },
+  gender: { required: true },
+  address: { required: true },
+  city: { required: true },
+  state: { required: true },
+  pincode: { required: true },
+  country: { required: true },
+  age: { required: true },
+  bloodGroup: { required: true },
+};
+
+const genderOptions = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+  { value: "other", label: "Other" },
+];
+
+const bloodGroupOptions = [
+  { value: "A+", label: "A+" },
+  { value: "A-", label: "A-" },
+  { value: "B+", label: "B+" },
+  { value: "B-", label: "B-" },
+  { value: "O+", label: "O+" },
+  { value: "O-", label: "O-" },
+  { value: "AB+", label: "AB+" },
+  { value: "AB-", label: "AB-" },
+];
+
+const personalInfoFields = [
+  { label: "First Name", name: "firstName", placeholder: "Enter first name" },
+  { label: "Last Name", name: "lastName", placeholder: "Enter last name" },
+  { label: "Email", name: "email", type: "email", placeholder: "Enter email" },
+  { label: "Phone", name: "phone", type: "tel", placeholder: "Enter phone number" },
+  { label: "Date of Birth", name: "dateOfBirth", type: "date" },
+  { label: "Gender", name: "gender", options: genderOptions },
+  { label: "Age", name: "age", type: "number", placeholder: "Enter age" },
+  { label: "Blood Group", name: "bloodGroup", options: bloodGroupOptions },
+];
+
+const addressFields = [
+  { label: "Country", name: "country", placeholder: "Enter country" },
+  { label: "Address", name: "address", placeholder: "Enter address" },
+  { label: "City", name: "city", placeholder: "Enter city" },
+  { label: "State", name: "state", placeholder: "Enter state" },
+  { label: "Pincode", name: "pincode", placeholder: "Enter pincode" },
+];
 
 const PatientRegistration: React.FC = () => {
-  const [formData, setFormData] = useState<PatientFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-    gender: "",
-    address: "",
-    city: "",
-    state: "",
-    pincode: "",
-    country: "",
-    age: "",
-    bloodGroup: "",
-  });
-
-  const [errors, setErrors] = useState<Partial<PatientFormData>>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear error when user starts typing
-    if (errors[name as keyof PatientFormData]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<PatientFormData> = {};
-
-    if (!validateRequired(formData.firstName)) {
-      newErrors.firstName = "First name is required";
-    }
-
-    if (!validateRequired(formData.lastName)) {
-      newErrors.lastName = "Last name is required";
-    }
-
-    if (!validateEmail(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    if (!validatePhoneNumber(formData.phone)) {
-      newErrors.phone = "Please enter a valid 10-digit phone number";
-    }
-
-    if (!validateRequired(formData.dateOfBirth)) {
-      newErrors.dateOfBirth = "Date of birth is required";
-    }
-
-    if (!validateRequired(formData.gender)) {
-      newErrors.gender = "Please select your gender";
-    }
-
-    if (!validateRequired(formData.address)) {
-      newErrors.address = "Address is required";
-    }
-
-    if (!validateRequired(formData.city)) {
-      newErrors.city = "City is required";
-    }
-
-    if (!validateRequired(formData.state)) {
-      newErrors.state = "State is required";
-    }
-
-    if (!validateRequired(formData.pincode)) {
-      newErrors.pincode = "Pincode is required";
-    }
-
-    if (!validateRequired(formData.country)) {
-      newErrors.country = "Country is required";
-    }
-
-    if (!validateRequired(formData.age)) {
-      newErrors.age = "Age is required";
-    }
-
-    if (!validateRequired(formData.bloodGroup)) {
-      newErrors.bloodGroup = "Blood group is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const {
+    formData,
+    errors,
+    handleChange,
+    validateForm,
+    setFormData,
+  } = useFormValidation<PatientFormData>(validationRules);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,245 +90,38 @@ const PatientRegistration: React.FC = () => {
   };
 
   return (
-    <PageLayout
-      title="Patient Registration | Healthcare Platform"
-      description="Register as a new patient to access healthcare services"
-    >
-      <ComponentCard>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {/* Personal Information */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Personal Information
-              </h3>
-              
-              <div>
-                <Label>First Name</Label>
-                <Input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="Enter your first name"
-                  className={errors.firstName ? "border-error-500" : ""}
-                />
-                {errors.firstName && (
-                  <p className="mt-1 text-sm text-error-500">{errors.firstName}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Last Name</Label>
-                <Input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Enter your last name"
-                  className={errors.lastName ? "border-error-500" : ""}
-                />
-                {errors.lastName && (
-                  <p className="mt-1 text-sm text-error-500">{errors.lastName}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Email</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  className={errors.email ? "border-error-500" : ""}
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-error-500">{errors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Phone Number</Label>
-                <Input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                  className={errors.phone ? "border-error-500" : ""}
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-error-500">{errors.phone}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Date of Birth</Label>
-                <Input
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  className={errors.dateOfBirth ? "border-error-500" : ""}
-                />
-                {errors.dateOfBirth && (
-                  <p className="mt-1 text-sm text-error-500">{errors.dateOfBirth}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Gender</Label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  className={`w-full rounded-lg border p-2.5 ${
-                    errors.gender ? "border-error-500" : "border-gray-300"
-                  }`}
-                >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-                {errors.gender && (
-                  <p className="mt-1 text-sm text-error-500">{errors.gender}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Age</Label>
-                <Input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
-                  placeholder="Enter your age"
-                  className={errors.age ? "border-error-500" : ""}
-                />
-                {errors.age && (
-                  <p className="mt-1 text-sm text-error-500">{errors.age}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Blood Group</Label>
-                <select
-                  name="bloodGroup"
-                  value={formData.bloodGroup}
-                  onChange={handleChange}
-                  className={`w-full rounded-lg border p-2.5 ${
-                    errors.bloodGroup ? "border-error-500" : "border-gray-300"
-                  }`}
-                >
-                  <option value="">Select blood group</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                </select>
-                {errors.bloodGroup && (
-                  <p className="mt-1 text-sm text-error-500">{errors.bloodGroup}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Address Information */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Address Information
-              </h3>
-
-              <div>
-                <Label>Country</Label>
-                <Input
-                  type="text"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  placeholder="Enter your country"
-                  className={errors.country ? "border-error-500" : ""}
-                />
-                {errors.country && (
-                  <p className="mt-1 text-sm text-error-500">{errors.country}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Address</Label>
-                <Input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Enter your address"
-                  className={errors.address ? "border-error-500" : ""}
-                />
-                {errors.address && (
-                  <p className="mt-1 text-sm text-error-500">{errors.address}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>City</Label>
-                <Input
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  placeholder="Enter your city"
-                  className={errors.city ? "border-error-500" : ""}
-                />
-                {errors.city && (
-                  <p className="mt-1 text-sm text-error-500">{errors.city}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>State</Label>
-                <Input
-                  type="text"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleChange}
-                  placeholder="Enter your state"
-                  className={errors.state ? "border-error-500" : ""}
-                />
-                {errors.state && (
-                  <p className="mt-1 text-sm text-error-500">{errors.state}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Pincode</Label>
-                <Input
-                  type="text"
-                  name="pincode"
-                  value={formData.pincode}
-                  onChange={handleChange}
-                  placeholder="Enter your pincode"
-                  className={errors.pincode ? "border-error-500" : ""}
-                />
-                {errors.pincode && (
-                  <p className="mt-1 text-sm text-error-500">{errors.pincode}</p>
-                )}
-              </div>
-            </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+        Patient Registration
+      </h1>
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <FormSection
+              title="Personal Information"
+              fields={personalInfoFields}
+              formData={formData}
+              errors={errors}
+              onChange={handleChange}
+            />
           </div>
-
-          <div className="flex justify-end">
-            <Button type="submit" variant="primary" size="md">
-              Register Patient
-            </Button>
+          <div className="space-y-6">
+            <FormSection
+              title="Address Information"
+              fields={addressFields}
+              formData={formData}
+              errors={errors}
+              onChange={handleChange}
+            />
           </div>
-        </form>
-      </ComponentCard>
-    </PageLayout>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit" variant="default">
+            Register Patient
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 
