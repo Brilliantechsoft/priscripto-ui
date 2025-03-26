@@ -83,18 +83,6 @@
       "city": "Seattle",
       "address": "951 Surgery Way, Seattle, WA",
       "phone": "333-987-1234"
-    },
-    {
-      "id": "8",
-      "name": "Dr. Laura Thomas",
-      "specialization": "Endocrinologist",
-      "email": "laura.thomas@example.com",
-      "qualification": "MD, Endocrinology",
-      "experience": "11 years",
-      "age": 40,
-      "city": "Boston",
-      "address": "852 Hormone Ct, Boston, MA",
-      "phone": "777-123-4567"
     }
   ]
 }
