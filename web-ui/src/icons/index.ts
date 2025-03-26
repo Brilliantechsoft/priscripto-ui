@@ -53,6 +53,8 @@ import { ReactComponent as MoreDotIcon } from "./moredot.svg?react";
 import { ReactComponent as AlertHexaIcon } from "./alert-hexa.svg?react";
 import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
 import { ReactComponent as DoctorIcon } from "./doctor.svg?react";
+import { ReactComponent as VideoCameraIcon } from "./video-camera.svg?react";
+import { ReactComponent as ScissorsIcon } from "./scissors.svg?react";
 
 export {
   ErrorHexaIcon,
@@ -110,4 +112,6 @@ export {
   ChevronUpIcon,
   ChatIcon,
   DoctorIcon,
+  VideoCameraIcon,
+  ScissorsIcon,
 };

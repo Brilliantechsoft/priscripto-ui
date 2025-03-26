@@ -17,6 +17,9 @@ interface PatientFormData {
   city: string;
   state: string;
   pincode: string;
+  country: string;
+  age: string;
+  bloodGroup: string;
 }
 
 const PatientRegistration: React.FC = () => {
@@ -31,6 +34,9 @@ const PatientRegistration: React.FC = () => {
     city: "",
     state: "",
     pincode: "",
+    country: "",
+    age: "",
+    bloodGroup: "",
   });
 
   const [errors, setErrors] = useState<Partial<PatientFormData>>({});
@@ -91,6 +97,18 @@ const PatientRegistration: React.FC = () => {
 
     if (!validateRequired(formData.pincode)) {
       newErrors.pincode = "Pincode is required";
+    }
+
+    if (!validateRequired(formData.country)) {
+      newErrors.country = "Country is required";
+    }
+
+    if (!validateRequired(formData.age)) {
+      newErrors.age = "Age is required";
+    }
+
+    if (!validateRequired(formData.bloodGroup)) {
+      newErrors.bloodGroup = "Blood group is required";
     }
 
     setErrors(newErrors);
@@ -212,6 +230,46 @@ const PatientRegistration: React.FC = () => {
                   <p className="mt-1 text-sm text-error-500">{errors.gender}</p>
                 )}
               </div>
+
+              <div>
+                <Label>Age</Label>
+                <Input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleChange}
+                  placeholder="Enter your age"
+                  className={errors.age ? "border-error-500" : ""}
+                />
+                {errors.age && (
+                  <p className="mt-1 text-sm text-error-500">{errors.age}</p>
+                )}
+              </div>
+
+              <div>
+                <Label>Blood Group</Label>
+                <select
+                  name="bloodGroup"
+                  value={formData.bloodGroup}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg border p-2.5 ${
+                    errors.bloodGroup ? "border-error-500" : "border-gray-300"
+                  }`}
+                >
+                  <option value="">Select blood group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
+                {errors.bloodGroup && (
+                  <p className="mt-1 text-sm text-error-500">{errors.bloodGroup}</p>
+                )}
+              </div>
             </div>
 
             {/* Address Information */}
@@ -219,6 +277,21 @@ const PatientRegistration: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Address Information
               </h3>
+
+              <div>
+                <Label>Country</Label>
+                <Input
+                  type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  placeholder="Enter your country"
+                  className={errors.country ? "border-error-500" : ""}
+                />
+                {errors.country && (
+                  <p className="mt-1 text-sm text-error-500">{errors.country}</p>
+                )}
+              </div>
 
               <div>
                 <Label>Address</Label>
@@ -283,7 +356,7 @@ const PatientRegistration: React.FC = () => {
           </div>
 
           <div className="flex justify-end">
-            <Button type="submit" variant="primary" size="lg">
+            <Button type="submit" variant="primary" size="md">
               Register Patient
             </Button>
           </div>
