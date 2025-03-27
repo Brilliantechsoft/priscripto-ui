@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 const LOGIN_DOCTOR_URL =
-  "https://f6be-203-192-220-137.ngrok-free.app/api/auth/login";
+  "https://dc1e-203-192-220-137.ngrok-free.app/api/auth/login";
 
 interface DoctorSignInState {
   email: string;

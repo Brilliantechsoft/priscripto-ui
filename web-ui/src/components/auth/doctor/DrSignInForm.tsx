@@ -97,7 +97,7 @@ export default function DrSignInForm() {
 
   return (
     <div className="flex flex-col flex-1">
-      <div className="w-full max-w-md pt-10 mx-auto">
+      <div className="w-full max-w-md pt-10 mx-auto px-10">
         <Link
           to="/"
           className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -108,13 +108,13 @@ export default function DrSignInForm() {
       </div>
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
-          <div className="mb-5 sm:mb-8">
+          <div className="mb-5 sm:mb-8 px-10">
             <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
               Doctor Sign In
             </h1>
           </div>
           <div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 px-10">
               <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                 <svg
                   width="20"
@@ -167,7 +167,7 @@ export default function DrSignInForm() {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
-              <div className="space-y-6">
+              <div className="space-y-6 px-10">
                 <div>
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
@@ -240,7 +240,7 @@ export default function DrSignInForm() {
               </div>
             </form>
 
-            <div className="mt-5">
+            <div className="mt-5 px-10">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                 Don&apos;t have an account? {""}
                 <Link
