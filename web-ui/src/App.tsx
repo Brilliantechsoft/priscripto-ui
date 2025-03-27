@@ -10,7 +10,7 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import HomePage from "./pages/Home/home";
-import DoctorProfile from "./components/doctor/doctorProfile";
+import DoctorProfile from "./components/doctor/DoctorProfile";
 import ProtectedRoutes from "./components/common/ProtectedRoutes";
 
 export default function App() {

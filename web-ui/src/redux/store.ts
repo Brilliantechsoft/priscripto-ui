@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import registerDoctorReducer from './doctor/registerDoctorSlice';
 import signInDoctorReducer from './doctor/loginDoctorSlice'
-import { signInDoctor } from "./doctor/loginDoctorSlice";
+// import { signInDoctor } from "./doctor/loginDoctorSlice";
 
 const store = configureStore({
     reducer: {
