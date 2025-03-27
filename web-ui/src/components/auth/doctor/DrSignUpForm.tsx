@@ -32,6 +32,7 @@ export default function DrSignUpForm() {
     lastName: "",
     email: "",
     password: "",
+    terms: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +56,7 @@ export default function DrSignUpForm() {
       lastName: "",
       email: "",
       password: "",
+      terms: "",
     };
 
     // validate first name
@@ -87,6 +89,11 @@ export default function DrSignUpForm() {
     } else if (!passwordRegex.test(formData.password)) {
       newErrors.password =
         "Password must be at least 8 characters long and contain at least one number and special character";
+      isValid = false;
+    }
+
+    if (!isChecked) {
+      newErrors.terms = "You must agree to the terms and conditions";
       isValid = false;
     }
 
@@ -279,7 +286,7 @@ export default function DrSignUpForm() {
                 {/* <!-- Checkbox --> */}
                 <div className="flex items-center gap-3">
                   <Checkbox
-                    className="w-5 h-5"
+                    className="w-5 h-5 mt-1"
                     checked={isChecked}
                     onChange={setIsChecked}
                   />
@@ -293,13 +300,22 @@ export default function DrSignUpForm() {
                       Privacy Policy
                     </span>
                   </p>
+                  {errors.terms && (
+                    <p className="mt-1 text-sm text-error-500">
+                      {errors.terms}
+                    </p>
+                  )}
                 </div>
                 {/* <!-- Button --> */}
                 <div>
                   <button
                     type="submit"
-                    className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
-                    disabled={status === "loading"}
+                    className={`flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg ${
+                      isChecked
+                        ? "bg-brand-500 hover:bg-brand-600"
+                        : "bg-gray-400 cursor-not-allowed"
+                    } shadow-theme-xs`}
+                    disabled={status === "loading" || !isChecked}
                   >
                     {status === "loading" ? "Signing Up..." : "Sign Up"}
                   </button>
