@@ -1,14 +1,100 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../../icons";
 import Label from "../../form/Label";
 import Input from "../../form/input/InputField";
 import Checkbox from "../../form/input/Checkbox";
 import Button from "../../ui/button/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { useAppDispatch } from "../../../redux/hooks/appDispatchHook";
+import { signInDoctor } from "../../../redux/doctor/loginDoctorSlice";
 
 export default function DrSignInForm() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { status, error, token } = useSelector(
+    (state: RootState) => state.signInDoctor
+  );
+
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Handle token changes
+  useEffect(() => {
+    if (token) {
+      navigate("/doctor-profile");
+    }
+  }, [token, navigate]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    // Clear the error message when the user starts typing
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
+
+  const validationForm = () => {
+    let isValid = true;
+    const newErrors = {
+      email: "",
+      password: "",
+    };
+
+    // validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Invalid email";
+      isValid = false;
+    }
+
+    // validate password
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validationForm()) {
+      try {
+        const result = await dispatch(signInDoctor(formData)).unwrap();
+        // Store token in localStorage if "Keep me logged in" is checked
+        if (isChecked && result.token) {
+          localStorage.setItem("doctorToken", result.token);
+        }
+
+        navigate("/doctor-profile");
+      } catch (error) {
+        console.error("Sign in failed:", error);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col flex-1">
       <div className="w-full max-w-md pt-10 mx-auto">
@@ -80,13 +166,22 @@ export default function DrSignInForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <div>
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" />
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="info@gmail.com"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-error-500">{errors.email}</p>
+                  )}
                 </div>
                 <div>
                   <Label>
@@ -95,7 +190,10 @@ export default function DrSignInForm() {
                   <div className="relative">
                     <Input
                       type={showPassword ? "text" : "password"}
+                      name="password"
                       placeholder="Enter your password"
+                      value={formData.password}
+                      onChange={handleInputChange}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -108,6 +206,9 @@ export default function DrSignInForm() {
                       )}
                     </span>
                   </div>
+                  {errors.password && (
+                    <p className="text-sm text-error-500">{errors.password}</p>
+                  )}
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -124,9 +225,17 @@ export default function DrSignInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
-                    Sign in
-                  </Button>{" "}
+                  <Button
+                    className="w-full"
+                    size="sm"
+                    type="submit"
+                    disabled={status === "loading"}
+                  >
+                    {status === "loading" ? "Signing In..." : "Sign In"}
+                  </Button>
+                  {error && (
+                    <p className="mt-2 text-sm text-red-500">{error}</p>
+                  )}
                 </div>
               </div>
             </form>
