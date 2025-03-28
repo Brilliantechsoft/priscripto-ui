@@ -17,7 +17,6 @@ const initialState: SpecializationState = {
 export const addSpecialization = createAsyncThunk(
   "specialization/addSpecialization",
   async (specialization: string, { rejectWithValue }) => {
-    // const apiurl = "https://6939-203-192-220-137.ngrok-free.app/api/v1/doctors/specialization";
     const apiurl = BASE_URL + PUT_SPECIALIZATION_ENDPOINT;
     try {
       const requestBody = { specializationName: specialization }; // Ensure correct key
@@ -49,7 +48,7 @@ const specializationSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(addSpecialization.fulfilled, (state, action) => {``
+      .addCase(addSpecialization.fulfilled, (state, action) => {
         state.loading = false;
         state.specializations.push(action.payload);
       })

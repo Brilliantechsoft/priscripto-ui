@@ -67,9 +67,10 @@ const AddSpecializationForm: React.FC = () => {
           <p className="text-gray-500">No specializations added yet.</p>
         ) : (
           specializations.map((spec, index) => {
+            const number = index;
             return (
               <li
-                key={index}
+                key={number}
                 className="flex justify-between items-center border-b p-2 font-bold"
               >
                 <span>{spec}</span>
