@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
@@ -18,6 +18,7 @@ import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import Patients from "./pages/Patients";
 import PatientCard from "./components/patientCard/PatientCard";
+import Configuration from "./pages/configuration/Configuration";
 
 export default function App() {
   return (
@@ -41,7 +42,7 @@ export default function App() {
 
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
-
+            <Route path="/configuration" element={<Configuration />} />
             {/* Ui Elements */}
             <Route path="/alerts" element={<Alerts />} />
             <Route path="/avatars" element={<Avatars />} />
