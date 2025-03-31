@@ -12,7 +12,7 @@ const PatientField: React.FC<PatientFieldProps> = ({ label, value }) => {
         {label}
       </p>
       <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-        {value !== undefined ? value.toString() : 'N/A'}
+        {value}
       </p>
     </div>
   );

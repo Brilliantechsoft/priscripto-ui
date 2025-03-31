@@ -6,57 +6,60 @@ import {
   TableRow,
 } from "../../ui/table";
 import Button from "../../ui/button/Button";
-import { patientTableData } from "../../../types/patientTableData";
 import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store/store";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { setPatientData } from "../../../redux/slices/patientSlice";
+import { patientTableData } from "../../../types/patientTableData";
+
+const ShimmerRow = () => (
+  <TableRow>
+    {Array(7)
+      .fill(0)
+      .map((_, index) => (
+        <TableCell key={index} className="px-5 py-4 text-center">
+          <div className="h-6 w-24 animate-pulse bg-gray-300 rounded"></div>
+        </TableCell>
+      ))}
+  </TableRow>
+);
 
 const PatientListTable = () => {
-  const patientData: patientTableData[] = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      phoneNumber: 9876543210,
-      age: 30,
-      illness: "Flu",
-      blood_group: "O+",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      phoneNumber: 9123456789,
-      age: 25,
-      illness: "Allergy",
-      blood_group: "A-",
-    },
-    {
-      id: 3,
-      name: "Michael Johnson",
-      email: "michael.johnson@example.com",
-      phoneNumber: 9988776655,
-      age: 40,
-      illness: "Diabetes",
-      blood_group: "B+",
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      email: "emily.davis@example.com",
-      phoneNumber: 9090909090,
-      age: 35,
-      illness: "Hypertension",
-      blood_group: "AB+",
-    },
-    {
-      id: 5,
-      name: "David Brown",
-      email: "david.brown@example.com",
-      phoneNumber: 8787878787,
-      age: 28,
-      illness: "Asthma",
-      blood_group: "O-",
-    },
-  ];
+
+  const dispatch = useDispatch();
+  const patients = useSelector(
+    (state: RootState) => state.patients.patientData
+  );
+
+  const [loading, setLoading] = useState(true);
+
+  const fetchPatientsData = async () => {
+    try {
+      const response = await axios.get("http://192.168.1.60:8080/api/v1/patient/getAllPatients", {
+        withCredentials: true,
+      });
+      console.log("API Response:", response);
+      dispatch(setPatientData(response.data));
+    } catch (error) {
+      console.error("Error fetching patients:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPatientsData();
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated Patients:", patients);
+  }, [patients]);
+
+  if (patients.length === 0 || patients === undefined) {
+    return <p>No data found</p>;
+  }
 
   return (
     <div>
@@ -66,58 +69,57 @@ const PatientListTable = () => {
             <Table>
               <TableHeader className="border-b border-gray-400 dark:border-white/[0.05]">
                 <TableRow>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Name
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Email
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Illness
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Blood Group
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Age
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Mobile No
-                  </TableCell>
-                  <TableCell className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400">
-                    Actions
-                  </TableCell>
+                  {[
+                    "Name",
+                    "Email",
+                    "Illness",
+                    "Blood Group",
+                    "Age",
+                    "Mobile No",
+                    "Actions",
+                  ].map((header) => (
+                    <TableCell
+                      key={header}
+                      className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
+                    >
+                      {header}
+                    </TableCell>
+                  ))}
                 </TableRow>
               </TableHeader>
               <TableBody className="divide-y divide-gray-500 dark:divide-white/[0.05]">
-                {patientData.map((patient) => (
-                  <TableRow key={patient.id}>
-                    <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                      {patient.name}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {patient.email}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {patient.illness}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {patient.blood_group}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {patient.age}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      {patient.phoneNumber}
-                    </TableCell>
-                    <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                      <Button>Delete</Button>
-                      <Link to={`/patient/${patient.id}`}>
-                        <Button>View</Button>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {loading
+                  ? Array(5)
+                      .fill(0)
+                      .map((_, index) => <ShimmerRow key={index} />)
+                  : patients.map((patient: patientTableData) => (
+                      <TableRow key={patient.id}>
+                        <TableCell className="px-5 py-4 text-center text-theme-sm dark:text-white/90">
+                          {patient.firstName} {patient.lastName}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          {patient.email}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          {patient.illness}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          {patient.bloodGroup}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          {patient.age}
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          {patient.phoneNumber}
+                        </TableCell>
+                        <TableCell className="flex gap-2 px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
+                          <Button>Delete</Button>
+                          <Link to={`/patient/${patient.id}`}>
+                            <Button>View</Button>
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
               </TableBody>
             </Table>
           </div>

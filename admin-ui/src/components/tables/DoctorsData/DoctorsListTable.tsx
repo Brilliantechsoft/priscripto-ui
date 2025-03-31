@@ -22,7 +22,7 @@ const DoctorsListTable = () => {
   const { doctors, searchDoctors, loading, error } = useSelector(
     (state: RootState) => state.doctors
   );
-
+  
   const displayedDoctors = searchTerm ? searchDoctors : doctors;
 
   useEffect(() => {

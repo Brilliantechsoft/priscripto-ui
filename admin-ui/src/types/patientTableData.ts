@@ -1,10 +1,11 @@
 export interface patientTableData {
     id : number;
-    name : string;
+    firstName : string;
+    lastName : string;
     email : string;
     phoneNumber : number;
     age : number;
     illness : string;
-    blood_group : string;
+    bloodGroup : string;
 
 }
