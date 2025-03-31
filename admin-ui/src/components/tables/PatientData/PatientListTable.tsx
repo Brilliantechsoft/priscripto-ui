@@ -37,7 +37,7 @@ const PatientListTable = () => {
 
   const fetchPatientsData = async () => {
     try {
-      const response = await axios.get("http://192.168.1.60:8080/api/v1/patient/getAllPatients", {
+      const response = await axios.get(import.meta.env.VITE_BACKEND_PATIENT_API, {
         withCredentials: true,
       });
       console.log("API Response:", response);
