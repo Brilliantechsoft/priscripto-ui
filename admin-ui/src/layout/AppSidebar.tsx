@@ -6,16 +6,9 @@ import {
   ChevronDownIcon,
   DoctorIcon,
   HorizontaLDots,
-  ListIcon,
-  TableIcon,
   UserCircleIcon,
-<<<<<<< HEAD
-} from "../icons/";
-=======
 } from "../icons";
->>>>>>> d41226f0a8ca99730b74cfba78275fbbe787caa3
 import { useSidebar } from "../context/SidebarContext";
-
 
 type NavItem = {
   name: string;
@@ -36,41 +29,25 @@ const navItems: NavItem[] = [
     path: "/doctors",
   },
   {
-<<<<<<< HEAD
     icon: <ConfigurationIcon />,
     name: "Configuration",
     path: "/configuration",
   },
   {
-=======
->>>>>>> d41226f0a8ca99730b74cfba78275fbbe787caa3
     icon: <UserCircleIcon />,
     name: "Patients",
     path: "/patients",
   },
-<<<<<<< HEAD
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-  // {
-  //   name: "Forms",
-  //   icon: <ListIcon />,
-  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  // },
-=======
   // {
   //   icon: <UserCircleIcon />,
   //   name: "User Profile",
   //   path: "/profile",
   // },
-  {
-    name: "Specialization",
-    icon: <ListIcon />,
-    path: "/specialization",
-  },
->>>>>>> d41226f0a8ca99730b74cfba78275fbbe787caa3
+  // {
+  //   name: "Forms",
+  //   icon: <ListIcon />,
+  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  // },
   // {
   //   name: "Tables",
   //   icon: <TableIcon />,
@@ -87,6 +64,7 @@ const navItems: NavItem[] = [
 ];
 
 const AppSidebar: React.FC = () => {
+  
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
 
