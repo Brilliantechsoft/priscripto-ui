@@ -19,6 +19,7 @@ import Home from "./pages/Dashboard/Home";
 import Patients from "./pages/Patients";
 import PatientCard from "./components/patientCard/PatientCard";
 import Configuration from "./pages/configuration/Configuration";
+import AddSpecializationForm from "./pages/Forms/AddSpecializationForm";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />
             <Route path="/doctors" element={<Doctors />} />
+            <Route path="/specialization" element={<AddSpecializationForm />} />
             <Route path="/blank" element={<Blank />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/patient/:id" element={<PatientCard />} />
