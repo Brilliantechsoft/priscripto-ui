@@ -2,7 +2,7 @@ import type React from "react";
 import { Link } from "react-router";
 
 interface DropdownItemProps {
-  tag?: "a" | "button";
+  tag?: "a" | "button" | React.ElementType;
   to?: string;
   onClick?: () => void;
   onItemClick?: () => void;

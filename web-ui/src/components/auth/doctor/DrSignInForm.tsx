@@ -5,21 +5,29 @@ import Label from "../../form/Label";
 import Input from "../../form/input/InputField";
 import Checkbox from "../../form/input/Checkbox";
 // import Button from "../../ui/button/Button";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { useAppDispatch } from "../../../redux/hooks/appDispatchHook";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../redux/hooks/appDispatchHook";
 import { signInDoctor } from "../../../redux/doctor/loginDoctorSlice";
 
 export default function DrSignInForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const { status, error, token } = useSelector(
-    (state: RootState) => state.signInDoctor
+  const { status, error, isLoggedIn } = useAppSelector(
+    (state) => state.signInDoctor
   );
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/doctor-dashboard");
+    }
+  }, [isLoggedIn, navigate]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,11 +39,12 @@ export default function DrSignInForm() {
   });
 
   // Handle token changes
-  useEffect(() => {
-    if (token) {
-      navigate("/doctor-profile");
-    }
-  }, [token, navigate]);
+  // useEffect(() => {
+  //   if (token) {
+  //     // navigate("/doctor-profile");
+  //     navigate("/drsignin");
+  //   }
+  // }, [token, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -82,13 +91,14 @@ export default function DrSignInForm() {
 
     if (validationForm()) {
       try {
-        const result = await dispatch(signInDoctor(formData)).unwrap();
+        await dispatch(signInDoctor(formData)).unwrap();
         // Store token in localStorage if "Keep me logged in" is checked
-        if (isChecked && result.token) {
-          localStorage.setItem("doctorToken", result.token);
-        }
+        // if (isChecked && result.token) {
+        // }
+        // localStorage.setItem("jwt", result.token);
 
-        navigate("/doctor-profile");
+        // navigate("/doctor-profile");
+        navigate("/doctor-dashboard");
       } catch (error) {
         console.error("Sign in failed:", error);
       }

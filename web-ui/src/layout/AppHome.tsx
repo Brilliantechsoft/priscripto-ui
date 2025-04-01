@@ -1,12 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
+import { useAppSelector } from "../redux/hooks/appDispatchHook";
+import UserDropdown from "../components/header/UserDropdown";
 
 const AppHome: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
   const { toggleSidebar, toggleMobileSidebar } = useSidebar();
+
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAppSelector((state) => state.signInDoctor);
+
+  // Check authentication status on mount
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/drsignin");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleToggle = () => {
     if (window.innerWidth >= 991) {
@@ -133,7 +145,10 @@ const AppHome: React.FC = () => {
 
               {/* Navigation Links - Added after search bar */}
               <div className="flex lg:ml-6 space-x-6 mt-2 lg:mt-0">
-                <Link to="/find-doctors" className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400">
+                <Link
+                  to="/find-doctors"
+                  className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400"
+                >
                   <svg
                     className="w-5 h-5 mr-2"
                     fill="none"
@@ -150,7 +165,10 @@ const AppHome: React.FC = () => {
                   </svg>
                   <span className="font-medium">Find Doctors</span>
                 </Link>
-                <Link to="/video-consult" className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400">
+                <Link
+                  to="/video-consult"
+                  className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400"
+                >
                   <svg
                     className="w-5 h-5 mr-2"
                     fill="none"
@@ -167,7 +185,10 @@ const AppHome: React.FC = () => {
                   </svg>
                   <span className="font-medium">Video Consult</span>
                 </Link>
-                <Link to="/surgeries" className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400">
+                <Link
+                  to="/surgeries"
+                  className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400"
+                >
                   <svg
                     className="w-5 h-5 mr-2"
                     fill="none"
@@ -188,11 +209,18 @@ const AppHome: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile Navigation Links */}
-        <div className={`${isApplicationMenuOpen ? "flex" : "hidden"} flex-col w-full px-5 py-2 border-b border-gray-200 dark:border-gray-800 lg:hidden`}>
+        <div
+          className={`${
+            isApplicationMenuOpen ? "flex" : "hidden"
+          } flex-col w-full px-5 py-2 border-b border-gray-200 dark:border-gray-800 lg:hidden`}
+        >
           <div className="grid grid-cols-3 gap-2 mb-3">
-            <Link to="/find-doctors" className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800">
+            <Link
+              to="/find-doctors"
+              className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+            >
               <svg
                 className="w-6 h-6 mb-1"
                 fill="none"
@@ -209,7 +237,10 @@ const AppHome: React.FC = () => {
               </svg>
               <span className="text-xs font-medium">Find Doctors</span>
             </Link>
-            <Link to="/video-consult" className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800">
+            <Link
+              to="/video-consult"
+              className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+            >
               <svg
                 className="w-6 h-6 mb-1"
                 fill="none"
@@ -226,7 +257,10 @@ const AppHome: React.FC = () => {
               </svg>
               <span className="text-xs font-medium">Video Consult</span>
             </Link>
-            <Link to="/surgeries" className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800">
+            <Link
+              to="/surgeries"
+              className="flex flex-col items-center justify-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300 dark:hover:bg-gray-800"
+            >
               <svg
                 className="w-6 h-6 mb-1"
                 fill="none"
@@ -245,9 +279,11 @@ const AppHome: React.FC = () => {
             </Link>
           </div>
         </div>
-        
+
         <div
-          className={`${isApplicationMenuOpen ? "flex" : "hidden"} items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
+          className={`${
+            isApplicationMenuOpen ? "flex" : "hidden"
+          } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
         >
           <div className="flex items-center gap-2 2xsm:gap-3">
             {/* <!-- Dark Mode Toggler --> */}
@@ -257,20 +293,24 @@ const AppHome: React.FC = () => {
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- Login/Signup Area --> */}
-          <div className="flex items-center gap-2">
-            <Link 
-              to="/signin" 
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800"
-            >
-              Login
-            </Link>
-            <Link 
-              to="/signup" 
-              className="px-4 py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-lg"
-            >
-              Sign Up
-            </Link>
-          </div>
+          {isLoggedIn ? (
+            <UserDropdown />
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/signin"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-lg"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
@@ -278,22 +318,3 @@ const AppHome: React.FC = () => {
 };
 
 export default AppHome;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

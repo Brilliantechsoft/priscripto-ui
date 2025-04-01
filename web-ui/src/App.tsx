@@ -10,10 +10,10 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import HomePage from "./pages/Home/home";
-import DoctorProfile from "./components/doctor/DoctorProfile";
-import ProtectedRoutes from "./components/common/ProtectedRoutes";
+import DoctorDashboard from "./components/doctor/DoctorDashboard";
 
 export default function App() {
+  // const { isLoggedIn } = useAppSelector((state) => state.signInDoctor);
   return (
     <Router>
       <ScrollToTop />
@@ -33,9 +33,22 @@ export default function App() {
         <Route path="/drsignup" element={<DrSignUp />} />
 
         {/* Protected routes */}
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/doctor-profile" element={<DoctorProfile />} />
-        </Route>
+        {/* <Route element={<ProtectedRoutes />}>
+        </Route> */}
+        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+
+        {/* Protected routes - check auth directly */}
+        {/* <Route
+          path="/doctor-dashboard"
+          element={
+            <ProtectedRoutes
+              isAuthenticated={isLoggedIn}
+              redirectTo="/drsignin"
+            >
+              <DoctorDashboard />
+            </ProtectedRoutes>
+          }
+        /> */}
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

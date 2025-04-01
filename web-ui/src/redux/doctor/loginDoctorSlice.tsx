@@ -2,30 +2,19 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 const LOGIN_DOCTOR_URL =
-  "https://dc1e-203-192-220-137.ngrok-free.app/api/auth/login";
+  "https://26db-203-192-220-137.ngrok-free.app/api/auth/login";
 
-interface DoctorSignInState {
+interface User {
+  id: string;
   email: string;
-  password: string;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-  token: string | null;
-}
-
-interface DoctorSignInPayload {
-  email: string;
-  password: string;
+  role: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 interface DoctorSignInResponse {
   token: string;
-  user: {
-    id: string;
-    email: string;
-    // firstName: string;
-    // lastName: string;
-    role: string;
-  };
+  user: User;
 }
 
 interface ApiError {
@@ -33,17 +22,32 @@ interface ApiError {
   message: string;
 }
 
+interface DoctorSignInState {
+  email: string;
+  password: string;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+  token: string | null;
+  isLoggedIn: boolean;
+  user: User | null;
+}
+
 const initialState: DoctorSignInState = {
   email: "",
   password: "",
   status: "idle",
   error: null,
-  token: null,
+  token: localStorage.getItem("token") || null, // Load token from localStorage
+  isLoggedIn: !!localStorage.getItem("token"),
+  user: null,
 };
 
 export const signInDoctor = createAsyncThunk(
   "signInDoctor/signInDoctor",
-  async (doctorData: DoctorSignInPayload, { rejectWithValue }) => {
+  async (
+    doctorData: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
     try {
       const payload = {
         ...doctorData,
@@ -60,7 +64,9 @@ export const signInDoctor = createAsyncThunk(
           withCredentials: true,
         }
       );
-      alert(response.data);
+      // alert(response.data);
+      // Store the token in localStorage
+      localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -97,13 +103,11 @@ const signInDoctorSlice = createSlice({
       state.status = "idle";
       state.error = null;
       state.token = null;
-    },
-    setToken: (state, action: PayloadAction<string>) => {
-      state.token = action.payload;
-    },
-    signOutDoctor: (state) => {
-      state.token = null;
-      state.status = "idle";
+      state.isLoggedIn = false;
+      state.user = null;
+
+      // Remove the token from localStorage
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -115,21 +119,21 @@ const signInDoctorSlice = createSlice({
       .addCase(signInDoctor.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.token = action.payload.token;
+        state.user = action.payload.user;
+        console.log("Login response payload:", action.payload);
+        state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(signInDoctor.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
         state.token = null;
+        state.isLoggedIn = false;
       });
   },
 });
 
-export const {
-  setDoctorSignInData,
-  clearDoctorSignInData,
-  setToken,
-  signOutDoctor,
-} = signInDoctorSlice.actions;
+export const { setDoctorSignInData, clearDoctorSignInData } =
+  signInDoctorSlice.actions;
 
 export default signInDoctorSlice.reducer;

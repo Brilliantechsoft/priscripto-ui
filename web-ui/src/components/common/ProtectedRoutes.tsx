@@ -1,21 +1,22 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { ReactNode } from "react";
 
-const ProtectedRoutes = () => {
-  const { token } = useSelector((state: RootState) => state.signInDoctor);
+interface ProtectedRoutesProps {
+  isAuthenticated: boolean;
+  redirectTo: string;
+  children: ReactNode;
+}
 
-  // Optional: Verify token validity here if needed
-  //   useEffect(() => {
-  //     if (!token) {
-  //       // Clear any stale tokens
-  //       localStorage.removeItem("doctorToken");
-  //     }
-  //   }, [token]);
-
-  if (!token) {
-    return <Navigate to="/drsignin" replace />;
-  }
-  return <Outlet />;
+const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({
+  isAuthenticated,
+  redirectTo,
+  children,
+}) => {
+  return isAuthenticated ? (
+    <>{children}</>
+  ) : (
+    <Navigate to={redirectTo} replace />
+  );
 };
+
 export default ProtectedRoutes;
