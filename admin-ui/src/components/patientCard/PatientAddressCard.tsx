@@ -1,4 +1,15 @@
-const PatientAddressCard = () => {
+
+interface PatientProps {
+  patient: {
+    city: string;
+    country: string;
+    state : string;
+    pincode: number;
+    phone: number;
+  };
+}
+
+const PatientAddressCard: React.FC<PatientProps>  = ({patient}) => {
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -13,7 +24,7 @@ const PatientAddressCard = () => {
                 Country
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                United States.
+                {patient.country}
               </p>
             </div>
 
@@ -22,7 +33,7 @@ const PatientAddressCard = () => {
                 City/State
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Phoenix, Arizona, United States.
+                {patient.city} , {patient.state}
               </p>
             </div>
 
@@ -31,7 +42,16 @@ const PatientAddressCard = () => {
                 Postal Code
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                ERT 2489
+                {patient.pincode}
+              </p>
+            </div>
+            
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Phone Number
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {patient.phone}
               </p>
             </div>
           </div>

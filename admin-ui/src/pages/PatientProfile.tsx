@@ -17,7 +17,7 @@ const PatientProfile = () => {
   const fetchPatientById = async (patientId: number | undefined) => {
     if (!patientId) return;
     try {
-      const response = await axios.get(`http://192.168.1.60:8080/api/v1/patient/getPatient/${patientId}`, { withCredentials: true });
+      const response = await axios.get(`http://192.168.1.52:8080/api/v1/patient/getPatient/${patientId}`, { withCredentials: true });
       console.log("API Response:", response.data);
       setPatient(response.data);
     } catch (error) {
