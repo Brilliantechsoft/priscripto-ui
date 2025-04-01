@@ -1,6 +1,6 @@
 # Priscripto-ui
 
-Web Application for the Priscripto app
+Web Application Web and Admin UI for the Priscripto app
 ## admin-ui
 
 
