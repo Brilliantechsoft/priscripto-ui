@@ -19,6 +19,7 @@ import Home from "./pages/Dashboard/Home";
 import Patients from "./pages/Patients";
 import AddSpecializationForm from "./pages/Forms/AddSpecializationForm";
 import PatientProfile from "./pages/PatientProfile";
+import Configuration from "./components/configuration/Configuration";
 
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
 
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
+            <Route path="/configuration" element={<Configuration />} />
 
             {/* Ui Elements */}
             <Route path="/alerts" element={<Alerts />} />

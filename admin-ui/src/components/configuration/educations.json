@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "title": "MD",
+      "institution": "Harvard Medical School"
+    },
+    {
+      "id": 2,
+      "title": "PhD",
+      "institution": "Stanford University"
+    },
+    {
+      "id": 3,
+      "title": "MBBS",
+      "institution": "Johns Hopkins University"
+    },
+    {
+      "id": 4,
+      "title": "MPH",
+      "institution": "Yale University"
+    }
+  ]
