@@ -14,6 +14,11 @@ export default function UserDropdown() {
   const navigate = useNavigate();
 
   const { user } = useAppSelector((state) => state.signInDoctor);
+  console.log("Redux user state:", user);
+  console.log(
+    "Redux signInDoctor state:",
+    useAppSelector((state) => state.signInDoctor)
+  );
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
