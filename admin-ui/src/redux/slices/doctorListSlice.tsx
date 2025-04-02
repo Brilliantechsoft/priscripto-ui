@@ -3,15 +3,15 @@ import axios from "axios";
 
 interface Doctor {
   id: number;
-  name: string;
+  firstName: string;
+  lastName:string;
   email: string;
-  qualification: string;
-  experience: string;
+  degree: string;
   age: string;
-  phone: string;
+  phoneNumber: string;
   specialization: string;
   city: string;
-  address: string;
+  clinicAddress: string;
 }
 
 interface DoctorsState {
@@ -29,7 +29,7 @@ const initialState: DoctorsState = {
 };
 
 export const fetchDoctors = createAsyncThunk("doctors", async () => {
-  const response = await axios.get<Doctor[]>("http://localhost:5000/doctors");
+  const response = await axios.get<Doctor[]>("http://192.168.1.52:8080/api/v1/doctors");
   return response.data;
 });
 

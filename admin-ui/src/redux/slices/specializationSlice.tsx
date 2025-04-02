@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL, PUT_SPECIALIZATION_ENDPOINT } from "../../pages/apiEndPoint";
+import { BASE_URL,PUT_SPECIALIZATION_ENDPOINT} from "../../pages/apiEndPoint";
 
 interface SpecializationState {
   specializations: string[];
