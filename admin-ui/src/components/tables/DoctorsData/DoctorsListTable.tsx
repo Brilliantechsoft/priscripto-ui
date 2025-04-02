@@ -42,8 +42,9 @@ const DoctorsListTable = () => {
     if (searchText.trim()) {
       const matchedDoctors = doctors.filter(
         (doctor) =>
-          doctor.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          doctor.email.toLowerCase().includes(searchText.toLowerCase())
+          doctor.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+          doctor.email.toLowerCase().includes(searchText.toLowerCase()) || 
+          doctor.specialization.toLowerCase().includes(searchText.toLowerCase())
       );
 
       dispatch(handleSearchDoctors(matchedDoctors));
@@ -137,7 +138,7 @@ const DoctorsListTable = () => {
                     isHeader
                     className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
                   >
-                    Experience
+                    Specialization
                   </TableCell>
                   <TableCell
                     isHeader
@@ -166,22 +167,22 @@ const DoctorsListTable = () => {
                   displayedDoctors.map((doctor) => (
                     <TableRow key={doctor.id}>
                       <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                        {doctor.name}
+                        {doctor.firstName + ' ' + doctor.lastName}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                         {doctor.email}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {doctor.qualification}
+                        {doctor.degree}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {doctor.experience}
+                        {doctor.specialization}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                         {doctor.age}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {doctor.phone}
+                        {doctor.phoneNumber}
                       </TableCell>
                       <TableCell className="flex justify-end px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                         <Button
