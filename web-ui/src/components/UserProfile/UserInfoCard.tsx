@@ -3,14 +3,88 @@ import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import Select from "../form/Select";
+import { useEffect, useState } from "react";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/hooks/appDispatchHook";
+import {
+  fetchSpecializations,
+  fetchDegrees,
+  updateDoctorProfile,
+} from "../../redux/doctor/doctorProfileSlice";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  bio: string;
+  specialization: string;
+  degree: string;
+}
 
 export default function UserInfoCard() {
   const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.signInDoctor);
+  const { specializations, degrees, loading, doctor } = useAppSelector(
+    (state) => state.doctorProfile
+  );
+
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    bio: "",
+    specialization: "",
+    degree: "",
+  });
+
+  useEffect(() => {
+    dispatch(fetchSpecializations());
+    dispatch(fetchDegrees());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        // phone: doctor.phone || "",
+        // bio: user.bio || "",
+        // specialization: user.specialization || "",
+        // degree: user.degree || "",
+      });
+    }
+  }, [user]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (field: keyof FormData) => (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(updateDoctorProfile(formData));
     closeModal();
   };
+
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -25,7 +99,7 @@ export default function UserInfoCard() {
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {user?.firstName || "N/A"}
               </p>
             </div>
 
@@ -34,7 +108,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {user?.lastName || "N/A"}
               </p>
             </div>
 
@@ -43,7 +117,7 @@ export default function UserInfoCard() {
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {user?.email || "N/A"}
               </p>
             </div>
 
@@ -52,24 +126,38 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                + 917654324578
               </p>
             </div>
 
-            <div>
-              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Bio
-              </p>
-              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
-              </p>
-            </div>
+            {/* {user?.specializations && (
+              <div>
+                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                  Specialization
+                </p>
+                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                  {user.specializations}
+                </p>
+              </div>
+            )} */}
+
+            {/* {user?.degrees && (
+              <div>
+                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                  Degree
+                </p>
+                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                  {user.degrees}
+                </p>
+              </div>
+            )} */}
           </div>
         </div>
 
         <button
           onClick={openModal}
           className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
+          disabled={loading}
         >
           <svg
             className="fill-current"
@@ -100,9 +188,9 @@ export default function UserInfoCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col">
+          <form className="flex flex-col" onSubmit={handleSave}>
             <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
-              <div>
+              {/* <div>
                 <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
                   Social Links
                 </h5>
@@ -134,7 +222,8 @@ export default function UserInfoCard() {
                     <Input type="text" value="https://instagram.com/PimjoHQ" />
                   </div>
                 </div>
-              </div>
+              </div> */}
+
               <div className="mt-7">
                 <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
                   Personal Information
@@ -143,23 +232,69 @@ export default function UserInfoCard() {
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
                     <Label>First Name</Label>
-                    <Input type="text" value="Musharof" />
+                    <Input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      // required
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Last Name</Label>
-                    <Input type="text" value="Chowdhury" />
+                    <Input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      // required
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      // required
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Phone</Label>
                     <Input type="text" value="+09 363 398 46" />
                   </div>
+
+                  {/* <div className="col-span-2 lg:col-span-1">
+                    <Label>Specialization</Label>
+                    <Select
+                      options={(specializations || []).map((spec) => ({
+                        value: spec.id,
+                        label: spec.name,
+                      }))}
+                      placeholder="Select Specialization"
+                      onChange={handleSelectChange("specialization")}
+                      defaultValue={formData.specialization}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div className="col-span-2 lg:col-span-1">
+                    <Label>Degree</Label>
+                    <Select
+                      options={(degrees || []).map((deg) => ({
+                        value: deg.id,
+                        label: deg.name,
+                      }))}
+                      placeholder="Select Degree"
+                      onChange={handleSelectChange("degree")}
+                      defaultValue={formData.degree}
+                      className="w-full"
+                    />
+                  </div> */}
 
                   <div className="col-span-2">
                     <Label>Bio</Label>
@@ -169,11 +304,16 @@ export default function UserInfoCard() {
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={closeModal}
+                disabled={loading}
+              >
                 Close
               </Button>
-              <Button size="sm" onClick={handleSave}>
-                Save Changes
+              <Button size="sm" type="submit" disabled={loading}>
+                {loading ? "Saving..." : "Save Changes"}
               </Button>
             </div>
           </form>

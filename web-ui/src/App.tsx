@@ -22,7 +22,7 @@ export default function App() {
 
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Home />} />
-          <Route path="/profile" element={<UserProfiles />} />
+          <Route path="/doctor-profile" element={<UserProfiles />} />
           <Route path="/blank" element={<Blank />} />
         </Route>
 
@@ -36,6 +36,7 @@ export default function App() {
         {/* <Route element={<ProtectedRoutes />}>
         </Route> */}
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        {/* <Route path="/doctor-profile" element={<UserProfiles />} /> */}
 
         {/* Protected routes - check auth directly */}
         {/* <Route
