@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
-const LOGIN_DOCTOR_URL =
-  "https://30ed-203-192-220-137.ngrok-free.app/api/auth/login";
+const LOGIN_DOCTOR_URL = "http://192.168.1.52:8080/api/auth/login";
 
 interface User {
   id: string;
@@ -67,6 +66,7 @@ export const signInDoctor = createAsyncThunk(
       // alert(response.data);
       // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
+      console.log("Login Response", response.data);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;

@@ -13,6 +13,7 @@ import {
   fetchSpecializations,
   fetchDegrees,
   updateDoctorProfile,
+  fetchDoctorProfile,
 } from "../../redux/doctor/doctorProfileSlice";
 
 interface FormData {
@@ -43,24 +44,28 @@ export default function UserInfoCard() {
     degree: "",
   });
 
+  // Fetch initial data
   useEffect(() => {
     dispatch(fetchSpecializations());
     dispatch(fetchDegrees());
-  }, [dispatch]);
+    if (user?.id) {
+      dispatch(fetchDoctorProfile());
+    }
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
-    if (user) {
+    if (user && doctor) {
       setFormData({
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
-        // phone: doctor.phone || "",
-        // bio: user.bio || "",
-        // specialization: user.specialization || "",
-        // degree: user.degree || "",
+        phone: doctor.phone || "",
+        bio: doctor.bio || "",
+        specialization: doctor.specialization || "",
+        degree: doctor.degree || "",
       });
     }
-  }, [user]);
+  }, [user, doctor]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -77,13 +82,51 @@ export default function UserInfoCard() {
       ...prev,
       [field]: value,
     }));
+    console.log(`${field} updated to:`, value);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  // const handleSave = (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   const updateData = {
+  //     // phone: formData.phone,
+  //     // bio: formData.bio,
+  //     specialization: formData.specialization,
+  //     degree: formData.degree,
+  //   };
+  //   dispatch(updateDoctorProfile(updateData));
+  //   closeModal();
+  // };
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(updateDoctorProfile(formData));
-    closeModal();
+    try {
+      await dispatch(
+        updateDoctorProfile({
+          specialization: formData.specialization,
+          degree: formData.degree,
+        })
+      ).unwrap();
+      alert("Profile updated successfully");
+      closeModal();
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
   };
+
+  // const handleSave = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   dispatch(
+  //     updateDoctorProfile({
+  //       specialization: formData.specialization,
+  //       degree: formData.degree,
+  //     })
+  //   ).then(() => {
+  //     // Fetch profile again to ensure sync with backend
+  //     dispatch(fetchDoctorProfile()); // You'll need to create this thunk
+  //     closeModal();
+  //   });
+  // };
 
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
@@ -126,31 +169,27 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                + 917654324578
+                {doctor?.phone || "N/A"}
               </p>
             </div>
 
-            {/* {user?.specializations && (
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Specialization
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {user.specializations}
-                </p>
-              </div>
-            )} */}
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Specialization
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {doctor?.specialization || "Not set"}
+              </p>
+            </div>
 
-            {/* {user?.degrees && (
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Degree
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {user.degrees}
-                </p>
-              </div>
-            )} */}
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Degree
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {doctor?.degree || "Not set"}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -268,33 +307,41 @@ export default function UserInfoCard() {
                     <Input type="text" value="+09 363 398 46" />
                   </div>
 
-                  {/* <div className="col-span-2 lg:col-span-1">
+                  <div className="col-span-2 lg:col-span-1">
                     <Label>Specialization</Label>
-                    <Select
-                      options={(specializations || []).map((spec) => ({
-                        value: spec.id,
-                        label: spec.name,
-                      }))}
-                      placeholder="Select Specialization"
-                      onChange={handleSelectChange("specialization")}
-                      defaultValue={formData.specialization}
-                      className="w-full"
-                    />
+                    {loading ? (
+                      <div>Loading specializations...</div>
+                    ) : (
+                      <Select
+                        options={(specializations || []).map((spec) => ({
+                          value: spec,
+                          label: spec,
+                        }))}
+                        placeholder="Select Specialization"
+                        onChange={handleSelectChange("specialization")}
+                        defaultValue={formData.specialization}
+                        className="w-full"
+                      />
+                    )}
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Degree</Label>
-                    <Select
-                      options={(degrees || []).map((deg) => ({
-                        value: deg.id,
-                        label: deg.name,
-                      }))}
-                      placeholder="Select Degree"
-                      onChange={handleSelectChange("degree")}
-                      defaultValue={formData.degree}
-                      className="w-full"
-                    />
-                  </div> */}
+                    {loading ? (
+                      <div>Loading degrees...</div>
+                    ) : (
+                      <Select
+                        options={(degrees || []).map((deg) => ({
+                          value: deg,
+                          label: deg,
+                        }))}
+                        placeholder="Select Degree"
+                        onChange={handleSelectChange("degree")}
+                        defaultValue={formData.degree}
+                        className="w-full"
+                      />
+                    )}
+                  </div>
 
                   <div className="col-span-2">
                     <Label>Bio</Label>

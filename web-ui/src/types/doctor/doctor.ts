@@ -11,12 +11,15 @@ export interface Doctor {
   bio?: string;
 }
 
-export interface Specialization {
-  id: string;
-  name: string;
-}
+export type Specialization = string;
+export type Degree = string;
 
-export interface Degree {
-  id: string;
-  name: string;
-}
+// export interface Specialization {
+//   id: string;
+//   name: string;
+// }
+
+// export interface Degree {
+//   id: string;
+//   name: string;
+// }
