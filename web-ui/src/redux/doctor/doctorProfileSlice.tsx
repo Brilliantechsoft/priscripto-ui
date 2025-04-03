@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Doctor, Specialization, Degree } from "../../types/doctor/doctor";
+import { RootState } from "../store";
 
 interface DoctorProfileState {
   doctor: Doctor | null;
@@ -58,7 +59,9 @@ export const updateDoctorProfile = createAsyncThunk(
   ) => {
     try {
       const state = getState() as { signInDoctor: { user: Doctor } };
+      // const state = getState() as RootState;
       const doctorId = state.signInDoctor.user?.id;
+
       if (!doctorId) {
         throw new Error("Doctor ID not found");
       }
@@ -71,9 +74,9 @@ export const updateDoctorProfile = createAsyncThunk(
       };
       console.log("Final update payload:", updatePayload);
 
-      const response = await axios.put(
+      const response = await axios.put<Doctor[]>(
         `http://192.168.1.52:8080/api/v1/doctor/update/${doctorId}`,
-        updatePayload,
+        profileData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -99,10 +102,11 @@ export const updateDoctorProfile = createAsyncThunk(
       //     profileData.specialization || response.data.specialization,
       //   degree: profileData.degree || response.data.degree,
       // };
-      return {
-        ...state.signInDoctor.user,
-        ...updatePayload,
-      };
+      // return {
+      //   ...state.signInDoctor.user,
+      //   ...updatePayload,
+      // };
+      return response.data;
     } catch (error) {
       console.error("Update error:", error);
       return rejectWithValue(
@@ -122,14 +126,14 @@ export const fetchDoctorProfile = createAsyncThunk(
         throw new Error("Doctor ID not found");
       }
 
-      const response = await axios.get(
+      const response = await axios.get<Doctor[]>(
         `http://192.168.1.52:8080/api/v1/doctor/${doctorId}`,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          withCredentials: true,
+          // withCredentials: true,
         }
       );
       return response.data;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import { fetchDoctorProfile } from "./doctorProfileSlice";
 
 const LOGIN_DOCTOR_URL = "http://192.168.1.52:8080/api/auth/login";
 
@@ -45,7 +46,7 @@ export const signInDoctor = createAsyncThunk(
   "signInDoctor/signInDoctor",
   async (
     doctorData: { email: string; password: string },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     try {
       const payload = {
@@ -67,6 +68,7 @@ export const signInDoctor = createAsyncThunk(
       // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
       console.log("Login Response", response.data);
+      await dispatch(fetchDoctorProfile());
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
