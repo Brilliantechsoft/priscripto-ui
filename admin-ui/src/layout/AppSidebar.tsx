@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
+import { ConfigurationIcon } from "../icons/Icon"; // Assume this icon is imported from an icon library
 
 // Assume these icons are imported from an icon library
 import {
@@ -7,7 +8,7 @@ import {
   DoctorIcon,
   HorizontaLDots,
   ListIcon,
-  TableIcon,
+  // TableIcon,
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -34,6 +35,11 @@ const navItems: NavItem[] = [
     icon: <UserCircleIcon />,
     name: "Patients",
     path: "/patients",
+  },
+  {
+    icon: <ConfigurationIcon />,
+    name: "Configuration",
+    path: "/configuration",
   },
   // {
   //   icon: <UserCircleIcon />,
