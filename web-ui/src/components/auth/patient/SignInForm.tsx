@@ -2,13 +2,18 @@ import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster, toast } from "react-hot-toast";
-import { login } from "../../store/authSlice";
-import { RootState, AppDispatch } from "../../store/store";
-import Button from "../../components/ui/button/Button";
-import Checkbox from "../../components/form/input/Checkbox";
-import Input from "../../components/form/input/InputField";
-import Label from "../../components/form/Label";
-import { EyeCloseIcon, EyeIcon } from "../../icons";
+import { login } from "../../../redux/slices/auth/authSlice";
+import { RootState, AppDispatch } from "../../../redux/store";
+//import Button from "../../components/ui/button/Button";
+//import Checkbox from "../../components/form/input/Checkbox";
+//import Input from "../../components/form/input/InputField";
+//import Label from "../../components/form/Label";
+//import { EyeCloseIcon, EyeIcon } from "../../icons";
+import Label from "../../form/Label";
+import Checkbox from "../../form/input/Checkbox";
+import Button from "../../ui/button/Button";
+import Input from "../../form/input/InputField";
+import { EyeCloseIcon, EyeIcon } from "../../../icons";
 
 interface FormData {
   email: string;
@@ -91,6 +96,19 @@ export default function SignIn() {
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Sign in with your email or social accounts!
+            </p>
+
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              <span>
+                Are you a Doctor?{" "}
+                <Link
+                  // onClick={() => setIsDoctor(true)}
+                  to="/drsignin"
+                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                >
+                  Sign In as Doctor
+                </Link>
+              </span>
             </p>
           </div>
           {/* Social Login Buttons */}

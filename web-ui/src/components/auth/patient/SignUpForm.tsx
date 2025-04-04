@@ -2,12 +2,16 @@ import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster, toast } from "react-hot-toast";
-import { register } from "../../store/authSlice";
-import { RootState, AppDispatch } from "../../store/store";
-import Button from "../../components/ui/button/Button";
-import Input from "../../components/form/input/InputField";
-import Label from "../../components/form/Label";
-import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
+import { register } from "../../../redux/slices/auth/authSlice";
+import { RootState, AppDispatch } from "../../../redux/store";
+// import Button from "../../../components/";
+// import Input from "../../components/form/input/InputField";
+// import Label from "../../components/form/Label";
+// import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
+import Button from "../../ui/button/Button";
+import Input from "../../form/input/InputField";
+import Label from "../../form/Label";
+import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../../icons";
 
 interface FormData {
   firstName: string;
@@ -84,6 +88,19 @@ export default function SignUp() {
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Create an account with your email or social accounts!
+            </p>
+
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              /
+              <span>
+                Are you a Doctor?{" "}
+                <Link
+                  to="/drsignup"
+                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                >
+                  Sign Up as Doctor
+                </Link>
+              </span>
             </p>
           </div>
           {/* Social Login Buttons */}

@@ -2,13 +2,17 @@ import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster, toast } from "react-hot-toast";
-import { forgotPassword } from "../../store/authSlice";
-import { RootState, AppDispatch } from "../../store/store";
-import Button from "../../components/ui/button/Button";
-import Input from "../../components/form/input/InputField";
-import Label from "../../components/form/Label";
-import { ChevronLeftIcon } from "../../icons";
-import AuthLayout from "../../pages/AuthPages/AuthPageLayout";
+import { forgotPassword } from "../../../redux/slices/auth/authSlice";
+import { RootState, AppDispatch } from "../../../redux/store";
+// import Button from "../../components/ui/button/Button";
+// import Input from "../../components/form/input/InputField";
+// import Label from "../../components/form/Label";
+// import { ChevronLeftIcon } from "../../icons";
+import AuthLayout from "../../../pages/AuthPages/AuthPageLayout";
+import Button from "../../ui/button/Button";
+import Input from "../../form/input/InputField";
+import Label from "../../form/Label";
+import { ChevronLeftIcon } from "../../../icons";
 
 interface FormData {
   email: string;

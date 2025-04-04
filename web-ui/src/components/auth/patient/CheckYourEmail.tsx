@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ChevronLeftIcon } from "../../icons";
-import AuthLayout from "../../pages/AuthPages/AuthPageLayout"; // Import the AuthLayout
+import { ChevronLeftIcon } from "../../../icons";
+import AuthLayout from "../../../pages/AuthPages/AuthPageLayout"; // Import the AuthLayout
 
 export default function CheckYourEmail() {
   return (
