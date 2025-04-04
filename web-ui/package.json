@@ -41,6 +41,7 @@
     "react-router-dom": "^7.4.0",
     "simplebar-react": "^3.3.0",
     "swiper": "^11.2.3",
+    "tailadmin-react": "file:",
     "tailwind-merge": "^3.0.1",
     "uninstall": "^0.0.0"
   },
