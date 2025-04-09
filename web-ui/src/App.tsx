@@ -18,6 +18,11 @@ import CheckYourEmail from "./components/auth/patient/CheckYourEmail";
 import DrSignIn from "./pages/AuthPages/doctor/DrSignIn";
 import DrSignUp from "./pages/AuthPages/doctor/DrSignUp";
 import DoctorDashboard from "./components/doctor/DoctorDashboard";
+import Banner from "./components/consult/Banner";
+import SpecialityMenu from "./components/consult/SpecialityMenu";
+import Doctors from "./components/consult/Doctor";
+import Appointments from "./components/consult/Appointment";
+
 
 export default function App() {
   return (
@@ -45,6 +50,11 @@ export default function App() {
         <Route path="/drsignin" element={<DrSignIn />} />
         <Route path="/drsignup" element={<DrSignUp />} />
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        <Route path="/video-consult" element={<Banner />} />
+        <Route path="/specialization" element={<SpecialityMenu />} />
+        <Route path="/doctors/:speciality" element={<Doctors />} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments />} />
+
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />
