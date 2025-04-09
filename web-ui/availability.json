@@ -1,0 +1,33 @@
+{
+ "availability":[
+    {
+      "doctorId": 1,
+      "available": true
+    },
+    {
+      "doctorId": 2,
+      "available": false
+    },
+    {
+      "doctorId": 3,
+      "available": true
+    },
+    {
+        "doctorId": 4,
+        "available": true
+    },
+    {
+        "doctorId": 5,
+        "available":false
+    },
+    {
+        "doctorId": 6,
+        "available": true
+    },
+    {
+        "doctorId": 7,
+        "available": false
+    }
+
+  ]
+}

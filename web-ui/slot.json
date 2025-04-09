@@ -1,0 +1,42 @@
+{
+"time_slots":[
+   [
+      {
+        "dateTime": "2025-04-07T10:00:00",
+        "time": "10:00 AM",
+        "isBooked": false
+      },
+      {
+        "dateTime": "2025-04-07T11:00:00",
+        "time": "11:00 AM",
+        "isBooked": false
+      }
+    ],
+    [
+      {
+        "dateTime": "2025-04-08T09:00:00",
+        "time": "09:00 AM",
+        "isBooked": true
+      },
+      {
+        "dateTime": "2025-04-08T11:00:00",
+        "time": "11:00 AM",
+        "isBooked": false
+      }
+    ],
+    [
+      {
+        "dateTime": "2025-04-09T10:00:00",
+        "time": "10:00 AM",
+        "isBooked": false
+      },
+      {
+        "dateTime": "2025-04-09T12:00:00",
+        "time": "12:00 PM",
+        "isBooked": false
+      }
+    ]
+  ]
+
+}
+  
