@@ -45,11 +45,11 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     path: "/specialization",
   },
-  // {
-  //   name: "Tables",
-  //   icon: <TableIcon />,
-  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  // },
+  {
+    name: "User Management",
+    icon: <TableIcon />,
+    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
+  },
   // {
   //   name: "Pages",
   //   icon: <PageIcon />,
