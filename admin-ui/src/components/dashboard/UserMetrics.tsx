@@ -6,7 +6,18 @@ import {
 } from "../../icons";
 import Badge from "../ui/badge/Badge";
 
-export default function UserMetrics() {
+interface myComponentProps {
+  chartData: {
+    doctorData:{
+      count:number
+    },
+    patientData:{
+      count:number
+    }
+  };
+}
+
+const UserMetrics: React.FC<myComponentProps> = ({ chartData }) => {  
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
@@ -20,7 +31,7 @@ export default function UserMetrics() {
               Doctors
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              3,782
+              {chartData.doctorData.count}
             </h4>
           </div>
           <Badge color="success">
@@ -42,7 +53,7 @@ export default function UserMetrics() {
               Patients
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              5,359
+              {chartData.patientData.count}
             </h4>
           </div>
 
@@ -55,4 +66,6 @@ export default function UserMetrics() {
       {/* <!-- Metric Item End --> */}
     </div>
   );
-}
+};
+
+export default UserMetrics;

@@ -3,8 +3,9 @@ import UserMetrics from "../../components/dashboard/UserMetrics";
 import MonthlyRegistrationsChart from "../../components/dashboard/MonthlyRegistrationsChart";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store/store";
-import { fetchDoctorsChartData } from "../../redux/slices/dashboardSlice";
+import { fetchDoctorsChartData } from "../../redux/slices/doctorChartSlice";
 import { useEffect } from "react";
+import { fetchPatientsChartData } from "../../redux/slices/patientChartSLice";
 
 export default function Home() {
   interface ChartData {
@@ -12,19 +13,20 @@ export default function Home() {
     data: number[];
     name: string;
   }
+  
   const dispatch = useDispatch<AppDispatch>();
+
   const { doctorsChartData } = useSelector(
     (state: RootState) => state.doctorsChartData
   );
-
-  // console.log(doctorsChartData);
-  // console.log(error);
-
-  const { count, data, name } = doctorsChartData as ChartData;
-  console.log(data, count, name);
+  
+  const { patientsChartData } = useSelector(
+    (state: RootState) => state.patientsChartData
+  );
 
   useEffect(() => {
     dispatch(fetchDoctorsChartData());
+    dispatch(fetchPatientsChartData());
   }, [dispatch]);
   return (
     <>
@@ -34,20 +36,20 @@ export default function Home() {
       />
       <div className="">
         <div>
-          <UserMetrics />
+          <UserMetrics chartData={{doctorData:doctorsChartData,patientData:patientsChartData}}  />
         </div>
         <div className="mt-5">
           <MonthlyRegistrationsChart
-            chartData={doctorsChartData}
+            chartData={{ data: doctorsChartData?.data || [] }}
             heading={"Monthly Registrations of Doctors"}
           />
         </div>
-        <div className="mt-5">
+         <div className="mt-5">
           <MonthlyRegistrationsChart
-            chartData={doctorsChartData}
+            chartData={{ data: patientsChartData?.data || [] }}
             heading={"Monthly Registrations of Patients"}
           />
-        </div>
+        </div> 
       </div>
     </>
   );

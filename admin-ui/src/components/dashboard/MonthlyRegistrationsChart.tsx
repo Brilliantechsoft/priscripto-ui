@@ -7,13 +7,16 @@ import React, { useState } from "react";
 
 interface myComponentProps {
   heading: string;
-  chartData: object;
+  chartData: {
+    data: number[]
+  };
 }
 
 const MonthlyRegistrationsChart: React.FC<myComponentProps> = ({
   heading,
   chartData,
 }) => {
+  
   // console.log(chartData);
 
   const options: ApexOptions = {
@@ -98,8 +101,8 @@ const MonthlyRegistrationsChart: React.FC<myComponentProps> = ({
   const series = [
     {
       name: "Registrations",
-      // data: chartData.data,
-      data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
+      data: chartData.data,
+      // data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
