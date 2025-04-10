@@ -44,7 +44,7 @@ export default function App() {
         <Route path="/check-your-email" element={<CheckYourEmail />} />
         <Route path="/drsignin" element={<DrSignIn />} />
         <Route path="/drsignup" element={<DrSignUp />} />
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        {/* <Route path="/doctor-dashboard" element={<DoctorDashboard />} /> */}
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

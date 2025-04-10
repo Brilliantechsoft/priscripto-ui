@@ -1,55 +1,51 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Doctor, Specialization, Degree } from "../../types/doctor/doctor";
-import { RootState } from "../store";
+import { Doctor, Specialization, Degree } from "../../../types//doctor/doctor";
+import { RootState } from "../../../redux/store";
 
 interface DoctorProfileState {
   doctor: Doctor | null;
-  specializations: Specialization[];
-  degrees: Degree[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: DoctorProfileState = {
   doctor: null,
-  specializations: [],
-  degrees: [],
   loading: false,
   error: null,
 };
 
-export const fetchSpecializations = createAsyncThunk(
-  "doctorProfile/fetchSpecializations",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get<Specialization[]>(
-        "http://192.168.1.52:8080/api/v1/doctors/specializations"
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch specializations"
-      );
-    }
-  }
-);
+// export const fetchSpecializations = createAsyncThunk(
+//   "doctorProfile/fetchSpecializations",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get<Specialization[]>(
+//         "http://192.168.1.52:8080/api/v1/doctors/specializations"
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(
+//         error.response?.data?.message || "Failed to fetch specializations"
+//       );
+//     }
+//   }
+// );
 
-export const fetchDegrees = createAsyncThunk(
-  "doctorProfile/fetchDegrees",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get<Degree[]>(
-        "http://192.168.1.52:8080/api/v1/doctors/degrees"
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch degrees"
-      );
-    }
-  }
-);
+// export const fetchDegrees = createAsyncThunk(
+//   "doctorProfile/fetchDegrees",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get<Degree[]>(
+//         "http://192.168.1.52:8080/api/v1/doctors/degrees"
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(
+//         error.response?.data?.message || "Failed to fetch degrees"
+//       );
+//     }
+//   }
+// );
 
 export const updateDoctorProfile = createAsyncThunk(
   "doctorProfile/updateDoctorProfile",
@@ -65,47 +61,22 @@ export const updateDoctorProfile = createAsyncThunk(
       if (!doctorId) {
         throw new Error("Doctor ID not found");
       }
-      //  payload with only the fields want to update
-      const updatePayload = {
-        // phone: profileData.phone,
-        // bio: profileData.bio,
-        specialization: profileData.specialization,
-        degree: profileData.degree,
-      };
-      console.log("Final update payload:", updatePayload);
+
+      // console.log("Final update payload:", updatePayload);
 
       const response = await axios.put<Doctor>(
-        `http://192.168.1.52:8080/api/v1/doctor/update/${doctorId}`,
+        `https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor/update/${doctorId}`,
         profileData,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
-      // Verifying the response contains updated data
-      // if (!response.data.specialization || !response.data.degree) {
-      //   console.warn(
-      //     "Backend returned null for specialization/degree:",
-      //     response.data
-      //   );
-      // }
-      // await dispatch(fetchDoctorProfile());
-
-      // alert(response.data);
       console.log("Update response:", response.data);
-      // return {
-      //   ...response.data,
-      //   specialization:
-      //     profileData.specialization || response.data.specialization,
-      //   degree: profileData.degree || response.data.degree,
-      // };
-      // return {
-      //   ...state.signInDoctor.user,
-      //   ...updatePayload,
-      // };
+
       return response.data;
     } catch (error) {
       console.error("Update error:", error);
@@ -127,7 +98,7 @@ export const fetchDoctorProfile = createAsyncThunk(
       }
 
       const response = await axios.get<Doctor>(
-        `http://192.168.1.52:8080/api/v1/doctor/${doctorId}`,
+        `https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor/${doctorId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -155,33 +126,6 @@ const doctorProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Specializations
-      .addCase(fetchSpecializations.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchSpecializations.fulfilled, (state, action) => {
-        state.loading = false;
-        state.specializations = action.payload;
-      })
-      .addCase(fetchSpecializations.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-
-      // Fetch Degrees
-      .addCase(fetchDegrees.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchDegrees.fulfilled, (state, action) => {
-        state.loading = false;
-        state.degrees = action.payload;
-      })
-      .addCase(fetchDegrees.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
 
       // Update Profile
       .addCase(updateDoctorProfile.pending, (state) => {

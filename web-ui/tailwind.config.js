@@ -29,6 +29,7 @@ export default {
         transparent: "transparent",
         white: "#FFFFFF",
         black: "#101828",
+        primary: "#0E82FD",
         brand: {
           25: "#F2F7FF",
           50: "#ECF3FF",

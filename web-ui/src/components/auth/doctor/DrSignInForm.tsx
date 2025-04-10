@@ -5,10 +5,7 @@ import Label from "../../form/Label";
 import Input from "../../form/input/InputField";
 import Checkbox from "../../form/input/Checkbox";
 // import Button from "../../ui/button/Button";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../hooks/appDispatchHook";
+import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
 import { signInDoctor } from "../../../redux/slices/doctor/loginDoctorSlice";
 
 export default function DrSignInForm() {
@@ -21,7 +18,7 @@ export default function DrSignInForm() {
   // Redirect if already logged in
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/doctor-dashboard");
+      navigate("/doctor-profile");
     }
   }, [isLoggedIn, navigate]);
 
@@ -98,7 +95,7 @@ export default function DrSignInForm() {
         // localStorage.setItem("jwt", result.token);
 
         // navigate("/doctor-profile");
-        navigate("/doctor-dashboard");
+        navigate("/doctor-profile");
       } catch (error) {
         console.error("Sign in failed:", error);
       }
