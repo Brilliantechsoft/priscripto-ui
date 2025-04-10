@@ -38,7 +38,7 @@ const initialState: DoctorSignInState = {
   password: "",
   status: "idle",
   error: null,
-  token: localStorage.getItem("token") || null, // Load token from localStorage
+  token: localStorage.getItem("token") || null, 
   isLoggedIn: !!localStorage.getItem("token"),
   // user: null,
   user: JSON.parse(localStorage.getItem("user") || "null"),
