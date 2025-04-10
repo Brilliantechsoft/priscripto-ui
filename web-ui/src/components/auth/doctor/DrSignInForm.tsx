@@ -14,8 +14,7 @@ export default function DrSignInForm() {
   const { status, error, isLoggedIn } = useAppSelector(
     (state) => state.signInDoctor
   );
-
-  // Redirect if already logged in
+  
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/doctor-profile");
@@ -50,7 +49,6 @@ export default function DrSignInForm() {
       [name]: value,
     });
 
-    // Clear the error message when the user starts typing
     setErrors({
       ...errors,
       [name]: "",
@@ -89,7 +87,6 @@ export default function DrSignInForm() {
     if (validationForm()) {
       try {
         await dispatch(signInDoctor(formData)).unwrap();
-        // Store token in localStorage if "Keep me logged in" is checked
         // if (isChecked && result.token) {
         // }
         // localStorage.setItem("jwt", result.token);
