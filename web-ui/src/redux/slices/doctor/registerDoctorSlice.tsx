@@ -58,7 +58,7 @@ export const registerDoctor = createAsyncThunk(
     try {
       const payload = {
         ...doctorData,
-        role: "DOCTOR", // Hidden role added here
+        role: "DOCTOR", 
       };
 
       const response = await axios.post<DoctorRegistrationResponse>(
@@ -77,7 +77,6 @@ export const registerDoctor = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        // error response coming from the backend
         console.error("Backend Error Response:", axiosError.response.data);
         return rejectWithValue(
           axiosError.response.data || "Registration failed"
@@ -118,7 +117,6 @@ const registerDoctorSlice = createSlice({
       .addCase(registerDoctor.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        // Store registration data and token if available
         // state.token = action.payload.token || null;
         state.email = action.payload.email;
         state.firstName = action.payload.firstName;
