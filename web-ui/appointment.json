@@ -1,0 +1,99 @@
+{
+  "appointment_details": [
+    {
+      "doctor_id": "123",
+      "patient_id": "456",
+      "appointment_time": "2025-04-11T10:30:00",
+      "reason": "Regular checkup",
+      "id": "e135"
+    },
+    {
+      "doctor_id": "12",
+      "patient_id": "45",
+      "appointment_time": "2025-04-11T10:45:00",
+      "reason": "chest pain",
+      "id": "d222"
+    },
+    {
+      "doctor_id": "10",
+      "patient_id": "76",
+      "appointment_time": "2025-04-11T12:30:00",
+      "reason": "Regular checkup",
+      "id": "c0ca"
+    },
+    {
+      "doctor_id": "39",
+      "patient_id": "49",
+      "appointment_time": "2025-04-11T11:30:00",
+      "reason": "Hair loss",
+      "id": "1fbe"
+    },
+    {
+      "doctor_id": "79",
+      "patient_id": "46",
+      "appointment_time": "2025-04-11T1:30:00",
+      "reason": "cough and cold",
+      "id": "b8d7"
+    },
+    {
+      "id": "11fb",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "d992",
+      "doctor_id": "6",
+      "appointment_time": "2025-04-09T10:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "2227",
+      "doctor_id": "6",
+      "appointment_time": "2025-04-08T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "21ad",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "7a0e",
+      "doctor_id": "6",
+      "appointment_time": "2025-04-09T12:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "3e64",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-09T12:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "58c6",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "4641",
+      "doctor_id": "6",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "410e",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-08T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "7c04",
+      "doctor_id": "4",
+      "appointment_time": "2025-04-09T10:00:00",
+      "reason": "Consultation"
+    }
+  ]
+}

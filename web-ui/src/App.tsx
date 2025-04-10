@@ -5,7 +5,7 @@ import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
 import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
-import { ScrollToTop } from "./components/common/ScrollToTop";
+// import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import HomePage from "./pages/Home/home";
 import PatientRegistration from "./pages/PatientRegistration";
@@ -23,11 +23,10 @@ import SpecialityMenu from "./components/consult/SpecialityMenu";
 import Doctors from "./components/consult/Doctor";
 import Appointments from "./components/consult/Appointment";
 
-
 export default function App() {
   return (
     <Router>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <Routes>
         <Route index path="/" element={<HomePage />} />
 
@@ -50,11 +49,12 @@ export default function App() {
         <Route path="/drsignin" element={<DrSignIn />} />
         <Route path="/drsignup" element={<DrSignUp />} />
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+
+        {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />
         <Route path="/specialization" element={<SpecialityMenu />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
         <Route path="/doctors/appointment/:docId" element={<Appointments />} />
-
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

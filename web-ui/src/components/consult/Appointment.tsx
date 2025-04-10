@@ -1,74 +1,68 @@
 import React, { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../redux/store";
-import { fetchDoctorSlots } from "../../redux/slices/consult/appointmentSlice";
+import {
+  fetchDoctorSlots,
+  bookAppointment,
+} from "../../redux/slices/consult/appointmentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Slot } from "../../types/appointmentTypes";
 
+import { ToastContainer, toast } from "react-toastify";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 interface AppointmentsProps {
-  docId : string;
+  docId: string;
+  patientId: string;
 }
 
-const Appointments: React.FC <AppointmentsProps> = ({ docId }) => {
-  // const { docId } = useParams<{ docId: string }>();
-
+const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
   const dispatch = useDispatch<AppDispatch>();
-
-  // const { allDoctors } = useSelector((state: RootState) => state.doctors);
-  const {
-    slots: docSlots,
-    
-  } = useSelector((state: RootState) => state.doctor);
-
+  const { slots: docSlots } = useSelector((state: RootState) => state.doctor);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
+  const { bookingStatus, bookingError } = useSelector(
+    (state: RootState) => state.doctor
+  );
+  const [localBooked, setLocalBooked] = useState(false);
 
   useEffect(() => {
- 
     if (docId) {
-      console.log("Fetching slots for docId:", docId);
-      dispatch(fetchDoctorSlots(docId))
+      dispatch(fetchDoctorSlots(docId));
     }
   }, [docId, dispatch]);
 
-  useEffect(() => {
-    console.log("Slots received:", docSlots);
-  }, [docSlots]);
+  const handleBookAppointment = () => {
+    if (!slotTime || !docId) {
+      toast("Please select a time slot.");
 
+      return;
+    }
 
-  // const docInfo = allDoctors.find((doc) => doc.id.toString() === docId);
+    const selectedSlot = docSlots[slotIndex].find(
+      (slot) => slot.time === slotTime
+    );
+    if (!selectedSlot) {
+      toast("Invalid slot selection.");
+      return;
+    }
 
-  // if (status === "loading") return <div>Loading...</div>;
-  // if (status === "failed") return <div>Failed to load doctor data.</div>;
-  // if (!docInfo) return <div>No doctor info found.</div>;
+    const appointmentData = {
+      doctor_id: docId,
+      patient_id: patientId,
+      appointment_time: selectedSlot.dateTime,
+      reason: "Consultation",
+    };
 
+    dispatch(bookAppointment(appointmentData)).then((res) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        setLocalBooked(true);
+      }
+    });
+  };
 
   return (
     <div>
-      {/* ---- Doctor Profile ---- */}
-      {/* <div className="flex flex-col sm:flex-row gap-4">
-        <img
-          src={docInfo.profileImage}
-          alt=""
-          className="w-full sm:max-w-72 rounded-lg"
-        />
-        <div className="flex-1 border border-gray-400 rounded-lg p-8 bg-white">
-          <h2 className="text-2xl font-bold">
-            {" "}
-            {docInfo.firstName + " " + docInfo.lastName}
-          </h2>
-          <p>
-            {docInfo.degree} - {docInfo.specialization}
-          </p>
-          <p>Experience: {docInfo.experience}</p>
-          <p className="mt-2">About: {docInfo.about}</p>
-          <p className="mt-2">Fee: ₹{docInfo.fees}</p>
-        </div>
-      </div> */}
-
-      {/* ---- Slots --- */}
       <div className="mt-6">
         <h3 className="text-lg font-semibold">Available Slots</h3>
         <div className="flex gap-3 overflow-x-auto mt-4">
@@ -89,10 +83,11 @@ const Appointments: React.FC <AppointmentsProps> = ({ docId }) => {
           {docSlots[slotIndex]?.map((slot: Slot, idx: number) => (
             <p
               key={idx}
-              onClick={() =>!slot.isBooked && setSlotTime(slot.time)}
+              onClick={() => !slot.isBooked && setSlotTime(slot.time)}
               className={`px-4 py-2 rounded-full text-sm cursor-pointer ${
-                slot.isBooked ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : slotTime === slot.time
+                slot.isBooked
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : slotTime === slot.time
                   ? "bg-blue-600 text-white"
                   : "border text-gray-600"
               }`}
@@ -101,9 +96,22 @@ const Appointments: React.FC <AppointmentsProps> = ({ docId }) => {
             </p>
           ))}
         </div>
-        <button className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-full">
+        <button
+          onClick={handleBookAppointment}
+          className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-full"
+        >
           Book Appointment
         </button>
+        {bookingStatus === "loading" && (
+          <p className="mt-2 text-blue-500">Booking your appointment...</p>
+        )}
+        {localBooked && (
+          <p className="text-green-600 mt-3">Appointment Booked</p>
+        )}
+        {bookingStatus === "failed" && (
+          <p className="mt-2 text-red-500">{bookingError}</p>
+        )}
+        <ToastContainer />
       </div>
     </div>
   );
