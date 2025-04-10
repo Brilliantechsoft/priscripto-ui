@@ -42,7 +42,6 @@ export default function DrSignUpForm() {
       [name]: value,
     });
 
-    // Clear the error message when the user starts typing
     setErrors({
       ...errors,
       [name]: "",
@@ -112,12 +111,10 @@ export default function DrSignUpForm() {
         console.error("Registration Failed:", error);
       }
 
-      // Log the Redux store state after dispatching
       console.log("Redux Store State After Dispatch:", formData);
     }
   };
 
-  // Log the Redux store state whenever it changes
   useEffect(() => {
     console.log("Redux Store State Updated:", formData);
   }, [formData]);
