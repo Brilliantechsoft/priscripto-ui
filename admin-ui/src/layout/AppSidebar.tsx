@@ -8,7 +8,7 @@ import {
   DoctorIcon,
   HorizontaLDots,
   ListIcon,
-  // TableIcon,
+  TableIcon,
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -51,11 +51,11 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     path: "/specialization",
   },
-  // {
-  //   name: "Tables",
-  //   icon: <TableIcon />,
-  //   subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  // },
+  {
+    name: "User Management",
+    icon: <TableIcon />,
+    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
+  },
   // {
   //   name: "Pages",
   //   icon: <PageIcon />,

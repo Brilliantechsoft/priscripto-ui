@@ -10,8 +10,10 @@ import {
   ListIcon,
   TableIcon,
   UserCircleIcon,
+  CalenderIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import { AppWindow, LayoutDashboard } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -29,9 +31,24 @@ const navItems: NavItem[] = [
 
 const doctorNavItems: NavItem[] = [
   {
+    name: "Dashboard",
+    icon: <LayoutDashboard className="size-5" />,
+    path: "/doctor-dashboard",
+  },
+  {
     name: "Your Profile",
     icon: <UserCircleIcon className="size-5" />,
     path: "/doctor-profile",
+  },
+  {
+    name: "Appointment Request",
+    icon: <AppWindow className="size-5" />,
+    path: "/doctor-appointment-request",
+  },
+  {
+    name: "Appointment",
+    icon: <CalenderIcon className="size-5" />,
+    path: "/doctor-appointment",
   },
 ];
 
@@ -275,6 +292,15 @@ const AppSidebar: React.FC = () => {
                   <HorizontaLDots className="size-6" />
                 )}
               </h2>
+              {token?.role === "DOCTOR" && (
+                <div className="mb-4">
+                  <h2 className="text-lg font-semibold mb-2">Availability <span className="text-red-400">*</span></h2>
+                  <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="available-now">I am Available Now</option>
+                    <option value="not-available">Not Available</option>
+                  </select>
+                </div>
+              )}
               {/* {renderMenuItems(navItems, "main")} */}
               {token?.role === "DOCTOR"
                 ? renderMenuItems(doctorNavItems, "main")

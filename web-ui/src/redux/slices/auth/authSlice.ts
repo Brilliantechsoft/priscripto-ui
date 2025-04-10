@@ -38,13 +38,13 @@ export const login = createAsyncThunk(
   );
   
   export const register = createAsyncThunk(
-    '/auth/register',
+    'v1/patient/register',
     async (
       userData: { firstName: string; lastName: string; email: string; password: string },
       { rejectWithValue }
     ) => {
       try {
-        await axiosInstance.post('/auth/register', { ...userData, role: 'PATIENT' }, {
+        await axiosInstance.post('v1/patient/register', { ...userData, role: 'PATIENT' }, {
           withCredentials: true,
         });
         toast.success('Registration successful!');

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api', 
+  baseURL: 'https://5cc9-203-192-220-137.ngrok-free.app/api/', 
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials : true
+  
 });
 
 export default axiosInstance;
