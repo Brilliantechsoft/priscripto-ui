@@ -4,11 +4,16 @@ export interface Doctor {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
+  phone?: number;
+  age?: number;
+  country?: string;
+  state?: string;
+  city?: string;
+  clinicAddress?: string;
+  gender?: string;
+  profilePicture?: string;
   specializationId?: number; // Matches backend expectation
   specializationName?: string;
-  profilePicture?: string;
-  bio?: string;
   education?: Education[]; // Array of education entries
 }
 

@@ -26,34 +26,39 @@ const initialState: EducationState = {
 // Fetching degrees from backend
 export const fetchDegrees = createAsyncThunk(
   "doctorEducation/fetchDegrees",
-  async (_, {getState, rejectWithValue }) => {
-      try {
-        const token = localStorage.getItem("token");
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("jwt");
       if (!token) {
         throw new Error("No authentication token found");
-          }
+      }
 
-          const state = getState() as { signInDoctor: { user: Doctor } };
+      const state = getState() as { signInDoctor: { user: Doctor } };
       const doctorId = state.signInDoctor.user.id;
       if (!doctorId) {
         throw new Error("Doctor ID not found");
       }
-          
+
       const response = await axios.get(
-          "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
-          {
-              headers: {
+        "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
+        {
+          headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
-          }
-          );
-          console.log("Degrees response:", response.data);
+        }
+      );
+      console.log("Degrees response:", response.data);
       return response.data;
     } catch (error) {
-      console.error("Fetch degrees error:", error.response?.data || error.message);
-      return rejectWithValue(error.response?.data?.message || "Failed to fetch degrees");
+      console.error(
+        "Fetch degrees error:",
+        error.response?.data || error.message
+      );
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch degrees"
+      );
     }
   }
 );
@@ -81,7 +86,7 @@ export const updateEducation = createAsyncThunk(
       const response = await axios.put(`updateDoctorApi${doctorId}`, data, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
         withCredentials: true,
       });
@@ -125,7 +130,10 @@ const doctorEducationSlice = createSlice({
       })
       .addCase(fetchDegrees.fulfilled, (state, action) => {
         state.loading = false;
-        state.degrees = action.payload;
+        state.degrees = action.payload.map((degree: any) => ({
+          id: degree.degreeId,
+          name: degree.degreeName,
+        }));
       })
       .addCase(fetchDegrees.rejected, (state, action) => {
         state.loading = false;

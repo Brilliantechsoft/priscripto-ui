@@ -14,7 +14,9 @@ interface User {
 }
 
 interface DoctorSignInResponse {
-  token: string;
+  success: boolean;
+  jwt: string;
+  message: string;
   user: User;
 }
 
@@ -38,8 +40,8 @@ const initialState: DoctorSignInState = {
   password: "",
   status: "idle",
   error: null,
-  token: localStorage.getItem("token") || null, // Load token from localStorage
-  isLoggedIn: !!localStorage.getItem("token"),
+  token: localStorage.getItem("jwt") || null, // Load token from localStorage
+  isLoggedIn: !!localStorage.getItem("jwt"),
   // user: null,
   user: JSON.parse(localStorage.getItem("user") || "null"),
 };
@@ -68,7 +70,8 @@ export const signInDoctor = createAsyncThunk(
       );
       // alert(response.data);
       // Storing token in localStorage
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("jwt", response.data.jwt);
+      console.log("jwt");
       localStorage.setItem("user", JSON.stringify(response.data.user));
       console.log("Login Response", response.data);
 
@@ -112,7 +115,7 @@ const signInDoctorSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
 
-      localStorage.removeItem("token");
+      localStorage.removeItem("jwt");
       localStorage.removeItem("user");
     },
   },
@@ -124,7 +127,7 @@ const signInDoctorSlice = createSlice({
       })
       .addCase(signInDoctor.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.token = action.payload.token;
+        state.token = action.payload.jwt;
         state.user = action.payload.user;
         console.log("Login response payload:", action.payload);
         state.isLoggedIn = true;
