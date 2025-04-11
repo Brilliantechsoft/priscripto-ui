@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface Speciality {
-  speciality: string;
-  image: string;
-  price:number;
+  specializationName: string;
+  specializationId: number
+ 
 }
 
 
@@ -26,7 +26,15 @@ export const fetchSpecialities = createAsyncThunk<Speciality[], void, { rejectVa
   "specialities/fetchSpecialities",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/specialityData"); 
+      const response = await axios.get(("https://c41d-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName"),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      console.log(response.data);
+      
       return response.data;
     } catch (error: any) { 
       return rejectWithValue(error.response?.data?.message || "Failed to fetch data");

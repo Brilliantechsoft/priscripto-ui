@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { AppDispatch, RootState } from "../../redux/store";
 import {
   fetchDoctorSlots,
@@ -40,7 +41,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
     }
 
     const selectedSlot = docSlots[slotIndex].find(
-      (slot) => slot.time === slotTime
+      (slot) => slot.startTime === slotTime
     );
     if (!selectedSlot) {
       toast("Invalid slot selection.");
@@ -50,7 +51,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
     const appointmentData = {
       doctor_id: docId,
       patient_id: patientId,
-      appointment_time: selectedSlot.dateTime,
+      appointment_time: selectedSlot.scheduleDate,
       reason: "Consultation",
     };
 
@@ -74,8 +75,13 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
                 slotIndex === index ? "bg-blue-500 text-white" : "border"
               }`}
             >
-              <p>{daysOfWeek[new Date(daySlots[0]?.dateTime).getDay()]}</p>
-              <p>{new Date(daySlots[0]?.dateTime).getDate()}</p>
+              <p>{daysOfWeek[new Date(daySlots[0]?.scheduleDate).getDay()]}</p>
+              <p>
+                {new Date(daySlots[0]?.scheduleDate).getDate()}{" "}
+                {new Date(daySlots[0]?.scheduleDate).toLocaleString("default", {
+                  month: "long",
+                })}
+              </p>
             </div>
           ))}
         </div>
@@ -83,16 +89,16 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
           {docSlots[slotIndex]?.map((slot: Slot, idx: number) => (
             <p
               key={idx}
-              onClick={() => !slot.isBooked && setSlotTime(slot.time)}
+              onClick={() => !slot.booked && setSlotTime(slot.startTime)}
               className={`px-4 py-2 rounded-full text-sm cursor-pointer ${
-                slot.isBooked
+                slot.booked
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : slotTime === slot.time
+                  : slotTime === slot.startTime
                   ? "bg-blue-600 text-white"
                   : "border text-gray-600"
               }`}
             >
-              {slot.time}
+              {slot.startTime}
             </p>
           ))}
         </div>

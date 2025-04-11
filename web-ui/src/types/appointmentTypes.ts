@@ -1,5 +1,6 @@
 export interface Slot {
-    dateTime: string
-    time: string
-    isBooked:string
+    timeSlotId:number;
+    scheduleDate: string;
+    startTime: string;
+    booked:boolean;
   }

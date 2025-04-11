@@ -94,6 +94,58 @@
       "doctor_id": "4",
       "appointment_time": "2025-04-09T10:00:00",
       "reason": "Consultation"
+    },
+    {
+      "id": "87c3",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T10:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "7a0c",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "f792",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "fcc1",
+      "doctor_id": "1",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "de9e",
+      "doctor_id": "7",
+      "patient_id": "",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "4a1d",
+      "doctor_id": "7",
+      "patient_id": "",
+      "appointment_time": "2025-04-07T11:00:00",
+      "reason": "Consultation"
+    },
+    {
+      "id": "52be",
+      "doctor_id": "7",
+      "patient_id": "",
+      "appointment_time": "2025-05-11T18:30:00.000Z",
+      "reason": "Consultation"
+    },
+    {
+      "id": "3d8c",
+      "doctor_id": "7",
+      "patient_id": "",
+      "appointment_time": "2025-04-11T18:30:00.000Z",
+      "reason": "Consultation"
     }
   ]
 }

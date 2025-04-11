@@ -9,7 +9,7 @@ export default function Banner() {
     <div className="flex flex-row bg-blue-800 items-center justify-center rounded-lg px-6 sm:px-10 md:px-14 lg:px-12 my-20 md:mx-10">
       {/* ------Left side------ */}
       <div className="flex-1 items-center py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5 ">
-        <div className="text-xl sm:text-2xl md:text-3xl lgtext-5xl font-semibold text-white">
+        <div className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white">
           <p>Skip the Travel!</p>
           <p className="mt-4">Take Online Doctor Consultation</p>
           <p>Private consultation + Audio call </p>

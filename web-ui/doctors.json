@@ -16,7 +16,7 @@
         "country": "India",
         "fees": 500.0,
         "clinicAddress": "123, FC Road, Pune",
-        "specialization": "Neurologist",
+        "specialization": "Cardiologist",
         "degree": "MD",
         "experience":3,
         "about":"vikram is neurologist having 3 years of experience"
@@ -58,7 +58,7 @@
         "country": "India",
         "fees": 500.0,
         "clinicAddress": "123, FC Road, Pune",
-        "specialization": "Gastroenterologist",
+        "specialization": "GENERAL_PHYSICIAN",
         "degree": "MD",
         "experience":3,
         "about":"He is pscycologist having 3 years of experience"
@@ -142,7 +142,7 @@
         "country": "India",
         "fees": 500.0,
         "clinicAddress": "123, FC Road, Pune",
-        "specialization": "Neurologist",
+        "specialization": "Cardiologist",
         "degree": "MD",
         "experience":4,
         "about":"She is dentist having 4 years of experience"
