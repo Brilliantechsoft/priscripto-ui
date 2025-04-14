@@ -4,6 +4,8 @@ import registerDoctorReducer from "../redux/slices/doctor/registerDoctorSlice";
 import signInDoctorReducer from "../redux/slices/doctor/loginDoctorSlice";
 import doctorEducationReducer from "./slices/doctor/doctorEducationSlice";
 import doctorProfileReducer from "./slices/doctor/doctorProfileSlice";
+import doctorAppointmentReducer from '../redux/slices/appointment/doctorAppointmentSlice';
+import doctorAppointmentRequestReducer from '../redux/slices/appointment/drAppointmentRequestSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     signInDoctor: signInDoctorReducer,
     doctorProfile: doctorProfileReducer,
     doctorEducation: doctorEducationReducer,
+    doctorAppointment: doctorAppointmentReducer,
+    doctorAppointmentRequest: doctorAppointmentRequestReducer,
   },
 });
 
