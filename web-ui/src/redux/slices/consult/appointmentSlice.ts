@@ -21,14 +21,14 @@ export const fetchDoctorSlots = createAsyncThunk(
   "doctor/fetchSlots",
   async (docId: string) => {
     const response = await axios.get((
-      `https://c41d-203-192-220-137.ngrok-free.app/api/v1/doctors/${docId}/available-schedules`
+      `https://aec2-203-192-220-137.ngrok-free.app/api/v1/doctors/${docId}/available-schedules`
     ),{
       headers: {
         "Content-Type": "application/json",
       },
       withCredentials: true,
     });
-    console.log("SLOT API RESPONSE", response.data);
+  
     return response.data;
   }
 );

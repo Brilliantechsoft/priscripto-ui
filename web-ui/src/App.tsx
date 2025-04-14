@@ -22,6 +22,7 @@ import Banner from "./components/consult/Banner";
 import SpecialityMenu from "./components/consult/SpecialityMenu";
 import Doctors from "./components/consult/Doctor";
 import Appointments from "./components/consult/Appointment";
+import AppointmentForm from "./pages/Forms/AppointmentForm";
 
 export default function App() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/specialization" element={<SpecialityMenu />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
         <Route path="/doctors/appointment/:docId" element={<Appointments />} />
+        <Route path="/appointmentform" element={<AppointmentForm />} />
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

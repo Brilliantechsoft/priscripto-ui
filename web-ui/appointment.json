@@ -146,6 +146,13 @@
       "patient_id": "",
       "appointment_time": "2025-04-11T18:30:00.000Z",
       "reason": "Consultation"
+    },
+    {
+      "id": "a495",
+      "doctor_id": "7",
+      "patient_id": "",
+      "appointment_time": "2025-04-11T18:30:00.000Z",
+      "reason": "Consultation"
     }
   ]
 }
