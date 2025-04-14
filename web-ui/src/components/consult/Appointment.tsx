@@ -3,29 +3,34 @@ import React, { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
   fetchDoctorSlots,
-  bookAppointment,
+  // bookAppointment,
 } from "../../redux/slices/consult/appointmentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Slot } from "../../types/appointmentTypes";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 
-import { ToastContainer, toast } from "react-toastify";
+
+// import { ToastContainer, toast } from "react-toastify";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-interface AppointmentsProps {
-  docId: string;
-  patientId: string;
-}
+// interface AppointmentsProps {
+//   docId: string;
 
-const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
+// }
+
+const Appointments: React.FC = () => {
+  
+  const { docId } = useParams<{ docId: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { slots: docSlots } = useSelector((state: RootState) => state.doctor);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
-  const { bookingStatus, bookingError } = useSelector(
-    (state: RootState) => state.doctor
-  );
-  const [localBooked, setLocalBooked] = useState(false);
+  // const { bookingStatus, bookingError } = useSelector(
+  //   (state: RootState) => state.doctor
+  // );
+  // const [localBooked, setLocalBooked] = useState(false);
 
   useEffect(() => {
     if (docId) {
@@ -33,34 +38,39 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
     }
   }, [docId, dispatch]);
 
-  const handleBookAppointment = () => {
-    if (!slotTime || !docId) {
-      toast("Please select a time slot.");
+  useEffect(() => {
+    console.log("Slots received:", docSlots);
+  }, [docSlots]);
 
-      return;
-    }
 
-    const selectedSlot = docSlots[slotIndex].find(
-      (slot) => slot.startTime === slotTime
-    );
-    if (!selectedSlot) {
-      toast("Invalid slot selection.");
-      return;
-    }
+  // const handleBookAppointment = () => {
+  //   if (!slotTime || !docId) {
+  //     alert("Please select a time slot.");
+    
+  //     return;
+  //   }
 
-    const appointmentData = {
-      doctor_id: docId,
-      patient_id: patientId,
-      appointment_time: selectedSlot.scheduleDate,
-      reason: "Consultation",
-    };
+  //   const selectedSlot = docSlots[slotIndex].find(
+  //     (slot) => slot.startTime === slotTime
+  //   );
+  //   if (!selectedSlot) {
+  //     alert("Invalid slot selection.");
+  //     return;
+  //   }
 
-    dispatch(bookAppointment(appointmentData)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") {
-        setLocalBooked(true);
-      }
-    });
-  };
+    // const appointmentData = {
+    //   doctor_id: docId,
+    //   patient_id: patientId,
+    //   appointment_time: selectedSlot.scheduleDate,
+    //   reason: "Consultation",
+    // };
+
+  //   dispatch(bookAppointment(appointmentData)).then((res) => {
+  //     if (res.meta.requestStatus === "fulfilled") {
+  //       setLocalBooked(true);
+  //     }
+  //   });
+  // };
 
   return (
     <div>
@@ -102,13 +112,15 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
             </p>
           ))}
         </div>
-        <button
-          onClick={handleBookAppointment}
-          className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-full"
+        <div className="mt-6">
+        <Link to="/appointmentform"
+          // onClick={handleBookAppointment}
+          className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-full "
         >
           Book Appointment
-        </button>
-        {bookingStatus === "loading" && (
+        </Link>
+        </div>
+        {/* {bookingStatus === "loading" && (
           <p className="mt-2 text-blue-500">Booking your appointment...</p>
         )}
         {localBooked && (
@@ -116,11 +128,12 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId, patientId }) => {
         )}
         {bookingStatus === "failed" && (
           <p className="mt-2 text-red-500">{bookingError}</p>
-        )}
-        <ToastContainer />
+        )} */}
+        {/* <ToastContainer /> */}
       </div>
     </div>
   );
 };
+
 
 export default Appointments;

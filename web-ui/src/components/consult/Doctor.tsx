@@ -110,7 +110,7 @@ const Doctors: React.FC = () => {
 
               <Modal  width="w-[500px]"
                 height="h-[70vh]" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-              < Appointments  docId={item.id.toString()} patientId=""/>
+              < Appointments  docId={item.id.toString()}/>
               </Modal>
           
         </div>

@@ -33,28 +33,28 @@ export const fetchDoctorSlots = createAsyncThunk(
   }
 );
 
-export const bookAppointment = createAsyncThunk(
-  "appointment/bookAppointment",
-  async (
-    appointmentData: {
-      doctor_id: string;
-      patient_id: string;
-      appointment_time: string;
-      reason: string;
-    },
-    thunkAPI
-  ) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5008/appointment_details",
-        appointmentData
-      );
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || "Booking failed");
-    }
-  }
-);
+// export const bookAppointment = createAsyncThunk(
+//   "appointment/bookAppointment",
+//   async (
+//     appointmentData: {
+//       doctor_id: string;
+//       patient_id: string;
+//       appointment_time: string;
+//       reason: string;
+//     },
+//     thunkAPI
+//   ) => {
+//     try {
+//       const response = await axios.post(
+//         "http://localhost:5008/appointment_details",
+//         appointmentData
+//       );
+//       return response.data;
+//     } catch (error: any) {
+//       return thunkAPI.rejectWithValue(error.response?.data || "Booking failed");
+//     }
+//   }
+// );
 
 const appointmentSlice = createSlice({
   name: "doctors",
@@ -84,17 +84,17 @@ const appointmentSlice = createSlice({
         state.error = action.error.message || "Failed to fetch slots";
       })
 
-      .addCase(bookAppointment.pending, (state) => {
-        state.bookingStatus = "loading";
-        state.bookingError = null;
-      })
-      .addCase(bookAppointment.fulfilled, (state) => {
-        state.bookingStatus = "suceeded";
-      })
-      .addCase(bookAppointment.rejected, (state, action) => {
-        state.bookingStatus = "failed";
-        state.bookingError = action.payload as string;
-      });
+      // .addCase(bookAppointment.pending, (state) => {
+      //   state.bookingStatus = "loading";
+      //   state.bookingError = null;
+      // })
+      // .addCase(bookAppointment.fulfilled, (state) => {
+      //   state.bookingStatus = "suceeded";
+      // })
+      // .addCase(bookAppointment.rejected, (state, action) => {
+      //   state.bookingStatus = "failed";
+      //   state.bookingError = action.payload as string;
+      // });
   },
 });
 

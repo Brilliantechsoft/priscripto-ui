@@ -33,7 +33,7 @@ export const fetchSpecialities = createAsyncThunk<Speciality[], void, { rejectVa
         },
         withCredentials: true,
       })
-      console.log(response.data);
+    
       
       return response.data;
     } catch (error: any) { 
