@@ -9,6 +9,42 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+interface CustomInputProps {
+  value?: string;
+  onClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const CustomInput = ({ value, onClick, onChange }: CustomInputProps) => (
+  <div className="relative w-full">
+    <input
+      type="text"
+      className="w-full max-w-full p-2 pr-10 border border-gray-300 rounded-md"
+      value={value || ""}
+      onClick={onClick}
+      onChange={onChange}
+      readOnly
+      placeholder="Select date"
+    />
+    <span className="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+      <svg
+        className="w-5 h-5 text-gray-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
+      </svg>
+    </span>
+  </div>
+);
+
 export default function DoctorEducationCard() {
   const dispatch = useAppDispatch();
   const { degrees, educationData, loading, error } = useAppSelector(
@@ -102,78 +138,85 @@ export default function DoctorEducationCard() {
 
       <div className="space-y-6">
         {/* Degree Dropdown */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Degree *
-          </label>
-          <select
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            value={formData.degreeId || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, degreeId: Number(e.target.value) })
-            }
-            disabled={loading}
-          >
-            <option value="" disabled>
-              Select Degree
-            </option>
-            {degrees.map((degree) => (
-              <option key={degree.id} value={degree.id}>
-                {degree.name}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Degree *
+            </label>
+            <select
+              className="w-full max-w-full p-2 border border-gray-300 rounded-md"
+              value={formData.degreeId || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, degreeId: Number(e.target.value) })
+              }
+              disabled={loading}
+            >
+              <option value="" disabled>
+                Select Degree
               </option>
-            ))}
-          </select>
-        </div>
+              {degrees.map((degree) => (
+                <option key={degree.id} value={degree.id}>
+                  {degree.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Institute Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Institute Name *
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            value={formData.instituteName || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, instituteName: e.target.value })
-            }
-            disabled={loading}
-            placeholder="Enter institute name"
-          />
+          {/* Institute Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Institute Name *
+            </label>
+            <input
+              type="text"
+              className="w-full max-w-full p-2 border border-gray-300 rounded-md"
+              value={formData.instituteName || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, instituteName: e.target.value })
+              }
+              disabled={loading}
+              placeholder="Enter institute name"
+            />
+          </div>
         </div>
 
         {/* Start Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Start Date *
-          </label>
-          <DatePicker
-            selected={formData.startDate}
-            onChange={(date: Date | null) =>
-              setFormData({ ...formData, startDate: date })
-            }
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            dateFormat="dd/MM/yyyy"
-            placeholderText="Select start date"
-            disabled={loading}
-          />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Start Date *
+            </label>
 
-        {/* End Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            End Date *
-          </label>
-          <DatePicker
-            selected={formData.endDate}
-            onChange={(date: Date | null) =>
-              setFormData({ ...formData, endDate: date })
-            }
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            dateFormat="dd/MM/yyyy"
-            placeholderText="Select end date"
-            disabled={loading}
-          />
+            <DatePicker
+              selected={formData.startDate}
+              onChange={(date: Date | null) =>
+                setFormData({ ...formData, startDate: date })
+              }
+              customInput={<CustomInput />}
+              className="w-full max-w-full"
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select start date"
+              disabled={loading}
+            />
+          </div>
+
+          {/* End Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              End Date *
+            </label>
+
+            <DatePicker
+              selected={formData.endDate}
+              onChange={(date: Date | null) =>
+                setFormData({ ...formData, endDate: date })
+              }
+              customInput={<CustomInput />}
+              className="w-full max-w-full"
+              placeholderText="Select end date"
+              disabled={loading}
+            />
+          </div>
         </div>
 
         {/* Buttons */}
@@ -191,6 +234,7 @@ export default function DoctorEducationCard() {
             disabled={
               loading ||
               !formData.degreeId ||
+              !formData.instituteName ||
               !formData.startDate ||
               !formData.endDate
             }

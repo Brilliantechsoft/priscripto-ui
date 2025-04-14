@@ -4,6 +4,7 @@ import registerDoctorReducer from "../redux/slices/doctor/registerDoctorSlice";
 import signInDoctorReducer from "../redux/slices/doctor/loginDoctorSlice";
 import doctorEducationReducer from "./slices/doctor/doctorEducationSlice";
 import doctorProfileReducer from "./slices/doctor/doctorProfileSlice";
+import doctorSpecialityReducer from "./slices/doctor/doctorSpecialitySlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     signInDoctor: signInDoctorReducer,
     doctorProfile: doctorProfileReducer,
     doctorEducation: doctorEducationReducer,
+    doctorSpeciality : doctorSpecialityReducer,
   },
 });
 

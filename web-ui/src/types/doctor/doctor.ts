@@ -9,26 +9,45 @@ export interface Doctor {
   country?: string;
   state?: string;
   city?: string;
+  pincode?: number;
   clinicAddress?: string;
   gender?: string;
   profilePicture?: string;
-  specializationId?: number; // Matches backend expectation
-  specializationName?: string;
-  education?: Education[]; // Array of education entries
+  education?: Education[];
+  specialities?: SpecialityService[];
 }
 
 export interface Education {
-  id?: number; // Optional ID for existing education records
-  degreeId: number; // Foreign key to the Degree table
-  degreeName?: string; // Optional, for display purposes
-  instituteName: string; // Name of the institution
-  startDate: string; // ISO date string (e.g., "2020-01-01")
-  endDate?: string; // Optional, as it could be ongoing
+  id?: number;
+  degreeId: number;
+  degreeName?: string;
+  instituteName: string;
+  startDate: string;
+  endDate?: string;
 }
+
+export interface SpecialityService {
+  id?: number;
+  specializationId: number | null;
+  serviceId: number | null;
+  price: number | null;
+}
+
+// export interface ServiceDetail {
+//   id?: number; 
+//   serviceId: number;
+//   serviceName?: string; 
+//   price: number; 
+// }
 
 export interface Specialization {
   specializationId: number;
   specializationName: string;
+}
+
+export interface Service {
+  serviceId: number;
+  serviceName: string;
 }
 
 export interface Degree {
