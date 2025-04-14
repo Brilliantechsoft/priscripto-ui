@@ -1,16 +1,6 @@
 import { CalendarDays, Mail, Phone, Video, Eye, Mic } from "lucide-react";
+import { Appointment } from "../../../types/appointment/appointment";
 
-interface Appointment {
-  id: string;
-  patientName: string;
-  date: string;
-  visitType: string;
-  callType: string;
-  email: string;
-  phone: string;
-  profileImageUrl?: string;
-  status: string;
-}
 
 interface AppointmentCardProps {
   appointment: Appointment;
@@ -47,7 +37,7 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
         </div>
       </div>
 
-      {/* Right: Contact Info */}
+  
       <div className="flex flex-col text-sm text-gray-700 space-y-1">
         <div className="flex items-center space-x-1">
           <Mail className="w-4 h-4 text-gray-500" />
@@ -81,7 +71,6 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
           </a>
         </>
       ) : (
-        // Completed or Cancelled: Show View Details button
         <button className="ml-2 px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors">
           View Details
         </button>

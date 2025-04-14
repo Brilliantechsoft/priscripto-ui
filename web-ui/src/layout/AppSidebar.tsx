@@ -13,7 +13,7 @@ import {
   CalenderIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import { AppWindow, LayoutDashboard } from "lucide-react";
+import { AppWindow, Dumbbell, LayoutDashboard } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -50,6 +50,7 @@ const doctorNavItems: NavItem[] = [
     icon: <CalenderIcon className="size-5" />,
     path: "/doctor-appointment",
   },
+
 ];
 
 const AppSidebar: React.FC = () => {

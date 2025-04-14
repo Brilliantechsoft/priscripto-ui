@@ -1,15 +1,7 @@
-// components/AppointmentRequestCard.tsx
-import { CalendarDays, Video, Info } from "lucide-react";
 
-interface AppointmentRequest {
-  id: string;
-  patientName: string;
-  dateTime: string;
-  visitType: string;
-  callType: string;
-  profileImageUrl?: string;
-  isNew?: boolean;
-}
+import { CalendarDays, Video, Info } from "lucide-react";
+import { AppointmentRequest } from "../../../types/appointment/appointmentRequest";
+
 
 const AppointmentRequestCard = ({
   appointment,
@@ -21,7 +13,7 @@ const AppointmentRequestCard = ({
     
       <div className="flex items-center space-x-4">
         <img
-          src={appointment.profileImageUrl || "https://via.placeholder.com/40"}
+          src={appointment.profileImageUrl ?? "https://via.placeholder.com/40"}
           alt="Profile"
           className="w-12 h-12 rounded-full object-cover"
         />
@@ -41,7 +33,7 @@ const AppointmentRequestCard = ({
           <CalendarDays className="w-4 h-4 text-gray-600" />
           <span>{appointment.dateTime}</span>
         </div>
-        <div className="font-semibold">General Visit</div>
+        <div className="font-semibold">{appointment.visitType}</div>
       </div>
 
       

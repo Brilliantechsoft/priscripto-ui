@@ -40,6 +40,7 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.1.5",
     "react-router-dom": "^7.4.0",
+    "react-shimmer-effects": "^1.0.4",
     "simplebar-react": "^3.3.0",
     "swiper": "^11.2.3",
     "tailadmin-react": "file:",

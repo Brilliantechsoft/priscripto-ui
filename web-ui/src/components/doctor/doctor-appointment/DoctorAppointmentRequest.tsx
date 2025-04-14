@@ -1,39 +1,33 @@
-import React from 'react'
+
 import AppSidebar from '../../../layout/AppSidebar'
 import AppointmentRequestCard from './AppointmentRequestCard ';
 
-interface AppointmentRequest {
-  id: string;
-  patientName: string;
-  dateTime: string;
-  visitType: string;
-  callType: string;
-  profileImageUrl: string;
-  
-}
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { setAppointmentRequest } from '../../../redux/slices/appointment/drAppointmentRequestSlice';
 
 const DoctorAppointmentRequest = () => {
-  
-  const requests: AppointmentRequest[] = [
-    {
-      id: 'Apt0001',
-      patientName: 'Adrian',
-      dateTime: '11 Nov 2024 10.45 AM',
-      visitType: 'General Visit',
-      callType: 'Video Call',
-      profileImageUrl: 'https://i.pravatar.cc/100?img=1',
-      
-    },
-    {
-      id: 'Apt0002',
-      patientName: 'Kelly',
-      dateTime: '10 Nov 2024 02.00 PM',
-      visitType: 'General Visit',
-      callType: 'Direct Visit',
-      profileImageUrl: 'https://i.pravatar.cc/100?img=2',
-    },
-  ];
+  const dispatch = useDispatch();
+  const requests = useSelector((state : RootState) => state.doctorAppointmentRequest);
 
+  const fetchAppointmentRequests = async () => {
+    try {
+      const response = await axios.get(
+        'https://97d36fe8-7a36-4ec8-bb05-d4a47f537ebb.mock.pstmn.io//api/doctor/1/appointmentRequest'
+      );
+      console.log(response?.data);
+      dispatch(setAppointmentRequest(response?.data));
+    } catch (error) {
+      console.error('Error fetching appointment requests:', error);
+    }
+  }
+  
+
+  useEffect(() => {
+    fetchAppointmentRequests();
+  } , [])
   return (
     <div className="flex min-h-screen">
       <div className="w-1/5">
@@ -53,4 +47,4 @@ const DoctorAppointmentRequest = () => {
 
 
 
-export default DoctorAppointmentRequest
+export default DoctorAppointmentRequest;

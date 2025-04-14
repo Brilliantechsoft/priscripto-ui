@@ -49,6 +49,7 @@ export default function App() {
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
         <Route path= "/doctor-appointment-request" element= {<DoctorAppointmentRequest />} />
+    
 
         <Route path="*" element={<NotFound />} />
       </Routes>
