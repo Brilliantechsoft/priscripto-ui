@@ -20,6 +20,11 @@ import DrSignUp from "./pages/AuthPages/doctor/DrSignUp";
 import DoctorDashboard from "./components/doctor/doctor-dashboard/DoctorDashboard";
 import DoctorAppointment from "./components/doctor/doctor-appointment/DoctorAppointment";
 import DoctorAppointmentRequest from "./components/doctor/doctor-appointment/DoctorAppointmentRequest";
+import Banner from "./components/consult/Banner";
+import SpecialityMenu from "./components/consult/SpecialityMenu";
+import Doctors from "./components/consult/Doctor";
+import Appointments from "./components/consult/Appointment";
+import AppointmentForm from "./pages/Forms/AppointmentForm";
 
 export default function App() {
   return (
@@ -49,6 +54,13 @@ export default function App() {
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
         <Route path= "/doctor-appointment-request" element= {<DoctorAppointmentRequest />} />
+
+           {/* Doctor booking */}
+        <Route path="/video-consult" element={<Banner />} />
+        <Route path="/specialization" element={<SpecialityMenu />} />
+        <Route path="/doctors/:speciality" element={<Doctors />} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments docId="" />} />
+        <Route path="/appointmentform" element={<AppointmentForm/>} />
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />
