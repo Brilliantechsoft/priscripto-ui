@@ -25,12 +25,18 @@ const DoctorDashboard = () => {
         <div className="flex-1 bg-white p-4 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Requests</h2>
           <div className="space-y-4">
-            {requests.map((appointment) => (
+          {requests.length > 0 ? (
+            requests.map((request) => (
               <AppointmentRequestCard
-                key={appointment.id}
-                appointment={appointment}
+                key={request.appointmentId}
+                appointment={request}
               />
-            ))}
+            ))
+          ) : (
+            <div className="text-center font-bold text-red-500">
+              No requests available
+            </div>
+          )}
           </div>
         </div>
       </div>

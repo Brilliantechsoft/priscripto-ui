@@ -7,14 +7,14 @@ interface AppointmentCardProps {
 }
 
 const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
-  const isUpcoming = appointment.status === "upcoming";
+  const isUpcoming = appointment.appointmentStatus === "UPCOMING";
 
   return (
     <div className="flex items-center justify-between p-4 rounded-lg border shadow-sm bg-white max-w-4xl w-full">
       
       <div className="flex items-center space-x-3">
         <img
-          src={appointment.profileImageUrl || "https://via.placeholder.com/40"}
+          src={appointment?.profileImageUrl ?? "https://via.placeholder.com/40"}
           alt="Profile"
           className="w-12 h-12 rounded-md object-cover"
         />
@@ -31,9 +31,9 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
           <span>{appointment.date}</span>
         </div>
         <div className="flex space-x-2 font-medium">
-          <span>{appointment.visitType}</span>
+          <span>{appointment.appointmentType}</span>
           <span>|</span>
-          <span>{appointment.callType}</span>
+          <span>{appointment.purpose}</span>
         </div>
       </div>
 
@@ -45,7 +45,7 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
         </div>
         <div className="flex items-center space-x-1">
           <Phone className="w-4 h-4 text-gray-500" />
-          <span>{appointment.phone}</span>
+          <span>{appointment.phoneNo}</span>
         </div>
       </div>
 

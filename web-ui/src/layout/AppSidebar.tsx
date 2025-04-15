@@ -13,7 +13,8 @@ import {
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import { AppWindow, LayoutDashboard } from "lucide-react";
+import { AppWindow, LayoutDashboard, LogInIcon, LogOut } from "lucide-react";
+import axios from "axios";
 
 type NavItem = {
   name: string;
@@ -78,6 +79,19 @@ const AppSidebar: React.FC = () => {
     (path: string) => location.pathname === path,
     [location.pathname]
   );
+
+  const handleLogout = async () => {
+    await axios.post(
+      import.meta.env.VITE_BACKEND_URL + "/auth/logout", {} ,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -305,6 +319,16 @@ const AppSidebar: React.FC = () => {
               {token?.role === "DOCTOR"
                 ? renderMenuItems(doctorNavItems, "main")
                 : renderMenuItems(navItems, "main")}
+
+                { token?.role === "DOCTOR" && (
+                  <div className="mb-4 mt-5 font-light">
+                    <button className="flex ml-4 hover:text-red-500"
+                    onClick={() => handleLogout()}
+                    >
+                      <LogOut className="size-5" /><span className="ml-2">Logout</span>
+                    </button>
+                  </div>
+                )}
             </div>
           </div>
         </nav>
