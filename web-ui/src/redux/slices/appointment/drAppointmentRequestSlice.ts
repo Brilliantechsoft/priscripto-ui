@@ -8,9 +8,12 @@ const appointmentRequestSlice = createSlice({
         setAppointmentRequest: (state, action) => {
             return action.payload;
         },
+        deleteAppointmentRequest: (state, action) => {
+            return state.filter((request) => request.appointmentId !== action.payload);
+        }
     },
 })
 
 
-export const { setAppointmentRequest } = appointmentRequestSlice.actions;
+export const { setAppointmentRequest , deleteAppointmentRequest } = appointmentRequestSlice.actions;
 export default appointmentRequestSlice.reducer;

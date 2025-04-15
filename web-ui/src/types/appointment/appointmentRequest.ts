@@ -1,9 +1,11 @@
 export interface AppointmentRequest {
-    id: number;
+    appointmentId: number;
+    patientId: number;
     patientName: string;
-    dateTime: string;
-    visitType: string;
-    callType: string;
-    profileImageUrl?: string;
+    date: string;
+    time : string;
+    purpose: string;
+    appointmentType: string;
+    profileImage?: string;
     
   }

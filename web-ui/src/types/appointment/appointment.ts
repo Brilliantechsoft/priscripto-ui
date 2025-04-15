@@ -1,11 +1,13 @@
 export interface Appointment {
-  id: number;
+  appointmentId: number;
+  patientId: number;
   patientName: string;
   date: string;
-  visitType: string;
-  callType: string;
+  purpose: string;
+  appointmentType: string;
   email: string;
-  phone: string;
-  status: 'upcoming' | 'cancelled' | 'completed';
+  phoneNo: number;
+  appointmentStatus: 'UPCOMING' | 'CANCELLED' | 'COMPLETED';
   profileImageUrl?: string;
+  time : string
 }

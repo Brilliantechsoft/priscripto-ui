@@ -1,30 +1,45 @@
 import { useEffect, useState } from "react";
-import { ShimmerPostList } from "react-shimmer-effects";  
 import AppSidebar from "../../../layout/AppSidebar";
 import AppointmentCard from "./AppointmentCard";
-
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setAppointment } from "../../../redux/slices/appointment/doctorAppointmentSlice";
 
+const CustomShimmer = () => {
+  return (
+    <div className="grid grid-cols-2 gap-8">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div
+          key={index}
+          className="h-32 bg-gray-200 animate-pulse rounded-lg"
+        ></div>
+      ))}
+    </div>
+  );
+};
+
 const DoctorAppointment = () => {
-  const [activeTab, setActiveTab] = useState<
-    "upcoming" | "cancelled" | "completed"
-  >("upcoming");
+  const [activeTab, setActiveTab] = useState<"upcoming" | "cancelled" | "completed">("upcoming");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-  const appointments = useSelector(
-    (state: RootState) => state.doctorAppointment
-  );
+  const appointments = useSelector((state: RootState) => state.doctorAppointment);
 
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(
-        "https://97d36fe8-7a36-4ec8-bb05-d4a47f537ebb.mock.pstmn.io/api/doctor/1/appointments"
+        import.meta.env.VITE_BACKEND_URL + "/doctors/appointments/" +  1 + "/status"
+        , {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
       );
+      console.log(response);
+      
       dispatch(setAppointment(response?.data));
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -33,14 +48,14 @@ const DoctorAppointment = () => {
     }
   };
 
-  const filteredAppointments = appointments
-    .filter((apt) => apt.status === activeTab)
-    .filter((apt) =>
-      apt.patientName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
   useEffect(() => {
     fetchAppointments();
   }, []);
+
+  const filteredAppointments = appointments
+    .filter((apt) => apt.appointmentStatus.toLowerCase() === activeTab)
+    .filter((apt) => apt.patientName.toLowerCase().includes(searchTerm.toLowerCase()));
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       <div>
@@ -49,9 +64,7 @@ const DoctorAppointment = () => {
 
       <div className="flex-1 p-6 ml-72">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Appointments
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Appointments</h1>
 
           <div className="flex items-center gap-6 mb-4">
             {["upcoming", "cancelled", "completed"].map((tab) => (
@@ -81,17 +94,15 @@ const DoctorAppointment = () => {
         </div>
 
         <div className="space-y-4">
-          {(() => {
-            if (loading) {
-              return <ShimmerPostList postStyle="STYLE_FOUR" col={1} row={3} gap={30} />;
-            }
-            if (filteredAppointments.length > 0) {
-              return filteredAppointments.map((appointment) => (
-                <AppointmentCard key={appointment.id} appointment={appointment} />
-              ));
-            }
-            return <p className="text-gray-500 text-sm">No matching appointments found.</p>;
-          })()}
+          {loading ? (
+            <CustomShimmer />
+          ) : filteredAppointments.length > 0 ? (
+            filteredAppointments.map((appointment) => (
+              <AppointmentCard key={appointment.appointmentId} appointment={appointment} />
+            ))
+          ) : (
+            <p className="text-gray-500 text-sm">No matching appointments found.</p>
+          )}
         </div>
       </div>
     </div>
@@ -99,3 +110,6 @@ const DoctorAppointment = () => {
 };
 
 export default DoctorAppointment;
+
+
+
