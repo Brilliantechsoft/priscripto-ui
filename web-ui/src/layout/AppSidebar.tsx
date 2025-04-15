@@ -24,9 +24,24 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    name: "Patient Registration",
+    name: "Patient Dashboard",
+    icon: <LayoutDashboard className="size-5" />,
+    path: "/patient-dashboard", 
+  },
+  {
+    name: "My Profile",
     icon: <UserCircleIcon className="size-5" />,
-    path: "/patient-registration",
+    path: "/patient-profile",
+  },
+  {
+    name: "My Appointments",
+    icon: <UserCircleIcon className="size-5" />,
+    path: "/patient-appointment",
+  },
+  {
+    name: "LogOut",
+    icon: <UserCircleIcon className="size-5" />,
+    path: "/",
   },
 ];
 

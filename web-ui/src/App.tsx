@@ -20,6 +20,8 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
+import PatientDashboard from "./components/patient/patient-dashboard/PatientDashboard";
+import PatientAppointment from "./components/patient/patient-appointment/PatientAppointment";
 
 export default function App() {
   return (
@@ -45,6 +47,9 @@ export default function App() {
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
         <Route path= "/doctor-appointment-request" element= {<DoctorAppointmentRequest />} />
+
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route path="/patient-appointment" element={<PatientAppointment />} />
 
            {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />
