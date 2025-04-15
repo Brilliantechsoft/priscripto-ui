@@ -33,7 +33,7 @@ const initialState: DoctorState = {
 // Async thunk to fetch doctors
 export const fetchDoctors = createAsyncThunk<Doctor[], string | undefined>(
   "doctors/fetchDoctors",
-  async (speciality, { dispatch }) => {
+  async (speciality) => {
     const response = await axios.get("http://localhost:5002/Doctors_spl");
     const allDoctors = response.data;
 

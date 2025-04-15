@@ -11,7 +11,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import Button from "../ui/button/Button";
 import Appointments from "./Appointment";
 import { Modal } from "../ui/modal";
-import { Link } from "react-router-dom";
+
 
 
 const Doctors: React.FC = () => {
