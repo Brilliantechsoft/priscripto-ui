@@ -35,7 +35,7 @@ export const fetchSpecialities = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctors/specialities",
+        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecNameService",
         {
           headers: {
             "Content-Type": "application/json",
@@ -44,11 +44,18 @@ export const fetchSpecialities = createAsyncThunk(
           withCredentials: true,
         }
       );
-      console.log("Speciality response:", response.data);
-      return response.data;
+
+      const specialities: Specialization[] = response.data.map((item: any) => ({
+        specializationId: item.specializationId,
+        specializationName: item.specializationName,
+      }));
+
+      return specialities;
+      // console.log("Speciality response:", response.data);
+      // return response.data;
     } catch (error) {
       console.error(
-        "Fetch degrees error:",
+        "Fetch specializations error:",
         error.response?.data || error.message
       );
       return rejectWithValue(
@@ -68,7 +75,7 @@ export const fetchServices = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctors/services",
+        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecNameService",
         {
           headers: {
             "Content-Type": "application/json",
@@ -77,8 +84,20 @@ export const fetchServices = createAsyncThunk(
           withCredentials: true,
         }
       );
-      console.log("Service response:", response.data);
-      return response.data;
+      const servicesSet = new Set<string>();
+      response.data.forEach((item: any) => {
+        servicesSet.add(item.services);
+      });
+
+      const services: Service[] = Array.from(servicesSet).map((serviceName, index) => ({
+        serviceId: index + 1, // Temporary ID; 
+        serviceName,
+      }));
+
+      return services;
+
+      // console.log("Service response:", response.data);
+      // return response.data;
     }  catch (error) {
       console.error(
         "Fetch degrees error:",
