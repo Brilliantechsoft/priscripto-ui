@@ -18,8 +18,9 @@ const initialState: DoctorState = {
 export const fetchDoctorSlots = createAsyncThunk(
   "doctor/fetchSlots",
   async (docId: string) => {
+    console.log("Fetching slots for docId:", docId);
     const response = await axios.get(
-      `https://aec2-203-192-220-137.ngrok-free.app/api/v1/doctors/${docId}/available-schedules`,
+      "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
       {
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +28,7 @@ export const fetchDoctorSlots = createAsyncThunk(
         withCredentials: true,
       }
     );
-
+    console.log("Raw API response:", response.data);
     return response.data;
   }
 );
@@ -38,7 +39,13 @@ const appointmentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchDoctorSlots.pending, (state) => {
+        console.log("Fetching slots: pending...");
+        state.status = "loading";
+      })
       .addCase(fetchDoctorSlots.fulfilled, (state, action) => {
+        console.log("Fetched slots:", action.payload);
+
         const groupedSlots = action.payload.map((item: any) =>
           item.timeSlots.map((slot: any) => ({
             ...slot,
@@ -50,12 +57,12 @@ const appointmentSlice = createSlice({
           }))
         );
 
+        console.log("Parsed & grouped slots:", groupedSlots);
         state.slots = groupedSlots;
-      })
-      .addCase(fetchDoctorSlots.pending, (state) => {
-        state.status = "loading";
+        state.status = "suceeded";
       })
       .addCase(fetchDoctorSlots.rejected, (state, action) => {
+        console.error("Failed to fetch slots:", action.error.message);
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch slots";
       });

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import SignIn from "./pages/AuthPages/patient/SignIn";
 import SignUp from "./pages/AuthPages/patient/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
@@ -27,6 +27,7 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 
 export default function App() {
+
   return (
     <Router>
       <ScrollToTop />
@@ -59,8 +60,10 @@ export default function App() {
         <Route path="/video-consult" element={<Banner />} />
         <Route path="/specialization" element={<SpecialityMenu />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
-        <Route path="/doctors/appointment/:docId" element={<Appointments docId="" />} />
-        <Route path="/appointmentform" element={<AppointmentForm/>} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments  />} />
+        <Route path="/appointment/:doctorId/:patientId/:timeSlotId" element={<AppointmentForm />} />
+
+
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

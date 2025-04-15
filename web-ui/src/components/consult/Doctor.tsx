@@ -11,6 +11,8 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import Button from "../ui/button/Button";
 import Appointments from "./Appointment";
 import { Modal } from "../ui/modal";
+import { Link } from "react-router-dom";
+
 
 const Doctors: React.FC = () => {
   const { speciality } = useParams<{ speciality?: string }>();
@@ -23,6 +25,8 @@ const Doctors: React.FC = () => {
   const [selectedDoctorId, setSelectedDoctorId] = useState<string | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
   // Fetch doctors on component mount
   useEffect(() => {
@@ -50,6 +54,8 @@ const Doctors: React.FC = () => {
   if (status === "failed") return <p>Error: {error}</p>;
 
   const handleBookNow = (docId: string) => {
+    console.log(docId);
+    
     setSelectedDoctorId((prevId) => (prevId === docId ? null : docId));
     setIsModalOpen(true);
   };
@@ -100,6 +106,10 @@ const Doctors: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center">
+              {/* <Link 
+              to={`/doctors/appointment/${item.id}`}> */}
+              
+              
                 <Button
                   onClick={() => handleBookNow(item.id.toString())}
                   className={`h-10 ${
@@ -109,16 +119,19 @@ const Doctors: React.FC = () => {
                 >
                   {isAvailable ? "BOOK NOW" : "Not Available"}
                 </Button>
+              {/* </Link> */}
               </div>
             </div>
 
             <Modal
               width="w-[500px]"
               height="h-[70vh]"
-              isOpen={isModalOpen}
+              isOpen={isModalOpen }
               onClose={() => setIsModalOpen(false)}
             >
-              <Appointments docId={item.id.toString()}/>
+           
+              
+           {selectedDoctorId && <Appointments docId={selectedDoctorId} />}
             </Modal>
           </div>
         );
