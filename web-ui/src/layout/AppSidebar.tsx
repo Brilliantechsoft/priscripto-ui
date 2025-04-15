@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
 import {
+  CalenderIcon,
   ChevronDownIcon,
   DoctorIcon,
   HorizontaLDots,
@@ -12,6 +13,8 @@ import {
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import { AppWindow, LayoutDashboard, LogInIcon, LogOut } from "lucide-react";
+import axios from "axios";
 
 type NavItem = {
   name: string;
@@ -29,9 +32,24 @@ const navItems: NavItem[] = [
 
 const doctorNavItems: NavItem[] = [
   {
-    name: "Your Profile",
+    name: "Dashboard",
+    icon: <LayoutDashboard className="size-5" />,
+    path: "/doctor-dashboard",
+  },
+  {
+    name: "My Profile",
     icon: <UserCircleIcon className="size-5" />,
     path: "/doctor-profile",
+  },
+  {
+    name: "Appointment Request",
+    icon: <AppWindow className="size-5" />,
+    path: "/doctor-appointment-request",
+  },
+  {
+    name: "Appointment",
+    icon: <CalenderIcon className="size-5" />,
+    path: "/doctor-appointment",
   },
 ];
 
@@ -61,6 +79,19 @@ const AppSidebar: React.FC = () => {
     (path: string) => location.pathname === path,
     [location.pathname]
   );
+
+  const handleLogout = async () => {
+    await axios.post(
+      import.meta.env.VITE_BACKEND_URL + "/auth/logout", {} ,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -275,10 +306,29 @@ const AppSidebar: React.FC = () => {
                   <HorizontaLDots className="size-6" />
                 )}
               </h2>
+              {token?.role === "DOCTOR" && (
+                <div className="mb-4">
+                  <h2 className="text-lg font-semibold mb-2">Availability <span className="text-red-400">*</span></h2>
+                  <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="available-now">I am Available Now</option>
+                    <option value="not-available">Not Available</option>
+                  </select>
+                </div>
+              )}
               {/* {renderMenuItems(navItems, "main")} */}
               {token?.role === "DOCTOR"
                 ? renderMenuItems(doctorNavItems, "main")
                 : renderMenuItems(navItems, "main")}
+
+                { token?.role === "DOCTOR" && (
+                  <div className="mb-4 mt-5 font-light">
+                    <button className="flex ml-4 hover:text-red-500"
+                    onClick={() => handleLogout()}
+                    >
+                      <LogOut className="size-5" /><span className="ml-2">Logout</span>
+                    </button>
+                  </div>
+                )}
             </div>
           </div>
         </nav>

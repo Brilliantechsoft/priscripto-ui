@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { fetchDoctorProfile } from "./doctorProfileSlice";
+// import { fetchDoctorProfile } from "./doctorProfileSlice";
 
-const LOGIN_DOCTOR_URL =
-  "https://aec2-203-192-220-137.ngrok-free.app/api/auth/login";
+const LOGIN_PATIENT_URL = "https://aec2-203-192-220-137.ngrok-free.app/api/auth/login";
 
 interface User {
   id: string;
@@ -13,7 +12,7 @@ interface User {
   lastName?: string;
 }
 
-interface DoctorSignInResponse {
+interface PatientSignInResponse {
   success: boolean;
   jwt: string;
   message: string;
@@ -25,7 +24,7 @@ interface ApiError {
   message: string;
 }
 
-interface DoctorSignInState {
+interface PatientSignInState {
   email: string;
   password: string;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -35,7 +34,7 @@ interface DoctorSignInState {
   user: User | null;
 }
 
-const initialState: DoctorSignInState = {
+const initialState: PatientSignInState = {
   email: "",
   password: "",
   status: "idle",
@@ -46,20 +45,20 @@ const initialState: DoctorSignInState = {
   user: JSON.parse(localStorage.getItem("user") || "null"),
 };
 
-export const signInDoctor = createAsyncThunk(
-  "signInDoctor/signInDoctor",
+export const signInPatient = createAsyncThunk(
+  "signInPatient/signInPatient",
   async (
-    doctorData: { email: string; password: string },
+    patientData: { email: string; password: string },
     { rejectWithValue, dispatch }
   ) => {
     try {
       const payload = {
-        ...doctorData,
-        role: "DOCTOR",
+        ...patientData,
+        role: "PATIENT",
       };
 
-      const response = await axios.post<DoctorSignInResponse>(
-        LOGIN_DOCTOR_URL,
+      const response = await axios.post<PatientSignInResponse>(
+        LOGIN_PATIENT_URL,
         payload,
         {
           headers: {
@@ -70,12 +69,11 @@ export const signInDoctor = createAsyncThunk(
       );
       // alert(response.data);
       // Storing token in localStorage
-      localStorage.setItem("jwt", response.data.jwt);
-      console.log("jwt");
+      localStorage.setItem("token", response.data.jwt);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       console.log("Login Response", response.data);
 
-      await dispatch(fetchDoctorProfile());
+    //   await dispatch(fetchDoctorProfile());
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -95,18 +93,18 @@ export const signInDoctor = createAsyncThunk(
   }
 );
 
-const signInDoctorSlice = createSlice({
-  name: "signInDoctor",
+const signInPatientSlice = createSlice({
+  name: "signInPatient",
   initialState,
   reducers: {
-    setDoctorSignInData: (
+    setPatientSignInData: (
       state,
       action: PayloadAction<{ email: string; password: string }>
     ) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
     },
-    clearDoctorSignInData: (state) => {
+    clearPatientSignInData: (state) => {
       state.email = "";
       state.password = "";
       state.status = "idle";
@@ -121,11 +119,11 @@ const signInDoctorSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signInDoctor.pending, (state) => {
+      .addCase(signInPatient.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(signInDoctor.fulfilled, (state, action) => {
+      .addCase(signInPatient.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.token = action.payload.jwt;
         state.user = action.payload.user;
@@ -133,7 +131,7 @@ const signInDoctorSlice = createSlice({
         state.isLoggedIn = true;
         state.error = null;
       })
-      .addCase(signInDoctor.rejected, (state, action) => {
+      .addCase(signInPatient.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
         state.token = null;
@@ -143,7 +141,7 @@ const signInDoctorSlice = createSlice({
   },
 });
 
-export const { setDoctorSignInData, clearDoctorSignInData } =
-  signInDoctorSlice.actions;
+export const { setPatientSignInData, clearPatientSignInData } =
+signInPatientSlice.actions;
 
-export default signInDoctorSlice.reducer;
+export default signInPatientSlice.reducer;
