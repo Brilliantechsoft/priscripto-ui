@@ -24,7 +24,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    name: "Patient Dashboard",
+    name: "Dashboard",
     icon: <LayoutDashboard className="size-5" />,
     path: "/patient-dashboard", 
   },
