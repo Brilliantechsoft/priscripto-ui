@@ -180,7 +180,7 @@ export const updateDoctorProfile = createAsyncThunk(
       // console.log("Final update payload:", updatePayload);
 
       const response = await axios.put<Doctor>(
-        `https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor/update`,
+        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctor/update`,
         data,
         {
           headers: {
@@ -215,7 +215,7 @@ export const fetchDoctorProfile = createAsyncThunk(
       }
 
       const response = await axios.get<Doctor>(
-        `https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor`,
+        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctor`,
         {
           headers: {
             "Content-Type": "application/json",
