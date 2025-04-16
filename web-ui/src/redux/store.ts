@@ -13,6 +13,8 @@ import specialityReducer from "../redux/slices/consult/specialityMenuSlice";
 import doctorReducer from "../redux/slices/consult/doctorSlice";
 import appointmentReducer from "../redux/slices/consult/appointmentSlice";
 
+import doctorAvailabilityReducer from "../redux/slices/doctor/doctorAvailibility";
+
 export const store = configureStore({
   reducer: {
     registerDoctor: registerDoctorReducer,
@@ -27,6 +29,7 @@ export const store = configureStore({
     specialities:specialityReducer,
     doctors: doctorReducer,
     doctor: appointmentReducer,
+    doctorAvailability: doctorAvailabilityReducer,
   },
 });
 

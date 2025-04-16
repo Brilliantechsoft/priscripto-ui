@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 // import { useState } from "react";
 
@@ -15,6 +15,9 @@ import {
 import { useSidebar } from "../context/SidebarContext";
 import { AppWindow, LayoutDashboard, LogInIcon, LogOut } from "lucide-react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { setDoctorAvailability } from "../redux/slices/doctor/doctorAvailibility";
 
 type NavItem = {
   name: string;
@@ -256,6 +259,37 @@ const AppSidebar: React.FC = () => {
     </ul>
   );
 
+ 
+  const dispatch = useDispatch();
+  const doctorAvailability = useSelector((state: RootState) => state.doctorAvailability)
+
+
+  async function handleAvlibility(e: ChangeEvent<HTMLSelectElement>) {
+    const status = e.target.value;
+    console.log(status);
+   
+    await axios
+      .put(
+        `${import.meta.env.VITE_BACKEND_URL}/doctors/availability`,
+        { status  ,
+          doctorId: token?.id || 1,
+         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log("Availability updated:", response.data);
+        dispatch(setDoctorAvailability(response.data))
+      })
+      .catch((error) => {
+        console.error("Error updating availability:", error);
+      });
+  }
+
   return (
     <aside
       className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
@@ -324,9 +358,9 @@ const AppSidebar: React.FC = () => {
               {token?.role === "DOCTOR" && (
                 <div className="mb-4">
                   <h2 className="text-lg font-semibold mb-2">Availability <span className="text-red-400">*</span></h2>
-                  <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="available-now">I am Available Now</option>
-                    <option value="not-available">Not Available</option>
+                  <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={(e) => { handleAvlibility(e); }}>
+                    <option value="false">Not Available</option>
+                    <option value="true">I am Available Now  </option>
                   </select>
                 </div>
               )}
