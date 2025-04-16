@@ -100,13 +100,15 @@ const AppSidebar: React.FC = () => {
 
   const handleLogout = async () => {
     await axios.post(
-      import.meta.env.VITE_BACKEND_URL + "/auth/logout", {} ,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    })
+      import.meta.env.VITE_BACKEND_URL + "/auth/logout",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
     localStorage.removeItem("token");
     setToken(null);
   };
@@ -369,15 +371,17 @@ const AppSidebar: React.FC = () => {
                 ? renderMenuItems(doctorNavItems, "main")
                 : renderMenuItems(navItems, "main")}
 
-                { token?.role === "DOCTOR" && (
-                  <div className="mb-4 mt-5 font-light">
-                    <button className="flex ml-4 hover:text-red-500"
+              {token?.role === "DOCTOR" && (
+                <div className="mb-4 mt-5 font-light">
+                  <button
+                    className="flex ml-4 hover:text-red-500"
                     onClick={() => handleLogout()}
-                    >
-                      <LogOut className="size-5" /><span className="ml-2">Logout</span>
-                    </button>
-                  </div>
-                )}
+                  >
+                    <LogOut className="size-5" />
+                    <span className="ml-2">Logout</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </nav>

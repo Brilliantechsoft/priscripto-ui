@@ -5,13 +5,14 @@ import PageMeta from "../components/common/PageMeta";
 import { useState } from "react";
 import { ReactElement } from "react";
 import DoctorEducationCard from "../components/UserProfile/DoctorEducationCard";
+import DoctorSpecialityCard from "../components/UserProfile/DoctorSpecialityCard";
 
 type TabKey = "basic-details" | "education" | "specialities";
 
 const tabContent: Record<TabKey, ReactElement> = {
   "basic-details": <UserInfoCard />,
   education: <DoctorEducationCard />,
-  specialities: <div>Speciality Content</div>,
+  specialities: <DoctorSpecialityCard />,
   // awards: <div>Awards Content Placeholder</div>,
   // insurances: <div>Insurances Content Placeholder</div>,
   // clinics: <div>Clinics Content Placeholder</div>,
