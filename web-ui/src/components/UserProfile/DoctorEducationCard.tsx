@@ -58,7 +58,7 @@ export default function DoctorEducationCard() {
   );
 
   const [formData, setFormData] = useState({
-    degreeId: null as number | null,
+    degreeName: null as string | null,
     instituteName: null as string | null,
     startDate: null as Date | null,
     endDate: null as Date | null,
@@ -71,7 +71,7 @@ export default function DoctorEducationCard() {
   useEffect(() => {
     if (educationData) {
       setFormData({
-        degreeId: educationData.degreeId,
+        degreeName: educationData.degreeName,
         instituteName: educationData.instituteName,
         startDate: educationData.startDate
           ? new Date(educationData.startDate)
@@ -83,13 +83,13 @@ export default function DoctorEducationCard() {
 
   const handleSave = () => {
     if (
-      formData.degreeId &&
+      formData.degreeName &&
       formData.instituteName &&
       formData.startDate &&
       formData.endDate
     ) {
       const data = {
-        degreeId: formData.degreeId,
+        degreeName: formData.degreeName,
         instituteName: formData.instituteName,
         startDate: formData.startDate.toLocaleDateString("en-GB"), // Formats as dd/mm/yyyy
         endDate: formData.endDate.toLocaleDateString("en-GB"), // Formats as dd/mm/yyyy
@@ -107,7 +107,7 @@ export default function DoctorEducationCard() {
   const handleReset = () => {
     dispatch(resetEducation());
     setFormData({
-      degreeId: null,
+      degreeName: null,
       instituteName: null,
       startDate: null,
       endDate: null,
@@ -145,9 +145,9 @@ export default function DoctorEducationCard() {
             </label>
             <select
               className="w-full max-w-full p-2 border border-gray-300 rounded-md"
-              value={formData.degreeId || ""}
+              value={formData.degreeName || ""}
               onChange={(e) =>
-                setFormData({ ...formData, degreeId: Number(e.target.value) })
+                setFormData({ ...formData, degreeName: e.target.value })
               }
               disabled={loading}
             >
@@ -233,7 +233,7 @@ export default function DoctorEducationCard() {
             onClick={handleSave}
             disabled={
               loading ||
-              !formData.degreeId ||
+              !formData.degreeName ||
               !formData.instituteName ||
               !formData.startDate ||
               !formData.endDate
