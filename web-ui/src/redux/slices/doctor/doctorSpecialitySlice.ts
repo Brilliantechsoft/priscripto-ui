@@ -35,7 +35,7 @@ export const fetchSpecialities = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecNameService",
+        "http://192.168.1.49:8080/v1/doctors/getSpecNameService",
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const fetchServices = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecNameService",
+        "http://192.168.1.49:8080/v1/doctors/getSpecNameService",
         {
           headers: {
             "Content-Type": "application/json",
@@ -114,8 +114,8 @@ export const updateSpecialityService = createAsyncThunk(
   "doctorSpeciality/updateSpecialityService",
   async (
     data: {
-      specializationId: number;
-      serviceId: number;
+      specializationName: string;
+      serviceName: string;
       price: number;
     },
     { rejectWithValue }
@@ -127,7 +127,7 @@ export const updateSpecialityService = createAsyncThunk(
       }
 
       const response = await axios.put(
-        "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor/speciality-service",
+        "http://192.168.1.49:8080/api/v1/doctors/update-specializations",
         data,
         {
           headers: {

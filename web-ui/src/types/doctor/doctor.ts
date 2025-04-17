@@ -4,7 +4,7 @@ export interface Doctor {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: number;
+  phoneNumber?: number;
   age?: number;
   country?: string;
   state?: string;
@@ -12,7 +12,7 @@ export interface Doctor {
   pincode?: number;
   clinicAddress?: string;
   gender?: string;
-  profilePicture?: string;
+  image?: string;
   education?: Education[];
   specialities?: SpecialityService[];
 }

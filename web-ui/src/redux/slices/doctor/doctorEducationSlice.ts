@@ -40,7 +40,7 @@ export const fetchDegrees = createAsyncThunk(
       // }
 
       const response = await axios.get(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
+        "http://192.168.1.49:8080/api/v1/doctors/degrees",
         {
           headers: {
             "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export const updateEducation = createAsyncThunk(
       }
 
       const response = await axios.put(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/education",
+        "http://192.168.1.49:8080/api/v1/doctors/update-degrees",
         data,
         {
           headers: {

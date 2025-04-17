@@ -20,6 +20,7 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
+import DoctorAvailabilityCard from "./components/doctor/doctor-availability/DoctorAvailabilityCard";
 
 export default function App() {
   return (
@@ -39,19 +40,29 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/drsignin" element={<DrSignIn />} />
         <Route path="/drsignup" element={<DrSignUp />} />
-        <Route path="/patientsignin" element={<PatientSignIn />} /> 
+        <Route path="/patientsignin" element={<PatientSignIn />} />
         <Route path="/patientsignup" element={<PatientSignUp />} />
 
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
-        <Route path= "/doctor-appointment-request" element= {<DoctorAppointmentRequest />} />
+        <Route
+          path="/doctor-appointment-request"
+          element={<DoctorAppointmentRequest />}
+        />
+        <Route
+          path="/doctor-available-timing"
+          element={<DoctorAvailabilityCard />}
+        />
 
-           {/* Doctor booking */}
+        {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />
         <Route path="/specialization" element={<SpecialityMenu />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
-        <Route path="/doctors/appointment/:docId" element={<Appointments docId="" />} />
-        <Route path="/appointmentform" element={<AppointmentForm/>} />
+        <Route
+          path="/doctors/appointment/:docId"
+          element={<Appointments docId="" />}
+        />
+        <Route path="/appointmentform" element={<AppointmentForm />} />
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

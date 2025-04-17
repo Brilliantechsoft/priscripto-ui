@@ -10,6 +10,7 @@ import {
   HorizontaLDots,
   ListIcon,
   TableIcon,
+  TimeIcon,
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -53,6 +54,11 @@ const doctorNavItems: NavItem[] = [
     name: "Appointment",
     icon: <CalenderIcon className="size-5" />,
     path: "/doctor-appointment",
+  },
+  {
+    name: "Available Timings",
+    icon: <TimeIcon className="size-5" />,
+    path: "/doctor-available-timing",
   },
 ];
 
@@ -246,21 +252,19 @@ const AppSidebar: React.FC = () => {
     </ul>
   );
 
- 
   const dispatch = useDispatch();
-  const doctorAvailability = useSelector((state: RootState) => state.doctorAvailability)
-
+  const doctorAvailability = useSelector(
+    (state: RootState) => state.doctorAvailability
+  );
 
   async function handleAvlibility(e: ChangeEvent<HTMLSelectElement>) {
     const status = e.target.value;
     console.log(status);
-   
+
     await axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/doctors/availability`,
-        { status  ,
-          doctorId: token?.id || 1,
-         },
+        { status, doctorId: token?.id || 1 },
         {
           headers: {
             "Content-Type": "application/json",
@@ -270,7 +274,7 @@ const AppSidebar: React.FC = () => {
       )
       .then((response) => {
         console.log("Availability updated:", response.data);
-        dispatch(setDoctorAvailability(response.data))
+        dispatch(setDoctorAvailability(response.data));
       })
       .catch((error) => {
         console.error("Error updating availability:", error);
@@ -344,10 +348,17 @@ const AppSidebar: React.FC = () => {
               </h2>
               {token?.role === "DOCTOR" && (
                 <div className="mb-4">
-                  <h2 className="text-lg font-semibold mb-2">Availability <span className="text-red-400">*</span></h2>
-                  <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={(e) => { handleAvlibility(e); }}>
+                  <h2 className="text-lg font-semibold mb-2">
+                    Availability <span className="text-red-400">*</span>
+                  </h2>
+                  <select
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => {
+                      handleAvlibility(e);
+                    }}
+                  >
                     <option value="false">Not Available</option>
-                    <option value="true">I am Available Now  </option>
+                    <option value="true">I am Available Now </option>
                   </select>
                 </div>
               )}

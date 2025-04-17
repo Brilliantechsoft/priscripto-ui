@@ -2,8 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { fetchDoctorProfile } from "./doctorProfileSlice";
 
-const LOGIN_DOCTOR_URL =
-  "https://9702-203-192-220-137.ngrok-free.app/api/auth/login";
+const LOGIN_DOCTOR_URL = "http://192.168.1.49:8080/api/auth/login";
 
 interface User {
   id: string;
