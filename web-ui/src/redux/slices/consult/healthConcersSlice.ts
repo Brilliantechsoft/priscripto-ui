@@ -1,37 +1,38 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Speciality {
-  specializationName: string;
-  specializationId: number;
+interface HealthConcern{
+  HealthConcernId: number;
+  HealthConcernName: string;
+  Fees:number;
 }
 
-interface SpecialityState {
-  data: Speciality[];
+interface HealthConcernState {
+  data:HealthConcern[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: SpecialityState = {
+const initialState: HealthConcernState = {
   data: [],
   loading: false,
   error: null,
 };
 
-export const fetchSpecialities = createAsyncThunk<
-  Speciality[],
+export const fetchHealthConcerns = createAsyncThunk<
+HealthConcern[],
   void,
   { rejectValue: string }
->("specialities/fetchSpecialities", async (_, { rejectWithValue }) => {
+>("HealthConcerns/fetchHealthConcerns", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
+      "http://localhost:5008/HealthConcern"
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     withCredentials: true,
+    //   }
     );
 
     return response.data;
@@ -42,24 +43,24 @@ export const fetchSpecialities = createAsyncThunk<
   }
 });
 
-const specialitySlice = createSlice({
-  name: "specialities",
+const HealthConcernSlice = createSlice({
+  name: "HealthConcern",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSpecialities.pending, (state) => {
+      .addCase(fetchHealthConcerns.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        fetchSpecialities.fulfilled,
-        (state, action: PayloadAction<Speciality[]>) => {
+        fetchHealthConcerns.fulfilled,
+        (state, action: PayloadAction<HealthConcern[]>) => {
           state.loading = false;
           state.data = action.payload;
         }
       )
-      .addCase(fetchSpecialities.rejected, (state, action) => {
+      .addCase(fetchHealthConcerns.rejected, (state, action) => {
         state.loading = false;
         state.error =
           typeof action.payload === "string"
@@ -69,4 +70,4 @@ const specialitySlice = createSlice({
   },
 });
 
-export default specialitySlice.reducer;
+export default HealthConcernSlice.reducer;

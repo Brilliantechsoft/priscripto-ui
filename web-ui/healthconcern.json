@@ -1,0 +1,62 @@
+{
+    "HealthConcern":[
+        {
+            "HealthConcernId":"1",
+            "HealthConcernName":"Cough and cold",
+            "Fees":"300"       
+         },
+         {
+            "HealthConcernId":"2",
+            "HealthConcernName":"Period Problems",
+            "Fees":"350"       
+         },
+         {
+            "HealthConcernId":"3",
+            "HealthConcernName":"Skin Problems",
+            "Fees":"500"       
+         },
+         {
+            "HealthConcernId":"4",
+            "HealthConcernName":"Stomach issues",
+            "Fees":"350"       
+         },
+         {
+            "HealthConcernId":"5",
+            "HealthConcernName":"Depression or Anxiety",
+            "Fees":"550"
+         },
+         {
+            "HealthConcernId":"6",
+            "HealthConcernName":"Want to Loose Weight",
+            "Fees":"400"       
+         },
+         {
+            "HealthConcernId":"7",
+            "HealthConcernName":"Heart Problems",
+            "Fees":"700"       
+         },
+         {
+            "HealthConcernId":"8",
+            "HealthConcernName":"Sick Kid",
+            "Fees":"450"       
+         },
+         {
+            "HealthConcernId":"9",
+            "HealthConcernName":"Eye problems",
+            "Fees":"300"       
+         },
+         {
+            "HealthConcernId":"10",
+            "HealthConcernName":"Dental Problems",
+            "Fees":"350"
+         },
+         {
+            "HealthConcernId":"11",
+            "HealthConcernName":"Need a Psychiatrist",
+            "Fees":"700" 
+         }
+
+
+       
+    ]
+}
