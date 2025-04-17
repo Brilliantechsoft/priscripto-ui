@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
-const REGISTER_DOCTOR_URL =
-  "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctor/register";
+const REGISTER_PATIENT_URL = "https://aec2-203-192-220-137.ngrok-free.app/api/v1/patient/register";
 
-interface DoctorRegistrationState {
+interface PatientRegistrationState {
   firstName: string;
   lastName: string;
   email: string;
@@ -14,14 +13,14 @@ interface DoctorRegistrationState {
   error: string | null;
 }
 
-interface DoctorRegistrationPayload {
+interface PatientRegistrationPayload {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
 }
 
-interface DoctorRegistrationResponse {
+interface PatientRegistrationResponse {
   id: string;
   email: string;
   firstName: string;
@@ -29,7 +28,7 @@ interface DoctorRegistrationResponse {
   role: string;
 }
 
-const initialState: DoctorRegistrationState = {
+const initialState: PatientRegistrationState = {
   firstName: "",
   lastName: "",
   email: "",
@@ -39,30 +38,17 @@ const initialState: DoctorRegistrationState = {
   error: null,
 };
 
-// export const registerDoctor = createAsyncThunk(
-//   "registerDoctor/registerDoctor",
-//   async (doctorData: DoctorRegistrationPayload, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(REGISTER_DOCTOR_URL, doctorData);
-//       return response.data;
-//     } catch (error) {
-//       const axiosError = error as AxiosError;
-//       return rejectWithValue(axiosError.response?.data || "An error occured");
-//     }
-//   }
-// );
-
-export const registerDoctor = createAsyncThunk(
-  "registerDoctor/registerDoctor",
-  async (doctorData: DoctorRegistrationPayload, { rejectWithValue }) => {
+export const registerPatient = createAsyncThunk(
+  "registerPatient/registerPatient",
+  async (patientData: PatientRegistrationPayload, { rejectWithValue }) => {
     try {
       const payload = {
-        ...doctorData,
-        role: "DOCTOR", // Hidden role added here
+        ...patientData,
+        role: "PATIENT",
       };
 
-      const response = await axios.post<DoctorRegistrationResponse>(
-        REGISTER_DOCTOR_URL,
+      const response = await axios.post<PatientRegistrationResponse>(
+        REGISTER_PATIENT_URL,
         payload,
         {
           headers: {
@@ -77,7 +63,6 @@ export const registerDoctor = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        // error response coming from the backend
         console.error("Backend Error Response:", axiosError.response.data);
         return rejectWithValue(
           axiosError.response.data || "Registration failed"
@@ -89,18 +74,18 @@ export const registerDoctor = createAsyncThunk(
   }
 );
 
-const registerDoctorSlice = createSlice({
-  name: "registerDoctor",
+const registerPatientSlice = createSlice({
+  name: "registerPatient",
   initialState,
   reducers: {
-    setDoctorData: (state, action: PayloadAction<DoctorRegistrationState>) => {
+    setPatientData: (state, action: PayloadAction<PatientRegistrationState>) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.email = action.payload.email;
       state.password = action.payload.password;
     },
 
-    clearDoctorData: (state) => {
+    clearPatientData: (state) => {
       state.firstName = "";
       state.lastName = "";
       state.email = "";
@@ -112,24 +97,22 @@ const registerDoctorSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(registerDoctor.pending, (state) => {
+      .addCase(registerPatient.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(registerDoctor.fulfilled, (state, action) => {
+      .addCase(registerPatient.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        // Store registration data and token if available
-        // state.token = action.payload.token || null;
         state.email = action.payload.email;
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;
       })
-      .addCase(registerDoctor.rejected, (state, action) => {
+      .addCase(registerPatient.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
       });
   },
 });
 
-export const { setDoctorData, clearDoctorData } = registerDoctorSlice.actions;
-export default registerDoctorSlice.reducer;
+export const { setPatientData, clearPatientData } = registerPatientSlice.actions;
+export default registerPatientSlice.reducer;

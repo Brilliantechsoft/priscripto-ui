@@ -1,8 +1,8 @@
+import PatientSignUpForm from "../../../components/auth/patient/PatientSignUpForm";
 import PageMeta from "../../../components/common/PageMeta";
 import AuthLayout from "../AuthPageLayout";
-import SignUpForm from "../../../components/auth/patient/SignUpForm";
 
-export default function SignUp() {
+export default function PatientSignUp() {
   return (
     <>
       <PageMeta
@@ -10,7 +10,7 @@ export default function SignUp() {
         description="This is React.js SignUp Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <AuthLayout>
-        <SignUpForm />
+        <PatientSignUpForm/>
       </AuthLayout>
     </>
   );

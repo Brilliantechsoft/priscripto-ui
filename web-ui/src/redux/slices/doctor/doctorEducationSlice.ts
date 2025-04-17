@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Doctor } from "../../../types/doctor/doctor";
+import { Education, Degree, Doctor } from "../../../types/doctor/doctor";
 
 // initial state
 interface EducationState {
-  degrees: { id: number; name: string }[]; // List of degrees from backend
+  degrees: { id: number; name: string }[];
   educationData: {
-    id?: number; // Optional ID for editing existing education
-    degreeId: number | null;
+    id?: number;
+    degreeName: string | null;
     instituteName: string | null;
     startDate: string | null;
     endDate: string | null;
@@ -26,21 +26,21 @@ const initialState: EducationState = {
 // Fetching degrees from backend
 export const fetchDegrees = createAsyncThunk(
   "doctorEducation/fetchDegrees",
-  async (_, { getState, rejectWithValue }) => {
+  async (_, {rejectWithValue }) => {
     try {
       const token = localStorage.getItem("jwt");
       if (!token) {
         throw new Error("No authentication token found");
       }
 
-      const state = getState() as { signInDoctor: { user: Doctor } };
-      const doctorId = state.signInDoctor.user.id;
-      if (!doctorId) {
-        throw new Error("Doctor ID not found");
-      }
+      // const state = getState() as { signInDoctor: { user: Doctor } };
+      // const doctorId = state.signInDoctor.user.id;
+      // if (!doctorId) {
+      //   throw new Error("Doctor ID not found");
+      // }
 
       const response = await axios.get(
-        "https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
+        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
         {
           headers: {
             "Content-Type": "application/json",
@@ -68,31 +68,39 @@ export const updateEducation = createAsyncThunk(
   "doctorEducation/updateEducation",
   async (
     data: {
-      degreeId: number;
+      degreeName: string;
       instituteName: string;
       startDate: string;
       endDate: string;
     },
-    { getState, rejectWithValue }
+    { rejectWithValue }
   ) => {
     try {
-      const state = getState() as { signInDoctor: { user: Doctor } };
-      const doctorId = state.signInDoctor.user.id;
-
-      if (!doctorId) {
-        throw new Error("Doctor ID not found");
+      const token = localStorage.getItem("jwt");
+      if (!token) {
+        throw new Error("No authentication token found");
       }
 
-      const response = await axios.put(`updateDoctorApi${doctorId}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        withCredentials: true,
-      });
+      const response = await axios.put(
+        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/education",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
       return response.data;
     } catch (error) {
-      return rejectWithValue("Failed to update education");
+      console.error(
+        "Update education error:",
+        error.response?.data || error.message
+      );
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update education"
+      );
     }
   }
 );
@@ -102,10 +110,30 @@ export const deleteEducation = createAsyncThunk(
   "doctorEducation/deleteEducation",
   async (id: number, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/education/${id}`);
+      const token = localStorage.getItem("jwt");
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      await axios.delete(
+        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/education/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
       return id;
     } catch (error) {
-      return rejectWithValue("Failed to delete education");
+      console.error(
+        "Delete education error:",
+        error.response?.data || error.message
+      );
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to delete education"
+      );
     }
   }
 );
@@ -116,7 +144,7 @@ const doctorEducationSlice = createSlice({
   reducers: {
     resetEducation: (state) => {
       state.educationData = {
-        degreeId: null,
+        degreeName: null,
         instituteName: null,
         startDate: null,
         endDate: null,

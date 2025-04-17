@@ -35,6 +35,7 @@ interface FormData {
   country: string;
   state: string;
   city: string;
+  pincode: number | "";
   clinicAddress: string;
   gender: string;
   profilePicture: File | null;
@@ -53,6 +54,7 @@ export default function UserInfoCard() {
     country: "",
     state: "",
     city: "",
+    pincode: "",
     clinicAddress: "",
     gender: "",
     profilePicture: null,
@@ -79,6 +81,7 @@ export default function UserInfoCard() {
         country: doctor.country || "",
         state: doctor.state || "",
         city: doctor.city || "",
+        pincode: doctor.pincode || "",
         clinicAddress: doctor.clinicAddress || "",
         gender: doctor.gender || "",
         profilePicture: null,
@@ -232,6 +235,7 @@ export default function UserInfoCard() {
           : formData.country,
       state: formData.state,
       city: formData.city,
+      pincode: formData.pincode as number,
       clinicAddress: formData.clinicAddress,
       gender: formData.gender,
     };
@@ -277,6 +281,7 @@ export default function UserInfoCard() {
       country: doctor?.country || "",
       state: doctor?.state || "",
       city: doctor?.city || "",
+      pincode: doctor?.pincode || "",
       clinicAddress: doctor?.clinicAddress || "",
       gender: doctor?.gender || "",
       profilePicture: null,
@@ -342,7 +347,7 @@ export default function UserInfoCard() {
           {/* Age */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Age
+              Age *
             </label>
             <input
               type="number"
@@ -358,12 +363,12 @@ export default function UserInfoCard() {
           {/* Country, State, City */}
           <div className="lg:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Location
+              Location *
             </label>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <select
                 name="country"
-                className="flex-1 p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md"
                 value={formData.country}
                 onChange={handleCountryChange}
                 disabled={loading}
@@ -378,7 +383,7 @@ export default function UserInfoCard() {
 
               <select
                 name="state"
-                className="flex-1 p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md"
                 value={formData.state}
                 onChange={handleStateChange}
                 disabled={loading || !formData.country}
@@ -399,7 +404,7 @@ export default function UserInfoCard() {
 
               <select
                 name="city"
-                className="flex-1 p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md"
                 value={formData.city}
                 onChange={handleCityChange}
                 disabled={loading || !formData.state || cities.length === 0}
@@ -420,45 +425,63 @@ export default function UserInfoCard() {
             </div>
           </div>
 
-          {/* Clinic Address */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Clinic Address
-            </label>
-            <input
-              type="text"
-              name="clinicAddress"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              value={formData.clinicAddress}
-              onChange={handleInputChange}
-              disabled={loading}
-              placeholder="Enter clinic address"
-            />
-          </div>
+          {/* Clinic Address, Pincode, Gender */}
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Pincode *
+                </label>
+                <input
+                  type="text"
+                  name="pincode"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.pincode}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                  placeholder="Enter pincode"
+                />
+              </div>
 
-          {/* Gender */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Gender
-            </label>
-            <select
-              name="gender"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              value={formData.gender}
-              onChange={handleInputChange}
-              disabled={loading}
-            >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Clinic Address *
+                </label>
+                <input
+                  type="text"
+                  name="clinicAddress"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.clinicAddress}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                  placeholder="Enter clinic address"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Gender *
+                </label>
+                <select
+                  name="gender"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           {/* Profile Picture */}
           <div className="lg:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Profile Image
+              Profile Image *
             </label>
             <div className="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
               <div className="flex items-center gap-4">
