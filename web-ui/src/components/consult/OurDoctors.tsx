@@ -1,6 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import Radhika from "../../../public/images/user/radhika.jpg"
 
 const responsive = {
     desktop: {
@@ -41,7 +41,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -55,7 +55,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -69,7 +69,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -83,7 +83,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -97,7 +97,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -110,7 +110,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -124,7 +124,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>
@@ -138,7 +138,7 @@ export const OurDoctors = () => {
           <li className="flex flex-center w-[250px] mr-[30px]">
             <div className="rounded-md bg-slate-100 hover:bg-slate-200 duration-300 flex gap-4 overflow-hidden">
               <div className="w-1/3 object-cover aspect-video">
-                <img src="" height="54px" width="54px" alt="" />
+                <img src={Radhika} height="150px" width="150px" alt="" />
               </div>
               <div className="flex flex-col w-2/3 py-4">
                 <h4>Dr.Radhika Apte</h4>

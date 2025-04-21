@@ -14,6 +14,7 @@ import specialityReducer from "../redux/slices/consult/specialityMenuSlice";
 import doctorReducer from "../redux/slices/consult/doctorSlice";
 import appointmentReducer from "../redux/slices/consult/appointmentSlice";
 import appointmentFormReducer from "../redux/slices/consult/appointmentFormSlice"
+import healthConcernsReducer from "../redux/slices/consult/healthConcersSlice";
 
 import doctorAvailabilityReducer from "../redux/slices/doctor/doctorAvailibility";
 
@@ -33,6 +34,7 @@ export const store = configureStore({
     doctors: doctorReducer,
     doctor: appointmentReducer,
     appointmentForm: appointmentFormReducer,
+    healthConcerns :healthConcernsReducer,
     doctorAvailability: doctorAvailabilityReducer,
   },
 });

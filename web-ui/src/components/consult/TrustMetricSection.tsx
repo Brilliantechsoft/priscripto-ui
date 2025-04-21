@@ -2,7 +2,7 @@ import React from 'react'
 
 export const TrustMetricSection = () => {
   return (
-    <div className="w-full h-[180px] bg-blue-500 flex flex-row justify-between">
+    <div className="w-full h-[180px] bg-black flex flex-row justify-between">
       <div> 
       <div className="m-4 flex w-1/2 w-[444.5px] h-[24px] p-4 text-white text-3xl font-semibold">
          200000+

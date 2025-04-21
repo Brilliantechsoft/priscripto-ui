@@ -2,6 +2,7 @@ import logo from "../../../public/images/logo/logo.svg"
 
 const Footer = () => {
   return (
+    <div className="pt-10">
     <div className='pt-10 px-4 md:px-20 lg:px-32 bg-black w-full overflow-hidden' id='Footer'>
         <div className=' mx-auto flex flex-col md:flex-row justify-between  items-start gap-4'>
             <div className='w-full md:w-1/3 mb-8 md:mb-0'>
@@ -73,6 +74,7 @@ const Footer = () => {
         text-white'>
             Copyright 2024 © Prescripto. All Right Reserved.
         </div>
+    </div>
     </div>
   )
 }
