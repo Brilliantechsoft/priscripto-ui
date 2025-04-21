@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import IMAGE from "../../../public/images/doctors/consult.png";
 import group_profile from "../../../public/images/doctors/group_profiles.png";
+import SpecialityMenu from "./SpecialityMenu";
+import HealthConcernCarousel from "./HealthConcernMenu";
+import { OurDoctors } from "./OurDoctors";
+import { TrustMetricSection } from "./TrustMetricSection";
+import Testimonials from "./Testimonials";
 // import SpecialityMenu from "./SpecialityMenu";
 
 export default function Banner() {
   return (
-    <div className="bg-gray-400">
-      <div className="flex flex-row bg-blue-800 items-center justify-center rounded-lg px-6 sm:px-10 md:px-14 lg:px-12 my-20 md:mx-10">
+    <div className="">
+      <div className="flex flex-row bg-blue-800 items-center justify-center w-full ">
         {/* ------Left side------ */}
         <div className="flex-1 items-center py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5 ">
           <div className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white">
@@ -37,6 +42,11 @@ export default function Banner() {
           />
         </div>
       </div>
+      <SpecialityMenu/>
+      <HealthConcernCarousel/>
+      <OurDoctors/>
+      <TrustMetricSection/>
+      <Testimonials/>
     </div>
   );
 }
