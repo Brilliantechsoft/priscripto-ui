@@ -34,12 +34,17 @@ const navItems: NavItem[] = [
   {
     name: "My Profile",
     icon: <UserCircleIcon className="size-5" />,
-    path: "/patient-profile",
+    path: "/doctor-profile",
   },
   {
     name: "My Appointments",
     icon: <UserCircleIcon className="size-5" />,
     path: "/patient-appointment",
+  },
+  {
+    name: "Medical Records",
+    icon: <CalenderIcon className="size-5" />,
+    path: "/patient-records",
   },
   {
     name: "LogOut",

@@ -22,6 +22,7 @@ import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
 import PatientDashboard from "./components/patient/patient-dashboard/PatientDashboard";
 import PatientAppointment from "./components/patient/patient-appointment/PatientAppointment";
+import PatientMedicalRecord from "./components/patient/patient-appointment/PatientMedicalRecord";
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
 
         <Route path="/patient-dashboard" element={<PatientDashboard />} />
         <Route path="/patient-appointment" element={<PatientAppointment />} />
+        <Route path="/patient-records" element={<PatientMedicalRecord />} />
 
            {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />
