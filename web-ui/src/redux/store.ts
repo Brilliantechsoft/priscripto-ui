@@ -32,11 +32,8 @@ export const store = configureStore({
     specialities:specialityReducer,
     doctors: doctorReducer,
     doctor: appointmentReducer,
-<<<<<<< HEAD
     appointmentForm: appointmentFormReducer,
-=======
     doctorAvailability: doctorAvailabilityReducer,
->>>>>>> 60110bdd34612632043c2505d0dcd9ee2655524a
   },
 });
 
