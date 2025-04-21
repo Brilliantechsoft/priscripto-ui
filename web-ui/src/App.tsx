@@ -20,19 +20,28 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
+import Footer from "./components/footer/Footer";
+import AppHome from "./layout/AppHome";
+import { ProtectedRoute } from "./layout/ProtectedRoute";
 
 export default function App() {
 
   return (
     <Router>
+      {/* <AppHome/> */}
       <ScrollToTop />
+      
       <Routes>
-        <Route index path="/" element={<HomePage />} />
+     
+      <Route index path="/" element={<HomePage />} />
+      
 
         <Route element={<AppLayout />}>
-          <Route path="/dashboard" element={<Home />} />
-          <Route path="/doctor-profile" element={<UserProfiles />} />
-          <Route path="/blank" element={<Blank />} />
+
+        <Route path="/dashboard" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+
+           <Route path="/doctor-profile" element={<UserProfiles />} /> 
+           <Route path="/blank" element={<Blank />} />
         </Route>
 
         {/* Auth Pages */}
@@ -53,12 +62,14 @@ export default function App() {
         <Route path="/doctors/:speciality" element={<Doctors />} />
         <Route path="/doctors/appointment/:docId" element={<Appointments  />} />
         <Route path="/appointment/:doctorId/:patientId/:timeSlotId" element={<AppointmentForm />} />
-
+        
 
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />
+       
       </Routes>
+      <Footer/>
     </Router>
   );
 }
