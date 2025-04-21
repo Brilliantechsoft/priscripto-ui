@@ -25,6 +25,7 @@ import PatientAppointment from "./components/patient/patient-appointment/Patient
 import PatientMedicalRecord from "./components/patient/patient-appointment/PatientMedicalRecord";
 
 export default function App() {
+
   return (
     <Router>
       <ScrollToTop />
@@ -57,8 +58,10 @@ export default function App() {
         <Route path="/video-consult" element={<Banner />} />
         <Route path="/specialization" element={<SpecialityMenu />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
-        <Route path="/doctors/appointment/:docId" element={<Appointments docId="" />} />
-        <Route path="/appointmentform" element={<AppointmentForm/>} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments  />} />
+        <Route path="/appointment/:doctorId/:patientId/:timeSlotId" element={<AppointmentForm />} />
+
+
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />
