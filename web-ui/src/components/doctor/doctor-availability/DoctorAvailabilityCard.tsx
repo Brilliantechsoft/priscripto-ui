@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import AppSidebar from "../../../layout/AppSidebar";
+import { useSidebar } from "../../../context/SidebarContext";
+import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
+import {
+  addSlots,
+  clearSlots,
+  setAppointmentFee,
+  saveAvailableSlots,
+} from "../../../redux/slices/doctor/doctorAvailableSlotsSlice";
 
 type Day =
   | "Monday"
@@ -10,27 +18,18 @@ type Day =
   | "Saturday"
   | "Sunday";
 
-interface Slot {
-  time: string;
-}
-
-const initialSlots: Record<Day, Slot[]> = {
-  Monday: [],
-  Tuesday: [],
-  Wednesday: [],
-  Thursday: [],
-  Friday: [],
-  Saturday: [],
-  Sunday: [],
-};
-
 export default function DoctorAvailabilityCard() {
+  const dispatch = useAppDispatch();
+  const { slots, appointmentFee, loading, error } = useAppSelector(
+    (state) => state.doctorAvailableSlots
+  );
+
+  const { isExpanded, isHovered, isMobileOpen, toggleSidebar } = useSidebar();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startTime, setStartTime] = useState("04:00 AM");
   const [endTime, setEndTime] = useState("05:00 AM");
   const [activeDay, setActiveDay] = useState<Day>("Monday");
-  const [slots, setSlots] = useState(initialSlots);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const parseTime = (time: string) => {
     const [timePart, period] = time.split(" ");
@@ -56,7 +55,7 @@ export default function DoctorAvailabilityCard() {
       return;
     }
 
-    const timeSlots: Slot[] = [];
+    const timeSlots = [];
 
     while (start < end) {
       const timeStr = start.toLocaleTimeString("en-US", {
@@ -68,11 +67,7 @@ export default function DoctorAvailabilityCard() {
       start.setMinutes(start.getMinutes() + 30);
     }
 
-    setSlots((prev) => ({
-      ...prev,
-      [activeDay]: [...prev[activeDay], ...timeSlots],
-    }));
-
+    dispatch(addSlots({ day: activeDay, slots: timeSlots }));
     setIsModalOpen(false);
   };
 
@@ -80,34 +75,62 @@ export default function DoctorAvailabilityCard() {
     setIsModalOpen(false);
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+  const handleDeleteAll = () => {
+    dispatch(clearSlots(activeDay));
   };
+
+  const handleFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setAppointmentFee(Number(e.target.value)));
+  };
+
+  const handleSaveChanges = () => {
+    dispatch(saveAvailableSlots())
+      .unwrap()
+      .then(() => {
+        alert("Doctor's available slots saved successfully!");
+      })
+      .catch((error) => {
+        alert(`Failed to save slots: ${error}`);
+      });
+  };
+
+  // Calculate the sidebar width based on its state
+  const sidebarWidth = isExpanded || isHovered ? "290px" : "90px";
+
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
 
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <div
         className={`${
-          isSidebarOpen ? "w-64" : "w-0"
-        } bg-gray-100 p-4 transition-all duration-300 ease-in-out overflow-hidden lg:w-64 lg:block`}
+          isMobileOpen ? sidebarWidth : "w-0"
+        } bg-gray-100 p-4 transition-all duration-300 ease-in-out overflow-hidden lg:${sidebarWidth}`}
       >
         <AppSidebar />
         <button
           className="lg:hidden fixed top-4 right-4 bg-blue-600 text-white px-2 py-1 rounded-md"
           onClick={toggleSidebar}
         >
-          {isSidebarOpen ? "Close" : "Menu"}
+          {isMobileOpen ? "Close" : "Menu"}
         </button>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 overflow-auto">
+      <div
+        className="flex-1 p-4 overflow-auto"
+        style={{
+          marginLeft: isMobileOpen || !isMobileOpen ? sidebarWidth : "0", // Offset for sidebar
+          transition: "margin-left 0.3s ease-in-out",
+        }}
+      >
         <button
           className="lg:hidden mb-4 bg-blue-600 text-white px-4 py-2 rounded-md"
           onClick={toggleSidebar}
         >
-          {isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
+          {isMobileOpen ? "Hide Sidebar" : "Show Sidebar"}
         </button>
 
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -138,7 +161,7 @@ export default function DoctorAvailabilityCard() {
                         ? "border-b-2 border-blue-600 text-white bg-blue-600"
                         : "border border-gray-300 bg-white text-gray-600 hover:text-white hover:bg-blue-600"
                     }`}
-                    onClick={() => setActiveDay(day)}
+                    onClick={() => setActiveDay(day as Day)}
                   >
                     {day}
                   </button>
@@ -160,7 +183,7 @@ export default function DoctorAvailabilityCard() {
                 </button>
                 <button
                   className="bg-red-600 text-white px-4 py-2 rounded-md"
-                  onClick={() => setSlots({ ...slots, [activeDay]: [] })}
+                  onClick={handleDeleteAll}
                 >
                   Delete All
                 </button>
@@ -187,7 +210,8 @@ export default function DoctorAvailabilityCard() {
             <label className="mr-2">Appointment Fees ($)</label>
             <input
               type="number"
-              defaultValue="254"
+              value={appointmentFee}
+              onChange={handleFeeChange}
               className="w-24 px-2 py-1 border border-gray-300 rounded-md"
             />
           </div>
@@ -197,15 +221,20 @@ export default function DoctorAvailabilityCard() {
             <button className="px-4 py-2 border border-gray-300 rounded-md">
               Cancel
             </button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md">
-              Save Changes
+            <button
+              className="px-4 py-2 bg-blue-600 text-white rounded-md"
+              onClick={handleSaveChanges}
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save Changes"}
             </button>
           </div>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
 
         {/* Time Selection Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-6 rounded-lg w-11/12 max-w-md">
               <h3 className="text-lg font-semibold mb-4">Add New Slot</h3>
               <div className="space-y-4">
