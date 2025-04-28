@@ -14,7 +14,18 @@ import {
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import { AppWindow, LayoutDashboard, LogInIcon, LogOut } from "lucide-react";
+import {
+  AppWindow,
+  Group,
+  GroupIcon,
+  LayoutDashboard,
+  LogInIcon,
+  LogOut,
+  Users,
+  Users2,
+  Users2Icon,
+  UsersRound,
+} from "lucide-react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -59,6 +70,11 @@ const doctorNavItems: NavItem[] = [
     name: "Available Timings",
     icon: <TimeIcon className="size-5" />,
     path: "/doctor-available-timing",
+  },
+  {
+    name: "My Patients",
+    icon: <Users className="size-5" />,
+    path: "/my-patients",
   },
 ];
 

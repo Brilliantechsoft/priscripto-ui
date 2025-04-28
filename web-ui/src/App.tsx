@@ -21,6 +21,7 @@ import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
 import DoctorAvailabilityCard from "./components/doctor/doctor-availability/DoctorAvailabilityCard";
+import MyPatientsCard from "./components/doctor/my-patients/MyPatientsCard";
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
             path="/doctor-appointment-request"
             element={<DoctorAppointmentRequest />}
           />
+          <Route path="/my-patients" element={<MyPatientsCard />} />
         </Route>
 
         {/* Auth Pages */}
