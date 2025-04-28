@@ -6,17 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store";
 import { fetchHealthConcerns } from "../../redux/slices/consult/healthConcersSlice";
 
-import coughAndCold from "../../../public/images/doctors/cough and cold.jpg";
-import PeriodProblems from "../../../public/images/doctors/periods problems.png";
-import skinProblems from "../../../public/images/doctors/skin problem girl.jpg";
-import StomachProblems from "../../../public/images/doctors/stomach issue.jpg";
-import Depression from "../../../public/images/doctors/depressed-boy.jpg";
-import WeightLoose from "../../../public/images/doctors/loose weight.jpg";
-import HeartProblems from "../../../public/images/doctors/Heart problems.jpg";
-import SickKid from "../../../public/images/doctors/sick kid.jpg";
-import EyeProblem from "../../../public/images/doctors/eye problems.jpeg";
-import DentalProblem from "../../../public/images/doctors/dental problems.jpg";
-import Psychiatrist from "../../../public/images/doctors/pscyco.jpg";
+import coughAndCold from "/images/doctors/cough and cold.jpg";
+import PeriodProblems from "/images/doctors/periods problems.png";
+import skinProblems from "/images/doctors/skin problem girl.jpg";
+import StomachProblems from "/images/doctors/stomach issue.jpg";
+import Depression from "/images/doctors/depressed-boy.jpg";
+import WeightLoose from "/images/doctors/loose weight.jpg";
+import HeartProblems from "/images/doctors/Heart problems.jpg";
+import SickKid from "/images/doctors/sick kid.jpg";
+import EyeProblem from "/images/doctors/eye problems.jpeg";
+import DentalProblem from "/images/doctors/dental problems.jpg";
+import Psychiatrist from "/images/doctors/pscyco.jpg";
 
 import HealthConcernCard from "../ui/cards/HealthConcernCard";
 

@@ -37,7 +37,7 @@
       "country": "India",
       "fees": 500.0,
       "clinicAddress": "123, FC Road, Pune",
-      "specialization": "pediatricians",
+      "specialization": "Cardiologist",
       "degree": "MD",
       "experience": 4,
       "about": "She is dentist having 4 years of experience"
@@ -58,7 +58,7 @@
       "country": "India",
       "fees": 500.0,
       "clinicAddress": "123, FC Road, Pune",
-      "specialization": "GENERAL_PHYSICIAN",
+      "specialization": "Cardiologist",
       "degree": "MD",
       "experience": 3,
       "about": "He is pscycologist having 3 years of experience"
@@ -79,7 +79,7 @@
       "country": "India",
       "fees": 500.0,
       "clinicAddress": "123, FC Road, Pune",
-      "specialization": "dermatologist",
+      "specialization": "Cardiologist",
       "degree": "MD",
       "experience": 2,
       "about": "Rutuja is dermatologiest having 2 years of experience"
@@ -100,7 +100,7 @@
       "country": "India",
       "fees": 500.0,
       "clinicAddress": "123, FC Road, Pune",
-      "specialization": "Gynecologist",
+      "specialization": "Cardiologist",
       "degree": "MD",
       "experience": 3,
       "about": "Vidya is Gynecologiest having 3 years of experience"
@@ -121,7 +121,7 @@
       "country": "India",
       "fees": 500.0,
       "clinicAddress": "123, FC Road, Pune",
-      "specialization": "pediatricians",
+      "specialization": "Cardiologist",
       "degree": "MD",
       "experience": 4,
       "about": "She is dentist having 4 years of experience"

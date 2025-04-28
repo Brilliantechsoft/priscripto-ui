@@ -1,6 +1,6 @@
 // /import { Link } from "react-router-dom";
-import IMAGE from "../../../public/images/doctors/consult.png";
-import group_profile from "../../../public/images/doctors/group_profiles.png";
+import IMAGE from "/images/doctors/consult.png";
+import group_profile from "/images/doctors/group_profiles.png";
 import SpecialityMenu from "./SpecialityMenu";
 import HealthConcernCarousel from "./HealthConcernMenu";
 import { OurDoctors } from "./OurDoctors";

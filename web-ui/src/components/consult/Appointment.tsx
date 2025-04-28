@@ -6,7 +6,7 @@ import { Slot } from "../../types/appointmentTypes";
 import { ToastContainer, toast } from "react-toastify";
 import { Modal } from "../ui/modal";
 import AppointmentForm from "../../pages/Forms/AppointmentForm";
-import { signInPatient } from "../../redux/slices/patient/loginPatientSlice";
+// import { signInPatient } from "../../redux/slices/patient/loginPatientSlice";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 

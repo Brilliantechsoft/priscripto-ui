@@ -1,6 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Radhika from "../../../public/images/user/radhika.jpg"
+import Radhika from "/images/user/radhika.jpg"
 
 const responsive = {
     desktop: {
