@@ -20,7 +20,7 @@ export const fetchDoctorSlots = createAsyncThunk(
   async (docId: string) => {
     console.log("Fetching slots for docId:", docId);
     const response = await axios.get(
-      "https://7000-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
+      "https://ddd3-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
       {
         headers: {
           "Content-Type": "application/json",
@@ -46,8 +46,8 @@ const appointmentSlice = createSlice({
       .addCase(fetchDoctorSlots.fulfilled, (state, action) => {
         console.log("Fetched slots:", action.payload);
 
-        const groupedSlots = action.payload.map((item: any) =>
-          item.timeSlots.map((slot: any) => ({
+        const groupedSlots = action.payload.map((item:any) =>
+          item.timeSlots.map((slot:any) => ({
             ...slot,
             scheduleDate: new Date(
               item.scheduleDate[0],

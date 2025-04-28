@@ -8,7 +8,7 @@ interface SpecialityCardProps {
 }
 const SpecialityCard: React.FC<SpecialityCardProps> = ({ img, title }) => {
   return (
-    <div className="flex flex-wrap gap-2 bg-gray-200 border border-rounded-xl justify-center w-80 py-4 px-2">
+    <div className="flex flex-wrap gap-2 bg-gray-200 border border-rounded-xl justify-center w-72 py-4 px-2">
       {/* Image Container */}
       <Link
         className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
