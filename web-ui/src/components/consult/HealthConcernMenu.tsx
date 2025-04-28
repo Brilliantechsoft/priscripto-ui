@@ -93,7 +93,7 @@ const HealthConcernCarousel: React.FC = () => {
               title={item.HealthConcernName}
               Fees={item.Fees}
               image={images[item.HealthConcernId] || "/images/doctors/Default.svg"}
-              link={`/appointment/${item.HealthConcernId}/:patientId/:timeSlotId`}
+              link=""
             />
           ))}
       </Carousel>

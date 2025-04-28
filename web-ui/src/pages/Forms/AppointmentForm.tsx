@@ -23,6 +23,8 @@ const AppointmentForm: React.FC = () => {
     (state: RootState) => state.appointmentForm
   );
 
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(
