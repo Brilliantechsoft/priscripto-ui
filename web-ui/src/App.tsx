@@ -33,6 +33,16 @@ export default function App() {
           <Route path="/dashboard" element={<Home />} />
           <Route path="/doctor-profile" element={<UserProfiles />} />
           <Route path="/blank" element={<Blank />} />
+          <Route
+            path="/doctor-available-timing"
+            element={<DoctorAvailabilityCard />}
+          />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="/doctor-appointment" element={<DoctorAppointment />} />
+          <Route
+            path="/doctor-appointment-request"
+            element={<DoctorAppointmentRequest />}
+          />
         </Route>
 
         {/* Auth Pages */}
@@ -42,17 +52,6 @@ export default function App() {
         <Route path="/drsignup" element={<DrSignUp />} />
         <Route path="/patientsignin" element={<PatientSignIn />} />
         <Route path="/patientsignup" element={<PatientSignUp />} />
-
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="/doctor-appointment" element={<DoctorAppointment />} />
-        <Route
-          path="/doctor-appointment-request"
-          element={<DoctorAppointmentRequest />}
-        />
-        <Route
-          path="/doctor-available-timing"
-          element={<DoctorAvailabilityCard />}
-        />
 
         {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />
