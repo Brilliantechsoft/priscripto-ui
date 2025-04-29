@@ -21,8 +21,8 @@ import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
 import Footer from "./components/footer/Footer";
-// import AppHome from "./layout/AppHome";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
+import AppHome from "./layout/AppHome";
 
 
 
@@ -42,7 +42,7 @@ function AppContent() {
 return (
   <>
     <ScrollToTop />
-
+     <AppHome/>
     <Routes>
       <Route index path="/" element={<HomePage />} />
 
@@ -63,6 +63,8 @@ return (
       <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
       <Route path="/doctor-appointment" element={<DoctorAppointment />} />
       <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
+
+    
 
       {/* Doctor booking */}
       <Route path="/video-consult" element={<Banner />} />
