@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import {
-  ChevronDownIcon,
-  FilterIcon,
-  SearchIcon,
-} from "lucide-react";
+import { ChevronDownIcon, FilterIcon, SearchIcon } from "lucide-react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 
+//
 interface Patient {
   id: string;
   name: string;
