@@ -36,7 +36,7 @@ HealthConcern[],
     );
 
     return response.data;
-  } catch (error: any) {
+  } catch (error:any) {
     return rejectWithValue(
       error.response?.data?.message || "Failed to fetch data"
     );

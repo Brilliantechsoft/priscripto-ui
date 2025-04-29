@@ -1,14 +1,27 @@
-import { Link } from "react-router-dom";
-import IMAGE from "../../../public/images/doctors/consult.png";
-import group_profile from "../../../public/images/doctors/group_profiles.png";
+// /import { Link } from "react-router-dom";
+import IMAGE from "/images/doctors/consult.png";
+import group_profile from "/images/doctors/group_profiles.png";
 import SpecialityMenu from "./SpecialityMenu";
 import HealthConcernCarousel from "./HealthConcernMenu";
 import { OurDoctors } from "./OurDoctors";
 import { TrustMetricSection } from "./TrustMetricSection";
 import Testimonials from "./Testimonials";
+import { Button } from "../ui/button";
 // import SpecialityMenu from "./SpecialityMenu";
 
 export default function Banner() {
+
+  const scrollToSpecialityMenu = () => {
+    // Find the SpecialityMenu element by ID and scroll to it
+    const specialityMenu = document.getElementById("speciality-menu");
+    if (specialityMenu) {
+      specialityMenu.scrollIntoView({
+        behavior: "smooth", // Smooth scroll
+        block: "start", // Align to the top of the container
+      });
+    }
+  };
+
   return (
     <div className="">
       <div className="flex flex-row bg-blue-800 items-center justify-center w-full ">
@@ -24,12 +37,12 @@ export default function Banner() {
             </div>
           </div>
           <div className="flex">
-            <Link
-              to="/specialization"
+            <Button
+              onClick={scrollToSpecialityMenu}
               className="bg-white text-sm sm:text-base text-black px-8 py-3 rounded-full mt-6 hover:scale-105 transition-all"
             >
               Consult Now
-            </Link>
+            </Button>
           </div>
         </div>
 

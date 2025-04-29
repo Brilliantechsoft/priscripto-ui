@@ -1,12 +1,12 @@
-import star_icon from '../../../public/images/icons/star_icon.svg'
+import star_icon from '/images/icons/star_icon.svg'
 import { motion } from 'framer-motion'
 
-import profile_img_1 from '../../../public/images/user/profile_img_1.png'
-import profile_img_2 from '../../../public/images/user/profile_img_2.png'
-import profile_img_3 from '../../../public/images/user/profile_img_3.png'
-import Kartik_Aaryan from '../../../public/images/user/Kartik_Aaryan.jpg'
-import Lisa_Coachella from '../../../public/images/user/Lisa.webp'
-import Rashmika_Mandanna from '../../../public/images/user/Rashmika.webp'
+import profile_img_1 from '/images/user/profile_img_1.png'
+import profile_img_2 from '/images/user/profile_img_2.png'
+import profile_img_3 from '/images/user/profile_img_3.png'
+import Kartik_Aaryan from '/images/user/Kartik_Aaryan.jpg'
+import Lisa_Coachella from '/images/user/Lisa.webp'
+import Rashmika_Mandanna from '/images/user/Rashmika.webp'
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
