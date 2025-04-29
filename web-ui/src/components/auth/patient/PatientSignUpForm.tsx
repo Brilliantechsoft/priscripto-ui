@@ -7,7 +7,7 @@ import Checkbox from "../../form/input/Checkbox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { useAppDispatch } from "../../../hooks/appDispatchHook";
-import { registerPatient } from "../../../redux/slices/patient/registerPatientSlice";
+import { registerPatient } from "../../../redux/slices/patient/auth/registerPatientSlice";
 // import { registerDoctor } from "../../../redux/slices/doctor/registerDoctorSlice";
 
 export default function PatientSignUpForm() {

@@ -1,11 +1,71 @@
 import { useEffect, useState } from "react";
 import AppSidebar from "../../../layout/AppSidebar";
 import AppointmentCard from "./cards/AppointmentCard";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { jwtDecode } from "jwt-decode";
+import { storeAppointments } from "../../../redux/slices/patient/appointment/patientAppointmentsSlice";
 
 const PatientAppointment = () => {
+
   const [activeTab, setActiveTab] = useState<"upcoming" | "cancelled" | "completed">("upcoming");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | null>(null);
+  const [patientId, setPatientId] = useState<number | null>(null);
+
+  const dispatch = useDispatch();
+  const appointments = useSelector((state: RootState) => state.patientAppointmentList);
+  
+  useEffect(() => {
+    const jwt = localStorage.getItem("token");
+    setToken(jwt);
+  }, []);
+
+  useEffect(() => {
+    const decodeToken = () => {
+      try {
+        if (token) {
+          const decodedToken: string = jwtDecode(token);
+          console.log("Decoded Token:", decodedToken);
+          setPatientId(decodedToken?.id);
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    };
+    decodeToken();
+  }, [token]);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        if (patientId !== null) {
+          const response = await axios.get(
+            `https://c4b9-203-192-220-137.ngrok-free.app/patient/appointments/${patientId}/status`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log("Appointments:", response?.data);
+          dispatch(storeAppointments(response?.data));
+        }
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAppointments();
+  }, [patientId, dispatch]);
+
+  const filteredAppointments = appointments
+  ?.filter((apt) => apt.appointmentStatus.toLowerCase() === activeTab)
+  ?.filter((apt) => apt.patientName.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="flex min-h-screen bg-gray-50">

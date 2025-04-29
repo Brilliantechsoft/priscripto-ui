@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../hooks/appDispatchHook";
-import { signInPatient } from "../../../redux/slices/patient/loginPatientSlice";
+import { signInPatient } from "../../../redux/slices/patient/auth/loginPatientSlice";
 // import { signInDoctor } from "../../../redux/slices/doctor/loginDoctorSlice";
 
 export default function PatientSignInForm() {
