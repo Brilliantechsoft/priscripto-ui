@@ -108,7 +108,7 @@ export default function MyPatientsCard() {
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-gray-100 rounded-lg shadow-md p-6">
       {/* Header section */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">My Patients</h1>
@@ -116,7 +116,7 @@ export default function MyPatientsCard() {
         {/* Active/Inactive toggle */}
         <div className="flex items-center space-x-4">
           <button
-            className={`px-4 py-2 rounded-lg flex items-center ${
+            className={`border border-gray-400 px-4 py-2 rounded-lg flex items-center ${
               activeFilter
                 ? "bg-blue-600 text-white"
                 : "bg-gray-100 text-gray-700"
@@ -129,7 +129,7 @@ export default function MyPatientsCard() {
             </span>
           </button>
           <button
-            className={`px-4 py-2 rounded-lg flex items-center ${
+            className={`border border-gray-400 px-4 py-2 rounded-lg flex items-center ${
               !activeFilter
                 ? "bg-blue-600 text-white"
                 : "bg-gray-100 text-gray-700"
@@ -149,7 +149,7 @@ export default function MyPatientsCard() {
         {/* Date filter dropdown */}
         <div className="relative">
           <button
-            className="flex items-center justify-between px-4 py-2 bg-gray-100 rounded-lg w-full md:w-48"
+            className="border border-gray-300 flex items-center justify-between px-4 py-2 bg-gray-100 rounded-lg w-full md:w-48"
             onClick={() => setShowDateFilter(!showDateFilter)}
           >
             <span>{dateFilter}</span>
@@ -226,14 +226,14 @@ export default function MyPatientsCard() {
         {filteredPatients.map((patient) => (
           <div
             key={`${patient.id}-${patient.name}`}
-            className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col"
+            className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col"
           >
             <div className="flex justify-between items-start mb-3">
               <div>
-                <h3 className="font-bold text-lg text-gray-700">
+                <h3 className="font-bold text-sm text-gray-500">
                   {patient.id}
                 </h3>
-                <h2 className="font-bold text-xl text-gray-800">
+                <h2 className="font-bold text-xl text-gray-700">
                   {patient.name}
                 </h2>
               </div>
@@ -255,13 +255,15 @@ export default function MyPatientsCard() {
             </div>
 
             <div className="mt-auto space-y-2">
-              <div className="flex items-center text-gray-700">
-                <span className="mr-2">📅</span>
-                <span>{patient.appointmentDate}</span>
-              </div>
-              <div className="flex items-center text-gray-700">
-                <span className="mr-2">📍</span>
-                <span>{patient.location}</span>
+              <div className="bg-blue-50 p-2 rounded">
+                <div className="flex items-center text-gray-700">
+                  <span className="mr-2">📅</span>
+                  <span>{patient.appointmentDate}</span>
+                </div>
+                <div className="flex items-center text-gray-700">
+                  <span className="mr-2">📍</span>
+                  <span>{patient.location}</span>
+                </div>
               </div>
               <div className="flex items-center text-gray-700">
                 <span className="mr-2">📎</span>
