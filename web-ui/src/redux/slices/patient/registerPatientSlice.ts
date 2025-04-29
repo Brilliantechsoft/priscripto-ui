@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 
 const REGISTER_PATIENT_URL = "https://c4b9-203-192-220-137.ngrok-free.app/api/v1/patient/register";
 
+
 interface PatientRegistrationState {
   firstName: string;
   lastName: string;

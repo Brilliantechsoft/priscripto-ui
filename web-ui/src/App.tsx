@@ -20,9 +20,13 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
+import PatientDashboard from "./components/patient/patient-dashboard/PatientDashboard";
+import PatientAppointment from "./components/patient/patient-appointment/PatientAppointment";
+import PatientMedicalRecord from "./components/patient/patient-appointment/PatientMedicalRecord";
 import Footer from "./components/footer/Footer";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
 import AppHome from "./layout/AppHome";
+import PatientProfile from "./pages/patient/PatientProfile";
 
 
 
@@ -49,6 +53,7 @@ return (
       <Route element={<AppLayout />}>
         <Route path="/dashboard" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/doctor-profile" element={<UserProfiles />} />
+        <Route path="/patient-profile" element={<PatientProfile/>} />
         <Route path="/blank" element={<Blank />} />
       </Route>
 
@@ -65,6 +70,9 @@ return (
       <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
 
     
+      <Route path="/patient-dashboard" element={<PatientDashboard />} />
+      <Route path="/patient-appointment" element={<PatientAppointment />} />
+      <Route path="/patient-records" element={<PatientMedicalRecord />} />
 
       {/* Doctor booking */}
       <Route path="/video-consult" element={<Banner />} />
@@ -82,13 +90,10 @@ return (
 );
 }
 
-
 export default function App() {
-
   return (
     <Router>
     <AppContent />
   </Router>
-
   );
 }
