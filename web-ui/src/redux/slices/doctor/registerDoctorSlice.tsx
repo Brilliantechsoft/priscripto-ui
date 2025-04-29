@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 const REGISTER_DOCTOR_URL =
-  "https://7000-203-192-220-137.ngrok-free.app/api/v1/doctor/register";
+  "https://ddd3-203-192-220-137.ngrok-free.app/api/v1/doctor/register";
 
 interface DoctorRegistrationState {
   firstName: string;

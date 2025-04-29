@@ -34,7 +34,7 @@ const navItems: NavItem[] = [
   {
     name: "My Profile",
     icon: <UserCircleIcon className="size-5" />,
-    path: "/doctor-profile",
+    path: "/patient-profile",
   },
   {
     name: "My Appointments",

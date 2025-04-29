@@ -9,15 +9,15 @@ const PatientDashboard = () => {
       <div className="w-1/5">
         <AppSidebar />
       </div>
-      <div className="flex gap-10 bg-gray-50 p-8">
-        <div className="flex p-6 gap-20">
-          <div>
+      <div className="flex-1 bg-gray-50 p-8">
+        <div className="flex flex-wrap gap-8">
+          <div className="flex-1 min-w-[250px] max-w-[350px]">
             <HealthCard />
           </div>
-          <div>
+          <div className="flex-1 min-w-[250px] max-w-[350px]">
             <DashboardAppointmentCard />
           </div>
-          <div>
+          <div className="flex-1 min-w-[250px] max-w-[350px]">
             <NotificationCard />
           </div>
         </div>

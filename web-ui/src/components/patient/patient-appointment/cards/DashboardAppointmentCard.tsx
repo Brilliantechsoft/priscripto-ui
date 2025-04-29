@@ -7,10 +7,10 @@ const DashboardAppointmentCard: React.FC = () => {
         <h2 className="text-blue-900 text-lg">Appointment</h2>
         <button className="text-blue-900">&lt; &gt;</button>
       </div>
-      <div className="flex justify-around mb-4">
+      <div className="flex justify-between gap-2 mb-4">
         <div className="text-center">
           <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">19</div>
-          <p className="text-xs">Mon</p>
+          <p className="text-xs">Sun</p>
         </div>
         <div className="text-center">
           <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">20</div>
@@ -28,10 +28,14 @@ const DashboardAppointmentCard: React.FC = () => {
           <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">23</div>
           <p className="text-xs">Thu</p>
         </div>
+        <div className="text-center">
+          <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">23</div>
+          <p className="text-xs">Thu</p>
+        </div>
       </div>
       <div className="border-t border-gray-200 pt-4 mb-4">
         <div className="flex items-center mb-4">
-          <img src="https://static.vecteezy.com/system/resources/thumbnails/026/375/249/small/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg" alt="Dr. Edalin Hendry" className="w-10 h-10 rounded-full mr-2" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUd1-NB9XGPVg_bAOvd3aFQymhQK625fiIag&s" alt="Dr. Edalin Hendry" className="w-13 h-13 rounded-full mr-2" />
           <div>
             <p className="text-blue-900 font-medium">Dr. Edalin Hendry</p>
             <p className="text-gray-600 text-sm">Dentist</p>
@@ -46,7 +50,7 @@ const DashboardAppointmentCard: React.FC = () => {
       </div>
       <div className="border-t border-gray-200 pt-4">
         <div className="flex items-center mb-4">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReUBGoUtE-7_lN-Y1G02W3mxFXtDLyWFpJAGge_KNOvRQfnBgXq-eUNKw&s" alt="Dr. Juliet Gabriel" className="w-10 h-10 rounded-full mr-2" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReUBGoUtE-7_lN-Y1G02W3mxFXtDLyWFpJAGge_KNOvRQfnBgXq-eUNKw&s" alt="Dr. Juliet Gabriel" className="w-13 h-13 rounded-full mr-2" />
           <div>
             <p className="text-blue-900 font-medium">Dr. Juliet Gabriel</p>
             <p className="text-gray-600 text-sm">Cardiologist</p>

@@ -4,7 +4,7 @@ const HealthCard: React.FC = () => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-md font-sans">
       <h2 className="text-blue-900 text-xl mb-4">Health Records</h2>
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-3 mb-7">
         <div className="flex flex-col">
           <span className="flex items-center mb-1">
             <span role="img" aria-label="heart">❤️</span> Heart Rate
@@ -13,7 +13,7 @@ const HealthCard: React.FC = () => {
         </div>
         <div className="flex flex-col">
           <span className="flex items-center mb-1">
-            <span role="img" aria-label="thermometer">🌡️</span> Body Temperature
+            <span role="img" aria-label="thermometer">🌡️</span>Body Temperature
           </span>
           <div>37.5 C</div>
         </div>
