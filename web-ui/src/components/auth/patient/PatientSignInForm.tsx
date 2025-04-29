@@ -19,10 +19,12 @@ export default function PatientSignInForm() {
     (state) => state.signInPatient
   );
 
+  console.log(isLoggedIn);
+
   // Redirect if already logged in
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/doctor-dashboard");
+      navigate("/patient-dashboard");
     }
   }, [isLoggedIn, navigate]);
 
@@ -99,7 +101,7 @@ export default function PatientSignInForm() {
         // localStorage.setItem("jwt", result.token);
 
         // navigate("/doctor-profile");
-        navigate("/doctor-dashboard");
+        navigate("/patient-dashboard");
       } catch (error) {
         console.error("Sign in failed:", error);
       }

@@ -13,6 +13,8 @@ const AppHome: React.FC = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAppSelector((state) => state.signInDoctor);
   const [checkAuth, setcheckAuth] = useState(false);
+  console.log(isLoggedIn);
+  
 
   // Check authentication status on mount
   useEffect(() => {
