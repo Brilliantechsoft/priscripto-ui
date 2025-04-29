@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import {
-  Calendar,
   ChevronDownIcon,
   FilterIcon,
-  LocateFixedIcon,
-  LocateIcon,
   SearchIcon,
 } from "lucide-react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
