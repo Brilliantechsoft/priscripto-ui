@@ -70,8 +70,8 @@ return (
       <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
 
       <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/patient-appointment" element={<PatientAppointment />} />
-        <Route path="/patient-records" element={<PatientMedicalRecord />} />
+      <Route path="/patient-appointment" element={<PatientAppointment />} />
+      <Route path="/patient-records" element={<PatientMedicalRecord />} />
 
       {/* Doctor booking */}
       <Route path="/video-consult" element={<Banner />} />
@@ -94,6 +94,5 @@ export default function App() {
     <Router>
     <AppContent />
   </Router>
-
   );
 }
