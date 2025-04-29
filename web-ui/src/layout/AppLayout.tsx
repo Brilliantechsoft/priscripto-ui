@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
 import AppHome from "./AppHome";
+import AppHeader from "./AppHeader";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -18,7 +19,8 @@ const LayoutContent: React.FC = () => {
           isExpanded || isHovered ? "lg:ml-[290px]" : "lg:ml-[90px]"
         } ${isMobileOpen ? "ml-0" : ""}`}
       >
-        <AppHome />
+        <AppHeader />
+
         <div className="p-4 mx-auto max-w-screen-2xl md:p-6">
           <Outlet />
         </div>

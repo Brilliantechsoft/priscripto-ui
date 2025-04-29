@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { ChevronDownIcon, FilterIcon, SearchIcon } from "lucide-react";
+import {
+  Calendar,
+  ChevronDownIcon,
+  FilterIcon,
+  LocateFixedIcon,
+  LocateIcon,
+  SearchIcon,
+} from "lucide-react";
+import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 
 interface Patient {
   id: string;
@@ -11,6 +19,7 @@ interface Patient {
   location: string;
   lastBooking: string;
   active: boolean;
+  image: string;
 }
 
 export default function MyPatientsCard() {
@@ -42,6 +51,8 @@ export default function MyPatientsCard() {
       location: "Alabama, USA",
       lastBooking: "27 Feb 2024",
       active: true,
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHr74Pjdj__bQPnZK-BFujbwgnP1t5PIqkig&s",
     },
     {
       id: "Apt0002",
@@ -53,6 +64,8 @@ export default function MyPatientsCard() {
       location: "San Diego, USA",
       lastBooking: "20 Mar 2024",
       active: true,
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOGZpFZKQVdkcFBqhV0apckEr6CQk4s6bB_Q&s",
     },
     {
       id: "Apt0001",
@@ -64,6 +77,8 @@ export default function MyPatientsCard() {
       location: "Alabama, USA",
       lastBooking: "27 Feb 2024",
       active: false,
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FHBhip34UKoXlE95hcltUmBiEFWaIUvwSw&s",
     },
     {
       id: "Apt0002",
@@ -75,6 +90,8 @@ export default function MyPatientsCard() {
       location: "San Diego, USA",
       lastBooking: "20 Mar 2024",
       active: true,
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa4xjShh4ynJbrgYrW_aB4lhKSxeMzQ3cO_A&s",
     },
   ];
 
@@ -229,13 +246,20 @@ export default function MyPatientsCard() {
             className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col"
           >
             <div className="flex justify-between items-start mb-3">
-              <div>
-                <h3 className="font-bold text-sm text-gray-500">
-                  {patient.id}
-                </h3>
-                <h2 className="font-bold text-xl text-gray-700">
-                  {patient.name}
-                </h2>
+              <div className="flex items-start">
+                <img
+                  src={patient.image}
+                  alt={patient.name}
+                  className="w-15 h-15 rounded-md object-cover mr-3"
+                />
+                <div>
+                  <h3 className="font-bold text-sm text-blue-500">
+                    {`#${patient.id}`}
+                  </h3>
+                  <h2 className="font-semibold text-md text-gray-700">
+                    {patient.name}
+                  </h2>
+                </div>
               </div>
               <span
                 className={`text-xs font-medium px-2.5 py-0.5 rounded ${
@@ -257,16 +281,16 @@ export default function MyPatientsCard() {
             <div className="mt-auto space-y-2">
               <div className="bg-blue-50 p-2 rounded">
                 <div className="flex items-center text-gray-700">
-                  <span className="mr-2">📅</span>
+                  <FaCalendarAlt className="mr-2 text-blue-500" />
                   <span>{patient.appointmentDate}</span>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <span className="mr-2">📍</span>
+                  <FaMapMarkerAlt className="mr-2 text-blue-500" />
                   <span>{patient.location}</span>
                 </div>
               </div>
               <div className="flex items-center text-gray-700">
-                <span className="mr-2">📎</span>
+                <FaPaperclip className="mr-2 text-black-500" />
                 <span>Last Booking: {patient.lastBooking}</span>
               </div>
             </div>
