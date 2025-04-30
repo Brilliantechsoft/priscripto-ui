@@ -52,7 +52,7 @@ function AppContent() {
 return (
   <>
     <ScrollToTop />
-
+    <AppHome />
     <Routes>
       <Route index path="/" element={<HomePage />} />
 
@@ -81,6 +81,11 @@ return (
       <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
       <Route path="/doctor-appointment" element={<DoctorAppointment />} />
       <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
+
+      <Route
+          path="/doctor/appointment-start/:appointmentId/:patientId"
+          element={<DoctorAppointmentDetails />}
+        />
 
       <Route path="/patient-dashboard" element={<PatientDashboard />} />
       <Route path="/patient-appointment" element={<PatientAppointment />} />
