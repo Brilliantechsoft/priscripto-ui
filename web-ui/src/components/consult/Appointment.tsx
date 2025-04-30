@@ -6,35 +6,38 @@ import { Slot } from "../../types/appointmentTypes";
 import { ToastContainer, toast } from "react-toastify";
 import { Modal } from "../ui/modal";
 import AppointmentForm from "../../pages/Forms/AppointmentForm";
+// import { signInPatient } from "../../redux/slices/patient/loginPatientSlice";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 type AppointmentsProps = {
-  docId ?: string;
-  patientId ?: string;
+  docId?: string;
+
 };
 
-const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
+const Appointments: React.FC<AppointmentsProps> = ({ docId}) => {
   // const { docId } = useParams<{ docId: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { slots: docSlots, status, error } = useSelector(
     (state: RootState) => state.doctor
   );
-  // const patientId = useSelector((state: RootState) => state. auth.user.id);
-
-
+  
+  const { user: patient } = useSelector(
+    (state: RootState) => state.signInPatient
+  );
+  
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-  
-      console.log("Dispatching fetchDoctorSlots for docId:", docId);
-      if (docId) {
-        dispatch(fetchDoctorSlots(docId));
-      } else {
-        console.error("docId is undefined");
-      }
+
+    console.log("Dispatching fetchDoctorSlots for docId:", docId);
+    if (docId) {
+      dispatch(fetchDoctorSlots(docId));
+    } else {
+      console.error("docId is undefined");
+    }
   }, [docId, dispatch]);
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
       console.log("First date group:", docSlots[0]);
     }
   }, [docSlots]);
+
 
   if (status === "loading") return <p>Loading slots...</p>;
   if (status === "failed") return <p>Error loading slots: {error}</p>;
@@ -61,9 +65,8 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
                 <div
                   key={index}
                   onClick={() => setSlotIndex(index)}
-                  className={`text-center px-4 py-3 min-w-16 rounded-lg cursor-pointer ${
-                    slotIndex === index ? "bg-blue-500 text-white" : "border"
-                  }`}
+                  className={`text-center px-4 py-3 min-w-16 rounded-lg cursor-pointer ${slotIndex === index ? "bg-blue-500 text-white" : "border"
+                    }`}
                 >
                   <p>{daysOfWeek[new Date(daySlots[0]?.scheduleDate).getDay()]}</p>
                   <p>
@@ -81,13 +84,12 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
                 <p
                   key={idx}
                   onClick={() => !slot.booked && setSlotTime(slot.startTime)}
-                  className={`px-4 py-2 rounded-full text-sm cursor-pointer ${
-                    slot.booked
+                  className={`px-4 py-2 rounded-full text-sm cursor-pointer ${slot.booked
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                       : slotTime === slot.startTime
-                      ? "bg-blue-600 text-white"
-                      : "border text-gray-600"
-                  }`}
+                        ? "bg-blue-600 text-white"
+                        : "border text-gray-600"
+                    }`}
                 >
                   {slot.startTime}
                 </p>
@@ -101,13 +103,13 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
                     toast("Please select a time slot before booking an appointment.");
                     return;
                   }
-
-                  window.location.href = `/appointmentform/${docId}/${patientId}/${docSlots[slotIndex][0]?.timeSlotId}`;
+                  setIsModalOpen(true);
                 }}
                 className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-full"
               >
                 Book Appointment
               </button>
+
 
               <Modal
                 width="w-[500px]"
@@ -115,7 +117,12 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId , patientId}) =>{
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
               >
-                <AppointmentForm />
+                <AppointmentForm  
+                doctorId={docId}
+                patientId={patient?.id}
+                timeSlotId={
+               docSlots[slotIndex].find((slot) => slot.startTime === slotTime)?.timeSlotId ?? 0
+}/>
               </Modal>
 
               <ToastContainer />

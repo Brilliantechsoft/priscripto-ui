@@ -25,7 +25,7 @@ export const fetchSpecialities = createAsyncThunk<
 >("specialities/fetchSpecialities", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      "https://7000-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName",
+      "https://90ee-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName",
       {
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const fetchSpecialities = createAsyncThunk<
     );
 
     return response.data;
-  } catch (error: any) {
+  } catch (error:any) {
     return rejectWithValue(
       error.response?.data?.message || "Failed to fetch data"
     );

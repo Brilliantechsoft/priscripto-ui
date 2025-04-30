@@ -10,11 +10,14 @@ const AppointmentForm: React.FC = () => {
     patientId: string;
     timeSlotId: string;
   }>();
+  
 
-  const doctorIdNum = doctorId ? parseInt(doctorId, 10) : 0;
-  const patientIdNum = patientId ? parseInt(patientId, 10) : 0;
-  const timeSlotIdNum = timeSlotId ? parseInt(timeSlotId, 10) : 0;
 
+  const doctorIdNum = parseInt(doctorId ?? '', 10);
+  const patientIdNum = parseInt(patientId ?? '', 10);
+  const timeSlotIdNum = parseInt(timeSlotId ?? '', 10);
+  
+  
   const [appointmentType, setAppointmentType] = useState("IN_PERSON");
   const [purpose, setPurpose] = useState("");
 
@@ -23,8 +26,11 @@ const AppointmentForm: React.FC = () => {
     (state: RootState) => state.appointmentForm
   );
 
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({ doctorIdNum, patientIdNum, timeSlotIdNum });
     dispatch(
       createAppointment({
         appointmentStatus: "PENDING",
