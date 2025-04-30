@@ -23,6 +23,7 @@ import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
 import Footer from "./components/footer/Footer";
 import AppHome from "./layout/AppHome";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
+import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
 
 export default function App() {
 
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
         <Route path= "/doctor-appointment-request" element= {<DoctorAppointmentRequest />} />
+        <Route path="/doctor/appointment-start/:appointmentId/:patientId" element={<DoctorAppointmentDetails/>}  />
 
            {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />

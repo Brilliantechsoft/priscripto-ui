@@ -1,5 +1,6 @@
 import { CalendarDays, Mail, Phone, Video, Eye, Mic } from "lucide-react";
 import { Appointment } from "../../../types/appointment/appointment";
+import { Link } from "react-router-dom";
 
 
 interface AppointmentCardProps {
@@ -19,7 +20,7 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
           className="w-12 h-12 rounded-md object-cover"
         />
         <div className="w-10">
-          <div className="text-sm text-blue-600 font-light">{appointment.id}</div>
+          <div className="text-sm text-blue-600 font-light">{appointment.appointmentId}</div>
           <div className="text-sm font-semibold text-gray-800">{appointment.patientName}</div>
         </div>
       </div>
@@ -63,12 +64,12 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
               <Video className="w-4 h-4 text-gray-700" />
             </button>
           </div>
-          <a
-            href="#"
+          <Link to={`/doctor/appointment-start/${appointment.appointmentId}/${appointment.patientId}`}
+         
             className="text-blue-700 font-semibold text-sm hover:underline ml-2"
           >
             Start Now
-          </a>
+          </Link>
         </>
       ) : (
         <button className="ml-2 px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors">
