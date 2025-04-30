@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route ,useLocation} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import SignIn from "./pages/AuthPages/patient/PatientSignIn";
 import SignUp from "./pages/AuthPages/patient/PatientSignUp";
 import NotFound from "./pages/OtherPage/NotFound";
@@ -20,6 +25,7 @@ import Appointments from "./components/consult/Appointment";
 import AppointmentForm from "./pages/Forms/AppointmentForm";
 import PatientSignIn from "./pages/AuthPages/patient/PatientSignIn";
 import PatientSignUp from "./pages/AuthPages/patient/PatientSignUp";
+
 import PatientDashboard from "./components/patient/patient-dashboard/PatientDashboard";
 import PatientAppointment from "./components/patient/patient-appointment/PatientAppointment";
 import PatientMedicalRecord from "./components/patient/patient-appointment/PatientMedicalRecord";
@@ -27,72 +33,90 @@ import Footer from "./components/footer/Footer";
 // import AppHome from "./layout/AppHome";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
 import PatientProfile from "./pages/patient/PatientProfile";
-
-
+import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
 
 function AppContent() {
   const location = useLocation();
-  
+
   const showFooterRoutes = [
-    "/", 
+    "/",
     "/video-consult",
     "/specialization",
     "/doctors/:speciality",
   ];
 
-  const showFooter = showFooterRoutes.includes(location.pathname) ||
-  location.pathname.startsWith("/doctors");
+  const showFooter =
+    showFooterRoutes.includes(location.pathname) ||
+    location.pathname.startsWith("/doctors");
 
-return (
-  <>
-    <ScrollToTop />
+  return (
+    <>
+      <ScrollToTop />
 
-    <Routes>
-      <Route index path="/" element={<HomePage />} />
+      <Routes>
+        <Route index path="/" element={<HomePage />} />
 
-      <Route element={<AppLayout />}>
-        <Route path="/dashboard" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/doctor-profile" element={<UserProfiles />} />
-        <Route path="/patient-profile" element={<PatientProfile/>} />
-        <Route path="/blank" element={<Blank />} />
-      </Route>
+        <Route element={<AppLayout />}>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/doctor-profile" element={<UserProfiles />} />
+          <Route path="/patient-profile" element={<PatientProfile />} />
+          <Route path="/blank" element={<Blank />} />
+        </Route>
 
-      {/* Auth Pages */}
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/drsignin" element={<DrSignIn />} />
-      <Route path="/drsignup" element={<DrSignUp />} />
-      <Route path="/patientsignin" element={<PatientSignIn />} />
-      <Route path="/patientsignup" element={<PatientSignUp />} />
+        {/* Auth Pages */}
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/drsignin" element={<DrSignIn />} />
+        <Route path="/drsignup" element={<DrSignUp />} />
+        <Route path="/patientsignin" element={<PatientSignIn />} />
+        <Route path="/patientsignup" element={<PatientSignUp />} />
 
-      <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-      <Route path="/doctor-appointment" element={<DoctorAppointment />} />
-      <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
+        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        <Route path="/doctor-appointment" element={<DoctorAppointment />} />
+        <Route
+          path="/doctor-appointment-request"
+          element={<DoctorAppointmentRequest />}
+        />
 
-      <Route path="/patient-dashboard" element={<PatientDashboard />} />
-      <Route path="/patient-appointment" element={<PatientAppointment />} />
-      <Route path="/patient-records" element={<PatientMedicalRecord />} />
+        <Route
+          path="/doctor/appointment-start/:appointmentId/:patientId"
+          element={<DoctorAppointmentDetails />}
+        />
 
-      {/* Doctor booking */}
-      <Route path="/video-consult" element={<Banner />} />
-      <Route path="/specialization" element={<SpecialityMenu />} />
-      <Route path="/doctors/:speciality" element={<Doctors />} />
-      <Route path="/doctors/appointment/:docId" element={<Appointments />} />
-      <Route path="/appointment/:doctorId/:patientId/:timeSlotId" element={<AppointmentForm />} />
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route path="/patient-appointment" element={<PatientAppointment />} />
+        <Route path="/patient-records" element={<PatientMedicalRecord />} />
 
-      {/* 404 Not Found */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* Doctor booking */}
+        <Route path="/video-consult" element={<Banner />} />
+        <Route path="/specialization" element={<SpecialityMenu />} />
+        <Route path="/doctors/:speciality" element={<Doctors />} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments />} />
+        <Route
+          path="/appointment/:doctorId/:patientId/:timeSlotId"
+          element={<AppointmentForm />}
+        />
 
-    {showFooter && <Footer />}
-  </>
-);
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      {showFooter && <Footer />}
+    </>
+  );
 }
 
 export default function App() {
   return (
     <Router>
-    <AppContent />
-  </Router>
+      <AppContent />
+    </Router>
   );
 }
