@@ -30,8 +30,8 @@ import PatientDashboard from "./components/patient/patient-dashboard/PatientDash
 import PatientAppointment from "./components/patient/patient-appointment/PatientAppointment";
 import PatientMedicalRecord from "./components/patient/patient-appointment/PatientMedicalRecord";
 import Footer from "./components/footer/Footer";
-// import AppHome from "./layout/AppHome";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
+import AppHome from "./layout/AppHome";
 import PatientProfile from "./pages/patient/PatientProfile";
 import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
 
@@ -49,12 +49,12 @@ function AppContent() {
     showFooterRoutes.includes(location.pathname) ||
     location.pathname.startsWith("/doctors");
 
-  return (
-    <>
-      <ScrollToTop />
-
-      <Routes>
-        <Route index path="/" element={<HomePage />} />
+return (
+  <>
+    <ScrollToTop />
+    <AppHome />
+    <Routes>
+      <Route index path="/" element={<HomePage />} />
 
         <Route element={<AppLayout />}>
           <Route
@@ -78,21 +78,18 @@ function AppContent() {
         <Route path="/patientsignin" element={<PatientSignIn />} />
         <Route path="/patientsignup" element={<PatientSignUp />} />
 
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="/doctor-appointment" element={<DoctorAppointment />} />
-        <Route
-          path="/doctor-appointment-request"
-          element={<DoctorAppointmentRequest />}
-        />
+      <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+      <Route path="/doctor-appointment" element={<DoctorAppointment />} />
+      <Route path="/doctor-appointment-request" element={<DoctorAppointmentRequest />} />
 
-        <Route
+      <Route
           path="/doctor/appointment-start/:appointmentId/:patientId"
           element={<DoctorAppointmentDetails />}
         />
 
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/patient-appointment" element={<PatientAppointment />} />
-        <Route path="/patient-records" element={<PatientMedicalRecord />} />
+      <Route path="/patient-dashboard" element={<PatientDashboard />} />
+      <Route path="/patient-appointment" element={<PatientAppointment />} />
+      <Route path="/patient-records" element={<PatientMedicalRecord />} />
 
         {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />

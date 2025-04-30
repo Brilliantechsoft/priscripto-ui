@@ -16,7 +16,6 @@ type AppointmentsProps = {
 };
 
 const Appointments: React.FC<AppointmentsProps> = ({ docId}) => {
-  // const { docId } = useParams<{ docId: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { slots: docSlots, status, error } = useSelector(
     (state: RootState) => state.doctor
@@ -118,11 +117,11 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId}) => {
                 onClose={() => setIsModalOpen(false)}
               >
                 <AppointmentForm  
-                doctorId={docId}
+                doctorId={docId ? parseInt(docId) : undefined}
                 patientId={patient?.id}
                 timeSlotId={
-               docSlots[slotIndex].find((slot) => slot.startTime === slotTime)?.timeSlotId ?? 0
-}/>
+               docSlots[slotIndex].find((slot) => slot.startTime === slotTime)?.timeSlotId ?? 0}
+               />
               </Modal>
 
               <ToastContainer />
