@@ -28,8 +28,8 @@ export interface Education {
 
 export interface SpecialityService {
   id?: number;
-  specializationName: string | null;
-  serviceName: string | null;
+  specializationId: number | null;
+  serviceId: number | null;
   price: number | null;
 }
 

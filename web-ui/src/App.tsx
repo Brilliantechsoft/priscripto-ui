@@ -35,7 +35,6 @@ import Footer from "./components/footer/Footer";
 // import AppHome from "./layout/AppHome";
 import { ProtectedRoute } from "./layout/ProtectedRoute";
 import PatientProfile from "./pages/patient/PatientProfile";
-import { GuestRoute } from "./layout/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();
@@ -56,20 +55,8 @@ function AppContent() {
       <ScrollToTop />
 
       <Routes>
-        {/* <Route index path="/" element={<HomePage />} /> */}
+        <Route index path="/" element={<HomePage />} />
 
-        {/* Home page - only accessible to guests */}
-        <Route
-          index
-          path="/"
-          element={
-            <GuestRoute>
-              <HomePage />
-            </GuestRoute>
-          }
-        />
-
-        {/* Common protected routes */}
         <Route element={<AppLayout />}>
           <Route
             path="/dashboard"
@@ -82,121 +69,28 @@ function AppContent() {
           <Route path="/doctor-profile" element={<UserProfiles />} />
           <Route path="/patient-profile" element={<PatientProfile />} />
           <Route path="/blank" element={<Blank />} />
-
-          {/* <Route
+          <Route
             path="/doctor-available-timing"
             element={<DoctorAvailabilityCard />}
           />
-          <Route path="/my-patients" element={<MyPatientsCard />} /> */}
-
-          <Route
-            path="/doctor-available-timing"
-            element={
-              <ProtectedRoute>
-                <DoctorAvailabilityCard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/my-patients"
-            element={
-              <ProtectedRoute>
-                <MyPatientsCard />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Doctor routes - only accessible to authenticated doctors */}
-          <Route
-            path="/doctor-dashboard"
-            element={
-              <ProtectedRoute>
-                <DoctorDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/doctor-appointment"
-            element={
-              <ProtectedRoute>
-                <DoctorAppointment />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/doctor-appointment-request"
-            element={
-              <ProtectedRoute>
-                <DoctorAppointmentRequest />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/my-patients" element={<MyPatientsCard />} />
         </Route>
 
-        {/* Auth Pages :  only accessible to guests */}
-        <Route
-          path="/signin"
-          element={
-            <GuestRoute>
-              <SignIn />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <GuestRoute>
-              <SignUp />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/drsignin"
-          element={
-            <GuestRoute>
-              <DrSignIn />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/drsignup"
-          element={
-            <GuestRoute>
-              <DrSignUp />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/patientsignin"
-          element={
-            <GuestRoute>
-              <PatientSignIn />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/patientsignup"
-          element={
-            <GuestRoute>
-              <PatientSignUp />
-            </GuestRoute>
-          }
-        />
-        {/* <Route path="/signin" element={<SignIn />} />
+        {/* Auth Pages */}
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/drsignin" element={<DrSignIn />} />
         <Route path="/drsignup" element={<DrSignUp />} />
         <Route path="/patientsignin" element={<PatientSignIn />} />
-        <Route path="/patientsignup" element={<PatientSignUp />} /> */}
+        <Route path="/patientsignup" element={<PatientSignUp />} />
 
-        {/* <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/doctor-appointment" element={<DoctorAppointment />} />
         <Route
           path="/doctor-appointment-request"
           element={<DoctorAppointmentRequest />}
-        /> */}
+        />
 
-        {/* Patient routes */}
         <Route path="/patient-dashboard" element={<PatientDashboard />} />
         <Route path="/patient-appointment" element={<PatientAppointment />} />
         <Route path="/patient-records" element={<PatientMedicalRecord />} />

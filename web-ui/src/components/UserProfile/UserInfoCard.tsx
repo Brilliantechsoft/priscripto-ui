@@ -302,13 +302,13 @@ export default function UserInfoCard() {
   };
 
   return (
-    <div className="p-6 border border-gray-200 rounded-lg bg-gray-100 shadow-sm">
+    <div className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h4 className="text-lg font-semibold text-gray-800">Basic Details</h4>
       </div>
 
       {/* Read-only Registration Details */}
-      {/* <div className="mb-6">
+      <div className="mb-6">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
           <div>
             <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
@@ -335,7 +335,7 @@ export default function UserInfoCard() {
             </p>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Editable Fields */}
       <div className="space-y-6">

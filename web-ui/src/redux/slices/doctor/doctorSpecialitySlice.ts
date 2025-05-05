@@ -180,8 +180,8 @@ const doctorSpecialitySlice = createSlice({
   reducers: {
     resetSpecialityService: (state) => {
       state.specialityServiceData = {
-        specializationName: null,
-        serviceName: null,
+        specializationId: null,
+        serviceId: null,
         price: null,
       };
     },

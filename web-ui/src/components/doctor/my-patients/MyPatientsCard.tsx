@@ -4,7 +4,7 @@ import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 
 //
 interface Patient {
-  // id: string;
+  id: string;
   name: string;
   age: number;
   gender: string;
@@ -36,7 +36,7 @@ export default function MyPatientsCard() {
   // Sample patient data
   const patients: Patient[] = [
     {
-      // id: "Apt0001",
+      id: "Apt0001",
       name: "Adrian",
       age: 42,
       gender: "Male",
@@ -49,7 +49,7 @@ export default function MyPatientsCard() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHr74Pjdj__bQPnZK-BFujbwgnP1t5PIqkig&s",
     },
     {
-      // id: "Apt0002",
+      id: "Apt0002",
       name: "Kelly Stevens",
       age: 37,
       gender: "Female",
@@ -62,8 +62,8 @@ export default function MyPatientsCard() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOGZpFZKQVdkcFBqhV0apckEr6CQk4s6bB_Q&s",
     },
     {
-      // id: "Apt0001",
-      name: "Raj",
+      id: "Apt0001",
+      name: "Adrian",
       age: 42,
       gender: "Male",
       bloodType: "AB+",
@@ -75,60 +75,8 @@ export default function MyPatientsCard() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FHBhip34UKoXlE95hcltUmBiEFWaIUvwSw&s",
     },
     {
-      // id: "Apt0002",
-      name: "Rutuja",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa4xjShh4ynJbrgYrW_aB4lhKSxeMzQ3cO_A&s",
-    },
-    {
-      // id: "Apt0001",
-      name: "Saket",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHr74Pjdj__bQPnZK-BFujbwgnP1t5PIqkig&s",
-    },
-    {
-      // id: "Apt0002",
-      name: "Lilly",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOGZpFZKQVdkcFBqhV0apckEr6CQk4s6bB_Q&s",
-    },
-    {
-      // id: "Apt0001",
-      name: "Vijay",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: false,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FHBhip34UKoXlE95hcltUmBiEFWaIUvwSw&s",
-    },
-    {
-      // id: "Apt0002",
-      name: "Aarti",
+      id: "Apt0002",
+      name: "Kelly Stevens",
       age: 37,
       gender: "Female",
       bloodType: "O+",

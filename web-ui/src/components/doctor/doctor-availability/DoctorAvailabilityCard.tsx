@@ -141,7 +141,7 @@ export default function DoctorAvailabilityCard() {
         </div>
 
         {/* Time Slots */}
-        <div className="mb-6 border border-gray-100 p-5 rounded bg-gray-100">
+        <div className="mb-6">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
             <span className="text-lg font-medium">{activeDay}</span>
             <div className="flex gap-2">
@@ -164,7 +164,7 @@ export default function DoctorAvailabilityCard() {
               slots[activeDay].map((slot, index) => (
                 <button
                   key={index}
-                  className="bg-gray-300 px-4 py-2 rounded-md"
+                  className="bg-gray-200 px-4 py-2 rounded-md"
                 >
                   {slot.time}
                 </button>
