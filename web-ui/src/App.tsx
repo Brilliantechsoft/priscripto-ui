@@ -49,10 +49,22 @@ function AppContent() {
     showFooterRoutes.includes(location.pathname) ||
     location.pathname.startsWith("/doctors");
 
+  const showAppHomeRoutes = [
+      "/",
+      "/video-consult",
+      "/specialization",
+    ];
+  
+  const showAppHome =
+    showAppHomeRoutes.includes(location.pathname) ||
+    location.pathname.startsWith("/doctors") ||
+    location.pathname.startsWith("/appointment");
+  
+
 return (
   <>
     <ScrollToTop />
-    <AppHome />
+    {showAppHome && <AppHome />}
     <Routes>
       <Route index path="/" element={<HomePage />} />
 

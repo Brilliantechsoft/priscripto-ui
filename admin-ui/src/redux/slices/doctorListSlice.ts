@@ -29,7 +29,13 @@ const initialState: DoctorsState = {
 };
 
 export const fetchDoctors = createAsyncThunk("doctors", async () => {
-  const response = await axios.get<Doctor[]>("https://192.168.1.52:8080/api/v1/doctors");
+  const response = await axios.get<Doctor[]>("https://80f7-203-192-220-137.ngrok-free.app/api/v1/doctors",   {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  })
+    
   return response.data;
 });
 

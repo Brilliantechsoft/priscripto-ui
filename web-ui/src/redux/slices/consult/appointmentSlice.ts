@@ -20,7 +20,7 @@ export const fetchDoctorSlots = createAsyncThunk(
   async (docId: string) => {
     console.log("Fetching slots for docId:", docId);
     const response = await axios.get(
-      "https://b87e-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
+      "https://80f7-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
       {
         headers: {
           "Content-Type": "application/json",
