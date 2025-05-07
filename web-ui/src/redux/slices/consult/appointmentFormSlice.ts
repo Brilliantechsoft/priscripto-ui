@@ -15,7 +15,7 @@ export const createAppointment = createAsyncThunk(
   "appointments/create",
   async (appointmentData: AppointmentPayload ) => {
     const response = await axios.post(
-      "https://b87e-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
+      "https://e232-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
       appointmentData
     );
     

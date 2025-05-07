@@ -3,7 +3,8 @@ import axios, { AxiosError } from "axios";
 import { fetchDoctorProfile } from "./doctorProfileSlice";
 import { API_BASE_URL } from "../../../config/apiConfig";
 
-const LOGIN_DOCTOR_URL = API_BASE_URL + "/auth/login";
+const LOGIN_DOCTOR_URL =
+  "https://e232-203-192-220-137.ngrok-free.app/api/auth/login";
 
 interface User {
   id: string;
