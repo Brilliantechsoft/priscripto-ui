@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface Appointment {
+export interface AppointmentPatient {
     appointmentId: number;
     doctorFirstName: string;
     doctorLastName: string;
     doctorEmail: string;
     doctorPhoneNumber: string;
-    appointmentStatus: 'UPCOMING' | 'CANCELLED' | 'COMPLETED';
-    formattedScheduleDate: string;
-    formattedStartTime: number;
+    status: 'UPCOMING' | 'CANCELLED' | 'COMPLETED';
+    scheduleDate: string;
+    startTime: number;
+    appointmentType:string
+    purpose:string
   }
 
 const patientAppointmentsSlice = createSlice({
     name: "patientAppointments",
-    initialState:[] as Appointment[],
+    initialState:[] as AppointmentPatient[],
     reducers: {
         storeAppointments: (state, action) =>{
-            console.log(state);
             return action.payload
         }
     }

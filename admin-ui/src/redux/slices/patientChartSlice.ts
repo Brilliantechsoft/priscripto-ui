@@ -20,7 +20,7 @@ const initialState: PatientState = {
 };
 
 export const fetchPatientsChartData = createAsyncThunk("patients/fetchChartData", async () => {
-  const response = await axios.get<ChartData[]>("https://7ca3-203-192-220-137.ngrok-free.app/api/v1/patient/patient-register-stats",
+  const response = await axios.get<ChartData[]>("https://80f7-203-192-220-137.ngrok-free.app/api/v1/patient/patient-register-stats",
     {
       withCredentials: true
     }
