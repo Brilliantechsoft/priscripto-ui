@@ -2,16 +2,12 @@ import AppSidebar from "../../../layout/AppSidebar";
 import AppointmentRequestCard from "./AppointmentRequestCard ";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setAppointmentRequest } from "../../../redux/slices/appointment/drAppointmentRequestSlice";
-import { jwtDecode } from "jwt-decode";
 
 const DoctorAppointmentRequest = () => {
-    const [token, setToken] = useState<string | null>(null);
-    const [doctorId, setDoctorId] = useState<number | null>(null);
-
   const dispatch = useDispatch();
   const requests = useSelector(
     (state: RootState) => state.doctorAppointmentRequest
@@ -23,7 +19,7 @@ const DoctorAppointmentRequest = () => {
 
     try {
       const response = await axios.get(
-        `${backend_url}/doctors/appointments/${doctorId}/booked-appointments-requests`,
+        `${backend_url}/doctors/appointments/${1}/booked-appointments-requests`,
 
         {
           headers: {
@@ -45,30 +41,9 @@ const DoctorAppointmentRequest = () => {
     }
   };
 
-   useEffect(() => {
-      const jwt = localStorage.getItem("jwt");
-      setToken(jwt);
-    }, []);
-
-    useEffect(() => {
-        const decodeToken = () => {
-          try {
-            if (token) {
-              const decodedToken: string = jwtDecode(token);
-              console.log("Decoded Token:", decodedToken);
-              setDoctorId(decodedToken?.id);
-            }
-          } catch (error) {
-            console.error("Error decoding token:", error);
-          }
-        };
-    
-        decodeToken();
-      }, [token]);
-
   useEffect(() => {
     fetchAppointmentRequests();
-  }, [doctorId, dispatch]);
+  }, []);
 
   return (
     <div className="flex min-h-screen ">

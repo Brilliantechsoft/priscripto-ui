@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation } from "react-router";
 // import { useState } from "react";
 
 // Assume these icons are imported from an icon library
@@ -125,11 +125,9 @@ const AppSidebar: React.FC = () => {
     [location.pathname]
   );
 
-  const navigate = useNavigate();
-
   const handleLogout = async () => {
     await axios.post(
-      import.meta.env.VITE_BACKEND_AUTH_URL + "auth/logout",
+      import.meta.env.VITE_BACKEND_URL + "/auth/logout",
       {},
       {
         headers: {
@@ -138,11 +136,8 @@ const AppSidebar: React.FC = () => {
         withCredentials: true,
       }
     );
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setToken(null);
-    navigate("/");
-    
   };
 
   useEffect(() => {

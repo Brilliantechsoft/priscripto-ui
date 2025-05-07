@@ -13,9 +13,11 @@ const AppointmentRequestCard = ({
   const dispatch = useDispatch();
 
   const handleStatusChange = async (appointmentId: number, status: string) => {
-    const response = await axios.put(
+    const response = await axios.patch(
       import.meta.env.VITE_BACKEND_URL +
-      "/doctors/appointments/" + appointmentId + "/appointment-status",
+        "/doctors/appointments/" +
+        appointmentId +
+        "/appointment-status",
       { appointmentStatus: status.toUpperCase() },
       {
         headers: {
@@ -24,8 +26,6 @@ const AppointmentRequestCard = ({
         withCredentials: true,
       }
     );
-    
-    
     console.log(`Appointment ID: ${appointmentId}, Status: ${status}`);
     console.log(response);
     dispatch(deleteAppointmentRequest(appointmentId));
