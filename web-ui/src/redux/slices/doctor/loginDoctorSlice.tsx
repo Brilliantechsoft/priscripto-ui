@@ -4,7 +4,7 @@ import { fetchDoctorProfile } from "./doctorProfileSlice";
 import { API_BASE_URL } from "../../../config/apiConfig";
 
 const LOGIN_DOCTOR_URL =
-  "https://ad53-203-192-220-137.ngrok-free.app/api/auth/login";
+  import.meta.env.VITE_BACKEND_URL+"/api/auth/login";
 
 interface User {
   id: string;
