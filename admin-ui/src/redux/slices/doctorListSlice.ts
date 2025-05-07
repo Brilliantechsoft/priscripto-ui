@@ -1,17 +1,32 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
+interface Specialization {
+  specializationId: number;
+  specializationName: string;
+  services: string;
+  fees: number;
+}
+
+export interface Degree {
+  degreeId: number;
+  degreeName: string;
+  startDate: number[];
+  endDate: number[];
+  instituteName: string;
+}
 interface Doctor {
   id: number;
   firstName: string;
   lastName:string;
   email: string;
-  degree: string;
+  degrees:  Degree[];
   age: string;
   phoneNumber: string;
-  specialization: string;
+  specialization: Specialization[];
   city: string;
-  clinicAddress: string;
+  clinicAddress: string | null;
 }
 
 interface DoctorsState {
@@ -29,7 +44,8 @@ const initialState: DoctorsState = {
 };
 
 export const fetchDoctors = createAsyncThunk("doctors", async () => {
-  const response = await axios.get<Doctor[]>("https://192.168.1.52:8080/api/v1/doctors");
+  const response = await axios.get<Doctor[]>("http://localhost:5002/doctors") 
+    
   return response.data;
 });
 
@@ -37,7 +53,7 @@ export const addDoctor = createAsyncThunk(
   "doctors/add",
   async (doctor: Omit<Doctor, "id">) => {
     const response = await axios.post<Doctor>(
-      "http://localhost:5000/doctors",
+      "http://localhost:5002/doctors",
       doctor
     );
     return response.data;
@@ -47,7 +63,7 @@ export const addDoctor = createAsyncThunk(
 export const deleteDoctor = createAsyncThunk(
   "doctors/delete",
   async (id: number) => {
-    await axios.delete<Doctor>(`http://localhost:5000/doctors/${id}`);
+    await axios.delete<Doctor>(`http://localhost:5002/doctors/${id}`);
     return id;
   }
 );

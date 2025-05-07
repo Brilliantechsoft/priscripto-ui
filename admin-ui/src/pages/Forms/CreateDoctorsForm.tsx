@@ -77,7 +77,22 @@ const CreateDoctorsForm: React.FC<CreateDoctorsFormProps> = ({
       formData.city &&
       formData.address
     ) {
-      dispatch(addDoctor(formData));
+      const payload = {
+        firstName: formData.name,
+        lastName: "", // or split name if needed
+        email: formData.email,
+        phoneNumber: formData.phone,
+        age: parseInt(formData.age),
+        specialization: [{ specializationName: formData.specialization }],
+        degrees: [{ degreeName: formData.qualification }],
+        experience: parseInt(formData.experience),
+        city: formData.city,
+        address: formData.address,
+        available: formData.available,
+      };
+      
+      dispatch(addDoctor(payload));
+      
       closeModal();
 
       setFormData({
@@ -188,7 +203,7 @@ const CreateDoctorsForm: React.FC<CreateDoctorsFormProps> = ({
                 name="city"
                 onChange={handleInputChange}
                 value={formData.city}
-                placeholder="Enter Your Specialization"
+                placeholder="Enter Your City"
               />
             </div>
             <div>
@@ -199,7 +214,7 @@ const CreateDoctorsForm: React.FC<CreateDoctorsFormProps> = ({
                 name="address"
                 onChange={handleInputChange}
                 value={formData.address}
-                placeholder="Enter Your Specialization"
+                placeholder="Enter Your Address"
               />
             </div>
             <div>

@@ -1,17 +1,33 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export interface Degree {
+  degreeId: number;
+  degreeName: string;
+  startDate: number[];
+  endDate: number[];
+  instituteName: string;
+}
+
+export interface Specialization {
+  specializationId: number;
+  specializationName: string;
+  services: string;
+  fees: number;
+}
+
 interface Doctor {
   id: number;
   firstName: string;
   lastName: string;
-  specialization: string;
+  specialization?: Specialization[];
   profileImage: string;
   clinicAddress: string;
   fees: number;
-  degree: string;
+  degree?: Degree[];
   experience: string;
   about: string;
+  status: boolean;
 }
 
 interface DoctorState {
@@ -30,29 +46,50 @@ const initialState: DoctorState = {
   error: null,
 };
 
-// Async thunk to fetch doctors
-export const fetchDoctors = createAsyncThunk<Doctor[], string | undefined>(
+export const fetchDoctors = createAsyncThunk<Doctor[]>(
   "doctors/fetchDoctors",
-  async (speciality) => {
-    const response = await axios.get("http://localhost:5002/Doctors_spl");
-    const allDoctors = response.data;
+  async () => {
+    const response = await axios.get(
+      "https://e232-203-192-220-137.ngrok-free.app/api/v1/doctors",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
-    if (speciality) {
-      const filtered = allDoctors.filter(
-        (doc: Doctor) =>
-          doc.specialization.toLowerCase() === speciality.toLowerCase()
-      );
-      return filtered;
-    }
-    return allDoctors;
+    const rawData = Array.isArray(response.data)
+      ? response.data
+      : response.data?.data ?? [];
+
+    return rawData;
   }
 );
 
 export const fetchDoctorAvailability = createAsyncThunk<
-  { doctorId: number; available: boolean }[]
+  Record<number, boolean>
 >("doctors/fetchDoctorAvailability", async () => {
-  const response = await axios.get("http://localhost:5006/availability");
-  return response.data;
+  const response = await axios.get(
+    "https://e232-203-192-220-137.ngrok-free.app/api/v1/doctors",
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
+
+  const rawData = Array.isArray(response.data)
+    ? response.data
+    : response.data?.data ?? [];
+
+  const availabilityMap: Record<number, boolean> = {};
+  rawData.forEach((doc: any) => {
+    availabilityMap[doc.id] = doc.status;
+  });
+
+  return availabilityMap;
 });
 
 const doctorSlice = createSlice({
@@ -60,10 +97,14 @@ const doctorSlice = createSlice({
   initialState,
   reducers: {
     filterDoctors: (state, action: PayloadAction<string | undefined>) => {
+      if (!Array.isArray(state.allDoctors)) return;
+
       if (action.payload) {
         const specialization = action.payload.toLowerCase();
-        state.filteredDoctors = state.allDoctors.filter(
-          (doc) => doc.specialization.toLowerCase() === specialization
+        state.filteredDoctors = state.allDoctors.filter((doc) =>
+          doc.specialization?.some(
+            (spec) => spec.specializationName.toLowerCase() === specialization
+          )
         );
       } else {
         state.filteredDoctors = state.allDoctors;
@@ -85,11 +126,7 @@ const doctorSlice = createSlice({
         state.error = action.error.message || "Something went wrong";
       })
       .addCase(fetchDoctorAvailability.fulfilled, (state, action) => {
-        const availability = action.payload;
-        state.availabilityMap = {};
-        availability.forEach(({ doctorId, available }) => {
-          state.availabilityMap[doctorId] = available;
-        });
+        state.availabilityMap = action.payload;
       });
   },
 });
