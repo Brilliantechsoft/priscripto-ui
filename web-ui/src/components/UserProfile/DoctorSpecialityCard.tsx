@@ -7,11 +7,7 @@ import {
   deleteSpecialityService,
   resetSpecialityService,
 } from "../../redux/slices/doctor/doctorSpecialitySlice";
-import {
-  Specialization,
-  Service,
-  SpecialityService,
-} from "../../types/doctor/doctor";
+import { SpecialityService } from "../../types/doctor/doctor";
 
 export default function DoctorSpecialityCard() {
   const dispatch = useAppDispatch();
@@ -28,8 +24,8 @@ export default function DoctorSpecialityCard() {
     );
 
   const [formData, setFormData] = useState<SpecialityService>({
-    specializationId: null,
-    serviceId: null,
+    specializationName: null,
+    serviceName: null,
     price: null,
   });
 
@@ -45,10 +41,10 @@ export default function DoctorSpecialityCard() {
   }, [specialityServiceData]);
 
   const handleSave = () => {
-    if (formData.specializationId && formData.serviceId && formData.price) {
+    if (formData.specializationName && formData.serviceName && formData.price) {
       const data = {
-        specializationId: formData.specializationId,
-        serviceId: formData.serviceId,
+        specializationName: formData.specializationName,
+        serviceName: formData.serviceName,
         price: formData.price,
       };
       dispatch(updateSpecialityService(data));
@@ -64,14 +60,14 @@ export default function DoctorSpecialityCard() {
   const handleReset = () => {
     dispatch(resetSpecialityService());
     setFormData({
-      specializationId: null,
-      serviceId: null,
+      specializationName: null,
+      serviceName: null,
       price: null,
     });
   };
 
   return (
-    <div className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm">
+    <div className="p-6 border border-gray-200 rounded-lg bg-gray-100 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h4 className="text-lg font-semibold text-gray-800">
           Speciality & Services
@@ -101,11 +97,11 @@ export default function DoctorSpecialityCard() {
           </label>
           <select
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            value={formData.specializationId || ""}
+            value={formData.specializationName || ""}
             onChange={(e) =>
               setFormData({
                 ...formData,
-                specializationId: Number(e.target.value),
+                specializationName: e.target.value,
               })
             }
             disabled={loading}
@@ -115,8 +111,8 @@ export default function DoctorSpecialityCard() {
             </option>
             {specialities.map((speciality) => (
               <option
-                key={speciality.specializationId}
-                value={speciality.specializationId}
+                key={speciality.specializationName}
+                value={speciality.specializationName}
               >
                 {speciality.specializationName}
               </option>
@@ -131,11 +127,11 @@ export default function DoctorSpecialityCard() {
             </label>
             <select
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              value={formData.serviceId || ""}
+              value={formData.serviceName || ""}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  serviceId: Number(e.target.value),
+                  serviceName: e.target.value,
                 })
               }
               disabled={loading}
@@ -144,7 +140,7 @@ export default function DoctorSpecialityCard() {
                 Select Service
               </option>
               {services.map((service) => (
-                <option key={service.serviceId} value={service.serviceId}>
+                <option key={service.serviceName} value={service.serviceName}>
                   {service.serviceName}
                 </option>
               ))}
@@ -184,8 +180,8 @@ export default function DoctorSpecialityCard() {
             onClick={handleSave}
             disabled={
               loading ||
-              !formData.specializationId ||
-              !formData.serviceId ||
+              !formData.specializationName ||
+              !formData.serviceName ||
               !formData.price
             }
           >
