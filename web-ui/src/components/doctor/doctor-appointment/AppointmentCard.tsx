@@ -29,7 +29,7 @@ const AppointmentCard = ({ appointment }: AppointmentCardProps) => {
       <div className="flex flex-col text-sm text-gray-700 space-y-1">
         <div className="flex items-center space-x-1">
           <CalendarDays className="w-4 h-4 text-gray-500" />
-          <span>{appointment.date}</span>
+          <span>{appointment.date} || {appointment.time}</span>
         </div>
         <div className="flex space-x-2 font-medium">
           <span>{appointment.appointmentType}</span>

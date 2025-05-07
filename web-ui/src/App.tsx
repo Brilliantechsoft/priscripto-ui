@@ -38,6 +38,7 @@ import AppHome from "./layout/AppHome";
 import PatientProfile from "./pages/patient/PatientProfile";
 import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
 
+
 function AppContent() {
   const location = useLocation();
 
@@ -130,6 +131,14 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+           <Route
+          path="/doctor/appointment-start/:appointmentId/:patientId"
+          element={
+            <ProtectedRoute>
+              <DoctorAppointmentDetails />
+            </ProtectedRoute>
+          }
+        />
         </Route>
 
         {/* Auth Pages :  only accessible to guests */}

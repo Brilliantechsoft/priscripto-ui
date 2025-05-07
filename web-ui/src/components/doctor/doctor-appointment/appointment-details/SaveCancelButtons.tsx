@@ -9,14 +9,8 @@ const SaveCancelButtons = ({ formData, setFormData, initialFormData }: SaveCance
       try {
         console.log(formData);
         
-        const response = await fetch("/api/appointment/save", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-  
-        const data = await response.json();
-        console.log("Saved:", data);
+        
+        console.log("Saved:");
         alert("Appointment data saved!");
       } catch (err) {
         console.error("Save error:", err);
