@@ -11,16 +11,16 @@ import { signInDoctor } from "../../../redux/slices/doctor/loginDoctorSlice";
 export default function DrSignInForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { status, error, isLoggedIn } = useAppSelector(
+  const { status, error, isLoggedIn, user } = useAppSelector(
     (state) => state.signInDoctor
   );
 
   // Redirect if already logged in
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/doctor-profile");
+    if (isLoggedIn && user?.role === "DOCTOR") {
+      navigate("/doctor-dashboard");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, user]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -95,7 +95,7 @@ export default function DrSignInForm() {
         // localStorage.setItem("jwt", result.token);
 
         // navigate("/doctor-profile");
-        navigate("/doctor-profile");
+        navigate("/doctor-dashboard");
       } catch (error) {
         console.error("Sign in failed:", error);
       }

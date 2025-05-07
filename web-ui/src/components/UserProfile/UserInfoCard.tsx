@@ -226,24 +226,26 @@ export default function UserInfoCard() {
       return;
     }
 
-    const updateData: Partial<Doctor> = {
-      phoneNumber: formData.phoneNumber as number,
-      age: formData.age as number,
-      country:
-        typeof formData.country === "object"
-          ? formData.country.name
-          : formData.country,
-      state: formData.state,
-      city: formData.city,
-      pincode: formData.pincode as number,
-      clinicAddress: formData.clinicAddress,
-      gender: formData.gender.toUpperCase(),
-    };
+    try {
+      // Create update payload with only the fields that have values
+      const updateData: Partial<Doctor> = {
+        phoneNumber: formData.phoneNumber as number,
+        ...(formData.age && { age: formData.age as number }),
+        ...(formData.country && { country: formData.country }),
+        ...(formData.state && { state: formData.state }),
+        ...(formData.city && { city: formData.city }),
+        ...(formData.pincode && { pincode: formData.pincode as number }),
+        ...(formData.clinicAddress && {
+          clinicAddress: formData.clinicAddress,
+        }),
+        ...(formData.gender && { gender: formData.gender.toUpperCase() }),
+      };
 
-    if (formData.image) {
-      const formDataUpload = new FormData();
-      formDataUpload.append("image", formData.image);
-      try {
+      // Handle image upload if present
+      if (formData.image) {
+        const formDataUpload = new FormData();
+        formDataUpload.append("image", formData.image);
+
         const uploadResponse = await fetch(
           "http://192.168.1.49:8080/api/v1/doctors/upload-image",
           {
@@ -261,28 +263,19 @@ export default function UserInfoCard() {
 
         const uploadResult = await uploadResponse.json();
         updateData.image = uploadResult.profileImage;
-      } catch (error) {
-        console.error("Image upload failed:", error);
-        alert("Failed to upload profile picture.");
-        return;
       }
-    }
 
-    // dispatch(updateDoctorProfile(updateData))
-    //   .then(() => {
-    //     dispatch(fetchDoctorProfile());
-    //     alert("Profile updated successfully");
-    //   })
-    //   .catch((err) => {
-    //     console.error("Failed to update Profile:", err);
-    //   });
-    try {
+      // Dispatch the update action
       await dispatch(updateDoctorProfile(updateData)).unwrap();
+
+      // Refresh the profile data
       await dispatch(fetchDoctorProfile()).unwrap();
-      alert("Profile updated successfully");
+
+      // Show success message
+      alert("Basic details updated successfully!");
     } catch (error) {
-      console.error("Failed to update or fetch profile:", error);
-      alert(`Failed to update profile: ${error}`);
+      console.error("Failed to update profile:", error);
+      alert(`Failed to update profile: ${error.message || "Please try again"}`);
     }
   };
 
@@ -302,13 +295,13 @@ export default function UserInfoCard() {
   };
 
   return (
-    <div className="p-6 border border-gray-200 rounded-lg bg-white shadow-sm">
+    <div className="p-6 border border-gray-200 rounded-lg bg-gray-100 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h4 className="text-lg font-semibold text-gray-800">Basic Details</h4>
       </div>
 
       {/* Read-only Registration Details */}
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
           <div>
             <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
@@ -335,7 +328,7 @@ export default function UserInfoCard() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Editable Fields */}
       <div className="space-y-6">

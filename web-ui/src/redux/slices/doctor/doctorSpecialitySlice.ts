@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Specialization, Service, SpecialityService } from "../../../types/doctor/doctor";
+import { API_BASE_URL } from "../../../config/apiConfig";
+
+const UPDATE_DOCTOR_SPECIALITY_SERVICE_URL = API_BASE_URL + "/v1/doctors/update-specializations";
+const FETCH_DOCTOR_SPECIALITY_URL = API_BASE_URL + "/v1/doctors/getSpecNameService";
+const FETCH_DOCTOR_SERVICE_URL = API_BASE_URL + "/v1/doctors/getSpecNameService";
+const DELETE_DOCTOR_SPECIALITY_SERVICE_URL = API_BASE_URL + "/v1/doctor/speciality-service/${id}";
 
 // export interface SpecialityService {
 //   id?: number;
@@ -35,7 +41,7 @@ export const fetchSpecialities = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "http://192.168.1.49:8080/v1/doctors/getSpecNameService",
+        FETCH_DOCTOR_SPECIALITY_URL,
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +81,7 @@ export const fetchServices = createAsyncThunk(
       }
 
       const response = await axios.get(
-        "http://192.168.1.49:8080/v1/doctors/getSpecNameService",
+        FETCH_DOCTOR_SERVICE_URL,
         {
           headers: {
             "Content-Type": "application/json",
@@ -127,7 +133,7 @@ export const updateSpecialityService = createAsyncThunk(
       }
 
       const response = await axios.put(
-        "http://192.168.1.49:8080/api/v1/doctors/update-specializations",
+        UPDATE_DOCTOR_SPECIALITY_SERVICE_URL,
         data,
         {
           headers: {
@@ -156,7 +162,7 @@ export const deleteSpecialityService = createAsyncThunk(
       }
 
       await axios.delete(
-        `https://3a18-203-192-220-137.ngrok-free.app/api/v1/doctor/speciality-service/${id}`,
+        DELETE_DOCTOR_SPECIALITY_SERVICE_URL,
         {
           headers: {
             "Content-Type": "application/json",
