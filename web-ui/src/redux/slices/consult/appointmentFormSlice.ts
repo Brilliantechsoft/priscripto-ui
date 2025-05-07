@@ -9,13 +9,28 @@ interface AppointmentPayload {
   timeSlotId: number;
   prescriptions: string;
   purpose: string;
+  
 }
+
+interface AppointmentState {
+  loading: boolean;
+  error: string | null;
+  success: boolean;
+  appointment: any | null; 
+}
+
+const initialState:AppointmentState = {
+  loading: false,
+  error: null,
+  success: false,
+  appointment: null,
+};
 
 export const createAppointment = createAsyncThunk(
   "appointments/create",
   async (appointmentData: AppointmentPayload ) => {
     const response = await axios.post(
-      "https://e232-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
+      "https://3df7-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
       appointmentData
     );
     
@@ -25,25 +40,25 @@ export const createAppointment = createAsyncThunk(
 
 const appointmentFormSlice = createSlice({
   name: "appointments",
-  initialState: {
-    loading: false,
-    error: null as string | null,
-    appointment: null ,
-  },
+  initialState,
+
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createAppointment.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(createAppointment.fulfilled, (state, action) => {
         state.loading = false;
         state.appointment = action.payload;
+        state.success = true;
       })
       .addCase(createAppointment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to create appointment";
+        state.success = false;
       });
   },
 });

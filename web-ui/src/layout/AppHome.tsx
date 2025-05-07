@@ -150,7 +150,7 @@ const AppHome: React.FC = () => {
                 </form>
 
                 {/* Navigation Links - Added after search bar */}
-                <div className="flex lg:ml-6 space-x-6 mt-2 lg:mt-0">
+                <div className="flex justify-between gap-4 mb-3 lg:ml-10 space-x-6 mt-2 lg:mt-0">
                   <Link
                     to="/find-doctors"
                     className="flex items-center text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-400"
@@ -169,7 +169,7 @@ const AppHome: React.FC = () => {
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                       ></path>
                     </svg>
-                    <span className="font-medium">Find Doctors</span>
+                    <span className="text-lg font-medium whitespace-nowrap">Find Doctors</span>
                   </Link>
                   <Link
                     to="/video-consult"
@@ -189,7 +189,7 @@ const AppHome: React.FC = () => {
                         d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                       ></path>
                     </svg>
-                    <span className="font-medium">Video Consult</span>
+                    <span className="text-lg font-medium whitespace-nowrap">Video Consult</span>
                   </Link>
                   <Link
                     to="/surgeries"
@@ -209,7 +209,7 @@ const AppHome: React.FC = () => {
                         d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"
                       ></path>
                     </svg>
-                    <span className="font-medium">Surgeries</span>
+                    <span className="text-lg font-medium ">Surgeries</span>
                   </Link>
                 </div>
               </div>

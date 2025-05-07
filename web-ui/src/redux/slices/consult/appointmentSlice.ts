@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Slot } from "../../../types/appointmentTypes";
+import { Slot } from "../../../types/appointment/appointmentTypes";
 
 export interface DoctorState {
   slots: Slot[][];
@@ -20,7 +20,7 @@ export const fetchDoctorSlots = createAsyncThunk(
   async (docId: string) => {
     console.log("Fetching slots for docId:", docId);
     const response = await axios.get(
-      "https://e232-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
+      "https://3df7-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
       {
         headers: {
           "Content-Type": "application/json",

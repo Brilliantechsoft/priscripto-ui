@@ -47,7 +47,7 @@ export default function Banner() {
         </div>
 
         {/* -----Right side------ */}
-        <div className="hidden md:block md:w-1/2 bg-red-900 lg:w-[370px]   relative">
+        <div className="hidden md:block md:w-1/2 bg-red-900 lg:w-[370px] relative">
           <img
             className="w-[500px] absolute bottom-[-150px] h-[300px] right-0 max-w-md"
             src={IMAGE}
@@ -55,11 +55,21 @@ export default function Banner() {
           />
         </div>
       </div>
+      <div>
       <SpecialityMenu/>
+      </div>
+      <div>
       <HealthConcernCarousel/>
+      </div>
+      <div>
       <OurDoctors/>
+      </div>
+      <div>
       <TrustMetricSection/>
+      </div>
+      <div>
       <Testimonials/>
+      </div>
     </div>
   );
 }

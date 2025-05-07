@@ -115,7 +115,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
                 }}
                 className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-full"
               >
-                Book Appointment
+                Confirm Time Slot
               </button>
 
               <Modal
