@@ -145,8 +145,8 @@ const Doctors: React.FC = () => {
               </div>
 
               <Modal
-                width="w-[500px]"
-                height="h-[70vh]"
+                width="w-[450px]"
+                height="h-[50vh]"
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
               >

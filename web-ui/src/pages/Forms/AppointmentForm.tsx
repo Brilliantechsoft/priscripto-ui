@@ -22,6 +22,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, 
   const { loading, error } = useSelector(
     (state: RootState) => state.appointmentForm
   );
+console.log (error)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
