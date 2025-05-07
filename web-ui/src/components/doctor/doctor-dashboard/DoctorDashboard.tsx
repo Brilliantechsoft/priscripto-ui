@@ -14,7 +14,7 @@ const DoctorDashboard = () => {
   return (
     <div className="flex bg-gray-50">
       <div className="w-64 border-r bg-white shadow-sm">
-        <AppSidebar />
+        {/* <AppSidebar /> */}
       </div>
 
       <div className="flex flex-1 p-6 gap-6 ml-10">
@@ -25,18 +25,18 @@ const DoctorDashboard = () => {
         <div className="flex-1 bg-white p-4 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Requests</h2>
           <div className="space-y-4">
-          {requests.length > 0 ? (
-            requests.map((request) => (
-              <AppointmentRequestCard
-                key={request.appointmentId}
-                appointment={request}
-              />
-            ))
-          ) : (
-            <div className="text-center font-bold text-red-500">
-              No requests available
-            </div>
-          )}
+            {requests.length > 0 ? (
+              requests.map((request) => (
+                <AppointmentRequestCard
+                  key={request.appointmentId}
+                  appointment={request}
+                />
+              ))
+            ) : (
+              <div className="text-center font-bold text-red-500">
+                No requests available
+              </div>
+            )}
           </div>
         </div>
       </div>

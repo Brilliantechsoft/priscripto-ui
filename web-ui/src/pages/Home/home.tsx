@@ -1,12 +1,12 @@
 import React from "react";
-import AppHome from "../../layout/AppHome";
 import Cards from "./cards";
+import AppHome from "../../layout/AppHome";
 
 const HomePage: React.FC = () => {
   return (
     <div className="relative  bg-blue-100 min-h-screen">
-      <AppHome />
-      <main className="p-6 mt-20">
+      
+      <main className="p-6 ">
         <div className="relative w-full h-[500px] overflow-hidden rounded-lg shadow-md">
           {/* <h3>Dash-Board Home Page</h3> */}
           <img

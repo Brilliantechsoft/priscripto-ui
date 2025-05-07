@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAppointment } from "../../redux/slices/consult/appointmentFormSlice";
 import { AppDispatch, RootState } from "../../redux/store";
-import { useParams } from "react-router";
 
-const AppointmentForm: React.FC = () => {
-  const { doctorId, patientId, timeSlotId } = useParams<{
-    doctorId: string;
-    patientId: string;
-    timeSlotId: string;
-  }>();
-  
+type AppointmentFormProps = {
+  doctorId: number | undefined;
+  patientId: number | undefined;
+  timeSlotId: number | undefined;
+};
 
+const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, timeSlotId }) => {
+  
+  const doctorIdNum = doctorId ?? 0;
+  const patientIdNum = patientId ?? 0;
+  const timeSlotIdNum = timeSlotId ?? 0;
 
-  const doctorIdNum = parseInt(doctorId ?? '', 10);
-  const patientIdNum = parseInt(patientId ?? '', 10);
-  const timeSlotIdNum = parseInt(timeSlotId ?? '', 10);
-  
-  
   const [appointmentType, setAppointmentType] = useState("IN_PERSON");
   const [purpose, setPurpose] = useState("");
 
@@ -25,8 +22,6 @@ const AppointmentForm: React.FC = () => {
   const { loading, error } = useSelector(
     (state: RootState) => state.appointmentForm
   );
-
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -2,6 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Doctor, Specialization, Degree } from "../../../types//doctor/doctor";
 import { RootState } from "../../../redux/store";
+import { API_BASE_URL } from "../../../config/apiConfig";
+
+const UPDATE_DOCTOR_PROFILE_URL = API_BASE_URL + "/v1/doctors/basic-details";
+const FETCH_DOCTOR_PROFILE_URL = API_BASE_URL + "/v1/doctor";
 
 interface Country {
   name: string;
@@ -174,13 +178,13 @@ export const updateDoctorProfile = createAsyncThunk(
       const token = localStorage.getItem("jwt");
 
       if (!token) {
-        throw new Error("Token not found");
+        return rejectWithValue("Authentication token not found");
       }
 
       // console.log("Final update payload:", updatePayload);
 
       const response = await axios.put<Doctor>(
-        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctor/update`,
+        UPDATE_DOCTOR_PROFILE_URL,
         data,
         {
           headers: {
@@ -192,7 +196,10 @@ export const updateDoctorProfile = createAsyncThunk(
       );
       console.log("Update response:", response.data);
 
-      return response.data;
+      return {
+        data: response.data,
+        message: "Profile updated successfully",
+      };
     } catch (error) {
       console.error("Update error:", error);
       return rejectWithValue(
@@ -214,16 +221,13 @@ export const fetchDoctorProfile = createAsyncThunk(
         throw new Error("Token not found");
       }
 
-      const response = await axios.get<Doctor>(
-        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctor`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          // withCredentials: true,
-        }
-      );
+      const response = await axios.get<Doctor>(FETCH_DOCTOR_PROFILE_URL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        // withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message);

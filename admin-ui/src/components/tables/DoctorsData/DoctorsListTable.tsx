@@ -25,7 +25,7 @@ const DoctorsListTable = () => {
   const { doctors, searchDoctors, loading, error } = useSelector(
     (state: RootState) => state.doctors
   );
-  
+
   const displayedDoctors = searchTerm ? searchDoctors : doctors;
 
   useEffect(() => {
@@ -43,8 +43,12 @@ const DoctorsListTable = () => {
       const matchedDoctors = doctors.filter(
         (doctor) =>
           doctor.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
-          doctor.email.toLowerCase().includes(searchText.toLowerCase()) || 
-          doctor.specialization.toLowerCase().includes(searchText.toLowerCase())
+          doctor.email.toLowerCase().includes(searchText.toLowerCase()) ||
+          doctor.specialization.some((spec: any) =>
+            spec.specializationName
+              .toLowerCase()
+              .includes(searchText.toLowerCase())
+          )
       );
 
       dispatch(handleSearchDoctors(matchedDoctors));
@@ -167,17 +171,32 @@ const DoctorsListTable = () => {
                   displayedDoctors.map((doctor) => (
                     <TableRow key={doctor.id}>
                       <TableCell className="px-5 py-4 sm:px-6 text-center text-theme-sm dark:text-white/90">
-                        {doctor.firstName + ' ' + doctor.lastName}
+                        {doctor.firstName && doctor.lastName
+                          ? `${doctor.firstName} ${doctor.lastName}`
+                          : doctor.firstName || "N/A"}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                         {doctor.email}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {doctor.degree}
+                        {Array.isArray(doctor.degrees) &&
+                        doctor.degrees.length > 0
+                          ? doctor.degrees
+                              .map((degree) => degree.degreeName)
+                              .join(", ")
+                          : "N/A"}
                       </TableCell>
+
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
-                        {doctor.specialization}
+                        {Array.isArray(doctor.specialization)
+                          ? doctor.specialization
+                              .map((s: any) => s.specializationName)
+                              .join(", ")
+                          : typeof doctor.specialization === "string"
+                          ? doctor.specialization
+                          : "N/A"}
                       </TableCell>
+
                       <TableCell className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400">
                         {doctor.age}
                       </TableCell>

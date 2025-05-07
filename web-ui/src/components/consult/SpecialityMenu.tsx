@@ -56,7 +56,7 @@ const SpecialityMenu: React.FC = () => {
   }, [dispatch]);
 
   // Debugging output
-  console.log("Fetched Specialities:", data);
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
