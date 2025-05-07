@@ -29,8 +29,9 @@ export const addSpecialization = createAsyncThunk(
           },
         }
       );
-      return response.data.specializationName;
+      return specialization;
     } catch (error: any) {
+      console.error("Add specialization error:", error);
       return rejectWithValue(
         error.response?.data?.message || "Failed to add specialization"
       );

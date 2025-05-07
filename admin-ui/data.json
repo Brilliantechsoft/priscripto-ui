@@ -2,99 +2,162 @@
   "doctors": [
     {
       "id": "1",
-      "name": "Dr. John Smith",
-      "specialization": "Cardiologist",
-      "email": "john.smith@example.com",
-      "qualification": "MD, Cardiology",
-      "experience": "15 years",
-      "age": "45",
-      "city": "New York",
-      "address": "123 Heartbeat Ave, New York, NY",
-      "phone": "123-456-7890"
+      "firstName": "john",
+      "lastName": "doe",
+      "email": "john@gmail.com",
+      "role": "DOCTOR",
+      "phoneNumber": null,
+      "profileImage": null,
+      "gender": null,
+      "age": null,
+      "city": null,
+      "state": null,
+      "pincode": null,
+      "country": null,
+      "status": true,
+      "clinicAddress": null,
+      "specialization": [
+        {
+          "specializationId": 1,
+          "specializationName": "DENTIST",
+          "services": "CONSULTATION",
+          "fees": 900
+        },
+        {
+          "specializationId": 7,
+          "specializationName": "NEUROLOGIST",
+          "services": "TELECONSULTATION",
+          "fees": 500
+        },
+        {
+          "specializationId": 8,
+          "specializationName": "PEDIATRICIAN",
+          "services": "TELECONSULTATION",
+          "fees": 500
+        },
+        {
+          "specializationId": 9,
+          "specializationName": "DERMATOLOGIST",
+          "services": "TELECONSULTATION",
+          "fees": 500
+        }
+      ],
+      "degrees": [
+        {
+          "degreeId": 1,
+          "degreeName": "MBBS",
+          "startDate": [
+            2014,
+            6,
+            1
+          ],
+          "endDate": [
+            2019,
+            6,
+            30
+          ],
+          "instituteName": "B.J. Medical College, Pune"
+        }
+      ]
     },
     {
       "id": "2",
-      "name": "Dr. Emily Johnson",
-      "specialization": "Dermatologist",
-      "email": "emily.johnson@example.com",
-      "qualification": "MD, Dermatology",
-      "experience": "10 years",
-      "age": 38,
-      "city": "Los Angeles",
-      "address": "456 Skin Care Blvd, Los Angeles, CA",
-      "phone": "987-654-3210"
+      "firstName": "Shubhada",
+      "lastName": "Kunde",
+      "email": "shubhada@gmail.com",
+      "role": "DOCTOR",
+      "phoneNumber": 9370798818,
+      "profileImage": null,
+      "gender": "FEMALE",
+      "age": 25,
+      "city": "",
+      "state": "",
+      "pincode": 411001,
+      "country": "",
+      "status": false,
+      "clinicAddress": "Shiv Shrushti Apartment,behind bitwise world company, bahiratwadi,sb road",
+      "specialization": [
+        {
+          "specializationId": 2,
+          "specializationName": "CARDIOLOGIST",
+          "services": "TELECONSULTATION",
+          "fees": 900
+        },
+        {
+          "specializationId": 4,
+          "specializationName": "ORTHOPEDIC",
+          "services": "TELECONSULTATION",
+          "fees": 200
+        }
+      ],
+      "degrees": [
+        {
+          "degreeId": 2,
+          "degreeName": "MBBS",
+          "startDate": [
+            2015,
+            4,
+            1
+          ],
+          "endDate": [
+            2020,
+            4,
+            30
+          ],
+          "instituteName": "B.J. Medical College, Pune"
+        }
+      ]
     },
     {
       "id": "3",
-      "name": "Dr. Michael Brown",
-      "specialization": "Neurologist",
-      "email": "michael.brown@example.com",
-      "qualification": "MD, Neurology",
-      "experience": "12 years",
-      "age": 42,
-      "city": "Chicago",
-      "address": "789 Brain St, Chicago, IL",
-      "phone": "555-123-4567"
+      "firstName": "pratibha",
+      "lastName": "kakad",
+      "email": "pratibha@example.com",
+      "role": "DOCTOR",
+      "phoneNumber": null,
+      "profileImage": null,
+      "gender": null,
+      "age": null,
+      "city": null,
+      "state": null,
+      "pincode": null,
+      "country": null,
+      "status": false,
+      "clinicAddress": null,
+      "specialization": [],
+      "degrees": []
     },
     {
       "id": "4",
-      "name": "Dr. Sarah Lee",
-      "specialization": "Pediatrician",
-      "email": "sarah.lee@example.com",
-      "qualification": "MD, Pediatrics",
-      "experience": "8 years",
-      "age": 35,
-      "city": "Houston",
-      "address": "321 Childcare Ln, Houston, TX",
-      "phone": "444-987-6543"
-    },
-    {
-      "id": "5",
-      "name": "Dr. David Martinez",
-      "specialization": "Orthopedic Surgeon",
-      "email": "david.martinez@example.com",
-      "qualification": "MD, Orthopedics",
-      "experience": "18 years",
-      "age": 50,
-      "city": "Miami",
-      "address": "159 Bone Dr, Miami, FL",
-      "phone": "666-321-7890"
-    },
-    {
-      "id": "6",
-      "name": "Dr. Olivia Wilson",
-      "specialization": "Psychiatrist",
-      "email": "olivia.wilson@example.com",
-      "qualification": "MD, Psychiatry",
-      "experience": "14 years",
-      "age": 39,
-      "city": "San Francisco",
-      "address": "753 Mind Rd, San Francisco, CA",
-      "phone": "222-654-9876"
-    },
-    {
-      "id": "7",
-      "name": "Dr. Robert Anderson",
-      "specialization": "General Surgeon",
-      "email": "robert.anderson@example.com",
-      "qualification": "MD, Surgery",
-      "experience": "20 years",
-      "age": 55,
-      "city": "Seattle",
-      "address": "951 Surgery Way, Seattle, WA",
-      "phone": "333-987-1234"
-    },
-    {
-      "id": "8",
-      "name": "Dr. Laura Thomas",
-      "specialization": "Endocrinologist",
-      "email": "laura.thomas@example.com",
-      "qualification": "MD, Endocrinology",
-      "experience": "11 years",
-      "age": 40,
-      "city": "Boston",
-      "address": "852 Hormone Ct, Boston, MA",
-      "phone": "777-123-4567"
+      "firstName": "pranav",
+      "lastName": "more",
+      "email": "pranav@example.com",
+      "role": "DOCTOR",
+      "phoneNumber": null,
+      "profileImage": null,
+      "gender": null,
+      "age": null,
+      "city": null,
+      "state": null,
+      "pincode": null,
+      "country": null,
+      "status": false,
+      "clinicAddress": null,
+      "specialization": [
+        {
+          "specializationId": 5,
+          "specializationName": "GENERAL_PHYSICIAN",
+          "services": "TELECONSULTATION",
+          "fees": 300
+        },
+        {
+          "specializationId": 6,
+          "specializationName": "GYNECOLOGIST",
+          "services": "TELECONSULTATION",
+          "fees": 200
+        }
+      ],
+      "degrees": []
     }
   ]
 }
