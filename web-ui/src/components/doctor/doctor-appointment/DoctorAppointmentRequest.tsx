@@ -1,4 +1,4 @@
-import AppSidebar from "../../../layout/AppSidebar";
+
 import AppointmentRequestCard from "./AppointmentRequestCard ";
 
 import axios from "axios";
@@ -72,11 +72,8 @@ const DoctorAppointmentRequest = () => {
 
   return (
     <div className="flex min-h-screen ">
-      <div className="w-1/5">
-        <AppSidebar />
-      </div>
-      <div className="flex-1 bg-gray-50 p-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Requests</h2>
+      <div className="flex-1 bg-gray-50 p-5">
+        <h2 className="text-2xl font-bold text-gray-800 mb-3">Requests</h2>
         <div className="space-y-4 shadow-md rounded-lg p-4 bg-white">
           {requests.length > 0 ? (
             requests.map((request) => (

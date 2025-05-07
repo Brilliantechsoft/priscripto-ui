@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AppSidebar from "../../../layout/AppSidebar";
+
 import AppointmentCard from "./AppointmentCard";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,9 +40,9 @@ const DoctorAppointment = () => {
     const decodeToken = () => {
       try {
         if (token) {
-          const decodedToken: string = jwtDecode(token);
+          const decodedToken = jwtDecode<{ id: number }>(token);
           console.log("Decoded Token:", decodedToken);
-          setDoctorId(decodedToken?.id);
+          setDoctorId(decodedToken.id);
         }
       } catch (error) {
         console.error("Error decoding token:", error);
@@ -84,11 +84,11 @@ const DoctorAppointment = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <div>
+      {/* <div>
         <AppSidebar />
-      </div>
+      </div> */}
 
-      <div className="flex-1 p-6 ml-72">
+      <div className="flex-1 p-2">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Appointments</h1>
 

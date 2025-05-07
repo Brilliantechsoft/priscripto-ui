@@ -119,8 +119,8 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
               </button>
 
               <Modal
-                width="w-[500px]"
-                height="h-[70vh]"
+                width="w-[400px]"
+                height="h-[45vh]"
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
               >
