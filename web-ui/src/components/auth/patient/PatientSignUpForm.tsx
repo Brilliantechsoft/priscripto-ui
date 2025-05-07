@@ -135,16 +135,16 @@ export default function PatientSignUpForm() {
             Back to Home
           </Link>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-              <span>
-                Are you a Doctor?{" "}
-                <Link
-                  to="/drsignup"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
-                >
-                  Sign Up as Doctor
-                </Link>
-              </span>
-            </p>
+            <span>
+              Are you a Doctor?{" "}
+              <Link
+                to="/drsignup"
+                className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+              >
+                Sign Up as Doctor
+              </Link>
+            </span>
+          </p>
         </div>
 
         <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
@@ -358,15 +358,6 @@ export default function PatientSignUpForm() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
 
 // import { useState, FormEvent } from "react";
 // import { Link, useNavigate } from "react-router-dom";

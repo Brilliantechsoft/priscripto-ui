@@ -1,5 +1,6 @@
 import React from "react";
 import Cards from "./cards";
+import AppHome from "../../layout/AppHome";
 
 const HomePage: React.FC = () => {
   return (

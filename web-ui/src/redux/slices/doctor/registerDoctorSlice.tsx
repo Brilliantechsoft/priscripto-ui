@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import { API_BASE_URL } from "../../../config/apiConfig";
 
 const REGISTER_DOCTOR_URL =
   "https://e232-203-192-220-137.ngrok-free.app/api/v1/doctor/register";
@@ -118,8 +119,6 @@ const registerDoctorSlice = createSlice({
       .addCase(registerDoctor.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        // Store registration data and token if available
-        // state.token = action.payload.token || null;
         state.email = action.payload.email;
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;

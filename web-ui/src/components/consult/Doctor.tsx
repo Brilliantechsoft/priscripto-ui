@@ -11,7 +11,8 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import Button from "../ui/button/Button";
 import Appointments from "./Appointment";
 import { Modal } from "../ui/modal";
-import { Location, Calendar } from "iconsax-reactjs";
+import { Location } from "iconsax-reactjs";
+import { Calendar } from "iconsax-reactjs";
 
 const Doctors: React.FC = () => {
   const { speciality } = useParams<{ speciality?: string }>();
@@ -107,7 +108,11 @@ const Doctors: React.FC = () => {
                   </p>
 
                   <p className="flex items-center">
-                    <Location size="25" color="#FF8A65" className="mr-2" />
+                    <Location
+                      size="25"
+                      color="#FF8A65"
+                      className="isax isax-location mr-2"
+                    />
                     {item.clinicAddress}
                   </p>
                   <p className="text-gray-600 text-sm pt-2">₹{(item.specialization || [])
@@ -133,7 +138,7 @@ const Doctors: React.FC = () => {
                     }`}
                     disabled={!isAvailable}
                   >
-                    <Calendar size="25" color="#FF8A65" />
+                    <Calendar size="25" color="#FF8A65" className="" />
                     {isAvailable ? "BOOK NOW" : "Not Available"}
                   </Button>
                 </div>

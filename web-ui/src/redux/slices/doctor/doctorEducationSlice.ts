@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Education, Degree, Doctor } from "../../../types/doctor/doctor";
+import { API_BASE_URL } from "../../../config/apiConfig";
+
+const FETCH_DOCTOR_DEGREES_URL = API_BASE_URL + "/v1/doctors/degrees";
+const UPDATE_DOCTOR_EDUCATION_URL = API_BASE_URL + "/v1/doctors/update-degrees";
+const DELETE_DOCTOR_EDUCATION_URL = API_BASE_URL + "/v1/doctors/education/${id}";
 
 // initial state
 interface EducationState {
@@ -40,7 +45,7 @@ export const fetchDegrees = createAsyncThunk(
       // }
 
       const response = await axios.get(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/degrees",
+        FETCH_DOCTOR_DEGREES_URL,
         {
           headers: {
             "Content-Type": "application/json",
@@ -82,7 +87,7 @@ export const updateEducation = createAsyncThunk(
       }
 
       const response = await axios.put(
-        "https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/education",
+        UPDATE_DOCTOR_EDUCATION_URL,
         data,
         {
           headers: {
@@ -116,7 +121,7 @@ export const deleteEducation = createAsyncThunk(
       }
 
       await axios.delete(
-        `https://9702-203-192-220-137.ngrok-free.app/api/v1/doctors/education/${id}`,
+        DELETE_DOCTOR_EDUCATION_URL,
         {
           headers: {
             "Content-Type": "application/json",
