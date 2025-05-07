@@ -84,14 +84,32 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
-          <Route path="/doctor-profile" element={<UserProfiles />} />
-          <Route path="/patient-profile" element={<PatientProfile />} />
+          {/* <Route path="/doctor-profile" element={<UserProfiles />} />
+          <Route path="/patient-profile" element={<PatientProfile />} /> */}
+
+          <Route
+            path="/doctor-profile"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <UserProfiles />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-profile"
+            element={
+              <ProtectedRoute role="PATIENT">
+                <PatientProfile />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/blank" element={<Blank />} />
 
           <Route
             path="/doctor-available-timing"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="DOCTOR">
                 <DoctorAvailabilityCard />
               </ProtectedRoute>
             }
@@ -99,7 +117,7 @@ function AppContent() {
           <Route
             path="/my-patients"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="DOCTOR">
                 <MyPatientsCard />
               </ProtectedRoute>
             }
@@ -109,7 +127,7 @@ function AppContent() {
           <Route
             path="/doctor-dashboard"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="DOCTOR">
                 <DoctorDashboard />
               </ProtectedRoute>
             }
@@ -117,7 +135,7 @@ function AppContent() {
           <Route
             path="/doctor-appointment"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="DOCTOR">
                 <DoctorAppointment />
               </ProtectedRoute>
             }
@@ -125,7 +143,7 @@ function AppContent() {
           <Route
             path="/doctor-appointment-request"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="DOCTOR">
                 <DoctorAppointmentRequest />
               </ProtectedRoute>
             }
@@ -183,9 +201,34 @@ function AppContent() {
         />
 
         {/* Patient routes */}
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        {/* <Route path="/patient-dashboard" element={<PatientDashboard />} />
         <Route path="/patient-appointment" element={<PatientAppointment />} />
-        <Route path="/patient-records" element={<PatientMedicalRecord />} />
+        <Route path="/patient-records" element={<PatientMedicalRecord />} /> */}
+
+        <Route
+          path="/patient-dashboard"
+          element={
+            <ProtectedRoute role="PATIENT">
+              <PatientDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient-appointment"
+          element={
+            <ProtectedRoute role="PATIENT">
+              <PatientAppointment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient-records"
+          element={
+            <ProtectedRoute role="PATIENT">
+              <PatientMedicalRecord />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />

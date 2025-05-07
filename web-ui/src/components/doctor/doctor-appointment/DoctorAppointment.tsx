@@ -21,16 +21,19 @@ const CustomShimmer = () => {
 };
 
 const DoctorAppointment = () => {
-  const [activeTab, setActiveTab] = useState<"upcoming" | "cancelled" | "completed">("upcoming");
+  const [activeTab, setActiveTab] = useState<
+    "upcoming" | "cancelled" | "completed"
+  >("upcoming");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
   const [doctorId, setDoctorId] = useState<number | null>(null);
 
   const dispatch = useDispatch();
-  const appointments = useSelector((state: RootState) => state.doctorAppointment);
+  const appointments = useSelector(
+    (state: RootState) => state.doctorAppointment
+  );
 
-  
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     setToken(jwt);
@@ -57,7 +60,9 @@ const DoctorAppointment = () => {
       try {
         if (doctorId !== null) {
           const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/doctors/appointments/${doctorId}/status`,
+            `${
+              import.meta.env.VITE_BACKEND_URL
+            }/doctors/appointments/${doctorId}/status`,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -80,7 +85,9 @@ const DoctorAppointment = () => {
 
   const filteredAppointments = appointments
     ?.filter((apt) => apt.appointmentStatus.toLowerCase() === activeTab)
-    ?.filter((apt) => apt.patientName.toLowerCase().includes(searchTerm.toLowerCase()));
+    ?.filter((apt) =>
+      apt.patientName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -90,7 +97,9 @@ const DoctorAppointment = () => {
 
       <div className="flex-1 p-6 ml-72">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Appointments</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            Appointments
+          </h1>
 
           <div className="flex items-center gap-6 mb-4">
             {["upcoming", "cancelled", "completed"].map((tab) => (
@@ -124,10 +133,15 @@ const DoctorAppointment = () => {
             <CustomShimmer />
           ) : filteredAppointments.length > 0 ? (
             filteredAppointments.map((appointment) => (
-              <AppointmentCard key={appointment.appointmentId} appointment={appointment} />
+              <AppointmentCard
+                key={appointment.appointmentId}
+                appointment={appointment}
+              />
             ))
           ) : (
-            <p className="text-gray-500 text-sm">No matching appointments found.</p>
+            <p className="text-gray-500 text-sm">
+              No matching appointments found.
+            </p>
           )}
         </div>
       </div>
@@ -136,7 +150,6 @@ const DoctorAppointment = () => {
 };
 
 export default DoctorAppointment;
-
 
 // import { use, useEffect, useState } from "react";
 // import AppSidebar from "../../../layout/AppSidebar";
@@ -169,7 +182,7 @@ export default DoctorAppointment;
 //   const[doctorId , setDoctorId] = useState(number);
 //   setToken(localStorage.getItem("jwt"));
 //   console.log("Token:", token);
-  
+
 //   const decodeToken = () => {
 //     try {
 //       const decodedToken = token ? jwtDecode(token) : null;
@@ -195,7 +208,7 @@ export default DoctorAppointment;
 //         }
 //       );
 //       console.log(response);
-      
+
 //       dispatch(setAppointment(response?.data));
 //     } catch (error) {
 //       console.error("Error fetching appointments:", error);
@@ -272,6 +285,3 @@ export default DoctorAppointment;
 // };
 
 // export default DoctorAppointment;
-
-
-

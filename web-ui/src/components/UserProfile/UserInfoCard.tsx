@@ -16,6 +16,8 @@ import {
   setCities,
 } from "../../redux/slices/doctor/doctorProfileSlice";
 import { Doctor } from "../../types/doctor/doctor";
+import { ChevronDownIcon, FilterIcon } from "lucide-react";
+import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 
 interface Country {
   name: string;
@@ -30,6 +32,9 @@ interface State {
   cities: string[];
 }
 interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
   phoneNumber: number | "";
   age: number | "";
   country: string;
@@ -49,6 +54,9 @@ export default function UserInfoCard() {
   );
 
   const [formData, setFormData] = useState<FormData>({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
     phoneNumber: "",
     age: "",
     country: "",
@@ -75,7 +83,10 @@ export default function UserInfoCard() {
   // Syncing form data with doctor profile
   useEffect(() => {
     if (doctor) {
-      setFormData({
+      setFormData((prev) => ({
+        firstName: prev.firstName || doctor.firstName || "",
+        lastName: prev.lastName || doctor.lastName || "",
+        email: prev.email || doctor.email || "",
         phoneNumber: doctor.phoneNumber || "",
         age: doctor.age || "",
         country: doctor.country || "",
@@ -85,7 +96,7 @@ export default function UserInfoCard() {
         clinicAddress: doctor.clinicAddress || "",
         gender: doctor.gender || "",
         image: null,
-      });
+      }));
       if (doctor.image) {
         setPreviewImage(doctor.image);
       }
@@ -204,7 +215,7 @@ export default function UserInfoCard() {
     setFormData((prev) => ({
       ...prev,
       [name]:
-        name === "phone" || name === "age"
+        name === "phone" || name === "age" || name === "pincode"
           ? value === ""
             ? ""
             : Number(value)
@@ -221,14 +232,22 @@ export default function UserInfoCard() {
   };
 
   const handleSave = async () => {
-    if (!formData.phoneNumber) {
-      alert("Please enter a phone number.");
+    if (
+      !formData.phoneNumber ||
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email
+    ) {
+      alert("Please fill all required fields.");
       return;
     }
 
     try {
       // Create update payload with only the fields that have values
       const updateData: Partial<Doctor> = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
         phoneNumber: formData.phoneNumber as number,
         ...(formData.age && { age: formData.age as number }),
         ...(formData.country && { country: formData.country }),
@@ -271,7 +290,6 @@ export default function UserInfoCard() {
       // Refresh the profile data
       await dispatch(fetchDoctorProfile()).unwrap();
 
-      // Show success message
       alert("Basic details updated successfully!");
     } catch (error) {
       console.error("Failed to update profile:", error);
@@ -280,18 +298,23 @@ export default function UserInfoCard() {
   };
 
   const handleReset = () => {
-    setFormData({
-      phoneNumber: doctor?.phoneNumber || "",
-      age: doctor?.age || "",
-      country: doctor?.country || "",
-      state: doctor?.state || "",
-      city: doctor?.city || "",
-      pincode: doctor?.pincode || "",
-      clinicAddress: doctor?.clinicAddress || "",
-      gender: doctor?.gender || "",
-      image: null,
-    });
-    setPreviewImage(doctor?.image || null);
+    if (doctor) {
+      setFormData({
+        firstName: doctor.firstName || "",
+        lastName: doctor.lastName || "",
+        email: doctor.email || "",
+        phoneNumber: doctor?.phoneNumber || "",
+        age: doctor?.age || "",
+        country: doctor?.country || "",
+        state: doctor?.state || "",
+        city: doctor?.city || "",
+        pincode: doctor?.pincode || "",
+        clinicAddress: doctor?.clinicAddress || "",
+        gender: doctor?.gender || "",
+        image: null,
+      });
+      setPreviewImage(doctor?.image || null);
+    }
   };
 
   return (
@@ -333,36 +356,90 @@ export default function UserInfoCard() {
       {/* Editable Fields */}
       <div className="space-y-6">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7">
-          {/* Phone Number */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phone Number *
-            </label>
-            <input
-              type="text"
-              name="phoneNumber"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-              disabled={loading}
-              placeholder="Enter phone number"
-            />
+          {/* First Name */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:col-span-2">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                First Name *
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                disabled={loading}
+                placeholder="Enter first name"
+              />
+            </div>
+
+            {/* Last Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Last Name *
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                disabled={loading}
+                placeholder="Enter last name"
+              />
+            </div>
           </div>
 
-          {/* Age */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Age *
-            </label>
-            <input
-              type="number"
-              name="age"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              value={formData.age}
-              onChange={handleInputChange}
-              disabled={loading}
-              placeholder="Enter age"
-            />
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Email */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                  placeholder="Enter email"
+                />
+              </div>
+
+              {/* Phone Number */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone Number *
+                </label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                  placeholder="Enter phone number"
+                />
+              </div>
+
+              {/* Age */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Age *
+                </label>
+                <input
+                  type="number"
+                  name="age"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                  placeholder="Enter age"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Country, State, City */}
