@@ -1,5 +1,3 @@
-import React from "react";
-import AppSidebar from "../../../layout/AppSidebar";
 
 import StatsPanel from "./StatsPanel";
 import AppointmentRequestCard from "../doctor-appointment/AppointmentRequestCard ";
@@ -13,11 +11,8 @@ const DoctorDashboard = () => {
 
   return (
     <div className="flex bg-gray-50">
-      <div className="w-64 border-r bg-white shadow-sm">
-        {/* <AppSidebar /> */}
-      </div>
-
-      <div className="flex flex-1 p-6 gap-6 ml-10">
+      
+      <div className="flex flex-1 p-6 gap-6 ">
         <div className="w-64 space-y-6">
           <StatsPanel />
         </div>
