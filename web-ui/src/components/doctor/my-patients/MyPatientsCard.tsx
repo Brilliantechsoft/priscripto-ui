@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDownIcon, FilterIcon, SearchIcon } from "lucide-react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
-
-//
-interface Patient {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  bloodType: string;
-  appointmentDate: string;
-  location: string;
-  lastBooking: string;
-  active: boolean;
-  image: string;
-}
+import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
+import { fetchPatients } from "../../../redux/slices/doctor/patientsListSlice";
 
 export default function MyPatientsCard() {
-  // State for active/inactive filter
-  // const [activeFilter, setActiveFilter] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const {
+    list: patients,
+    loading,
+    error,
+  } = useAppSelector((state) => state.patients);
+
+  const doctorId = useAppSelector((state) => state.signInPatient.user?.id);
 
   // State for date filter dropdown
   const [dateFilter, setDateFilter] = useState<string>("Today");
   const [showDateFilter, setShowDateFilter] = useState<boolean>(false);
-
   // State for appointment type filter dropdown
   const [appointmentFilter, setAppointmentFilter] =
     useState<string>("All Type");
@@ -32,123 +25,6 @@ export default function MyPatientsCard() {
 
   // State for search input
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  // Sample patient data
-  const patients: Patient[] = [
-    {
-      id: "Apt0001",
-      name: "Adrian",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHr74Pjdj__bQPnZK-BFujbwgnP1t5PIqkig&s",
-    },
-    {
-      id: "Apt0002",
-      name: "Kelly Stevens",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOGZpFZKQVdkcFBqhV0apckEr6CQk4s6bB_Q&s",
-    },
-    {
-      id: "Apt0001",
-      name: "Raj",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: false,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FHBhip34UKoXlE95hcltUmBiEFWaIUvwSw&s",
-    },
-    {
-      id: "Apt0002",
-      name: "Rutuja",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa4xjShh4ynJbrgYrW_aB4lhKSxeMzQ3cO_A&s",
-    },
-    {
-      id: "Apt0001",
-      name: "Saket",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHr74Pjdj__bQPnZK-BFujbwgnP1t5PIqkig&s",
-    },
-    {
-      id: "Apt0002",
-      name: "Lilly",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOGZpFZKQVdkcFBqhV0apckEr6CQk4s6bB_Q&s",
-    },
-    {
-      id: "Apt0001",
-      name: "Vijay",
-      age: 42,
-      gender: "Male",
-      bloodType: "AB+",
-      appointmentDate: "11 Nov 2024 10.45 AM",
-      location: "Alabama, USA",
-      lastBooking: "27 Feb 2024",
-      active: false,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FHBhip34UKoXlE95hcltUmBiEFWaIUvwSw&s",
-    },
-    {
-      id: "Apt0002",
-      name: "Aarti",
-      age: 37,
-      gender: "Female",
-      bloodType: "O+",
-      appointmentDate: "05 Nov 2024 11.50 AM",
-      location: "San Diego, USA",
-      lastBooking: "20 Mar 2024",
-      active: true,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa4xjShh4ynJbrgYrW_aB4lhKSxeMzQ3cO_A&s",
-    },
-  ];
-
-  // Calculate counts
-  // const activeCount = patients.filter((p) => p.active).length;
-  // const inactiveCount = patients.filter((p) => !p.active).length;
-
-  // // Filter patients based on active status
-  // const filteredPatients = patients.filter((patient) =>
-  //   activeFilter ? patient.active : !patient.active
-  // );
 
   // Date filter options
   const dateOptions = [
@@ -168,6 +44,15 @@ export default function MyPatientsCard() {
     "Chat",
     "Direct Visit",
   ];
+
+  useEffect(() => {
+    if (doctorId) {
+      dispatch(fetchPatients());
+    }
+  }, [dispatch, doctorId]);
+
+  if (loading) return <div>Loading patients...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   // Filter patients based on search query
   const filteredPatients = patients.filter((patient) =>
@@ -277,15 +162,6 @@ export default function MyPatientsCard() {
                     </h2>
                   </div>
                 </div>
-                {/* <span
-                  className={`text-xs font-medium px-2.5 py-0.5 rounded ${
-                    patient.active
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {patient.active ? "Active" : "Inactive"}
-                </span> */}
               </div>
 
               <div className="mb-3">

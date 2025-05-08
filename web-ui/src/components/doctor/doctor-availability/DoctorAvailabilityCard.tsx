@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-// import AppSidebar from "../../../layout/AppSidebar";
-import { useSidebar } from "../../../context/SidebarContext";
 import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
 import {
-  addSlots,
-  clearSlots,
+  addTimeSlot,
+  clearTimeSlots,
   setAppointmentFee,
   saveAvailableSlots,
 } from "../../../redux/slices/doctor/doctorAvailableSlotsSlice";
@@ -20,7 +18,7 @@ type Day =
 
 export default function DoctorAvailabilityCard() {
   const dispatch = useAppDispatch();
-  const { slots, appointmentFee, loading, error } = useAppSelector(
+  const { availability, appointmentFee, loading, error } = useAppSelector(
     (state) => state.doctorAvailableSlots
   );
 
@@ -29,12 +27,63 @@ export default function DoctorAvailabilityCard() {
   const [startTime, setStartTime] = useState("04:00 AM");
   const [endTime, setEndTime] = useState("05:00 AM");
   const [activeDay, setActiveDay] = useState<Day>("Monday");
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const parseTime = (time: string) => {
     const [timePart, period] = time.split(" ");
     const [hours, minutes] = timePart.split(":");
     return { hours, minutes, period };
+  };
+
+  const formatTime = (hours: string, minutes: string, period: string) => {
+    return `${hours}:${minutes} ${period}`;
+  };
+
+  const handleTimeChange = (
+    currentTime: string,
+    setTime: React.Dispatch<React.SetStateAction<string>>,
+    field: "hours" | "minutes" | "period",
+    value: string | number
+  ) => {
+    const { hours, minutes, period } = parseTime(currentTime);
+    let newHours = hours;
+    let newMinutes = minutes;
+    let newPeriod = period;
+
+    if (field === "hours") {
+      newHours = String(value).padStart(2, "0");
+    } else if (field === "minutes") {
+      newMinutes = String(value).padStart(2, "0");
+    } else if (field === "period") {
+      newPeriod = value as string;
+    }
+
+    setTime(formatTime(newHours, newMinutes, newPeriod));
+  };
+
+  const increment = (
+    currentTime: string,
+    setTime: React.Dispatch<React.SetStateAction<string>>,
+    field: "hours" | "minutes"
+  ) => {
+    const { hours, minutes, period } = parseTime(currentTime);
+    let value = field === "hours" ? parseInt(hours) : parseInt(minutes);
+    const max = field === "hours" ? 12 : 59;
+
+    value = value + 1 > max ? 1 : value + 1;
+    handleTimeChange(currentTime, setTime, field, value);
+  };
+
+  const decrement = (
+    currentTime: string,
+    setTime: React.Dispatch<React.SetStateAction<string>>,
+    field: "hours" | "minutes"
+  ) => {
+    const { hours, minutes, period } = parseTime(currentTime);
+    let value = field === "hours" ? parseInt(hours) : parseInt(minutes);
+    const max = field === "hours" ? 12 : 59;
+
+    value = value - 1 < 1 ? max : value - 1;
+    handleTimeChange(currentTime, setTime, field, value);
   };
 
   const handleAddSlots = () => {
@@ -47,27 +96,17 @@ export default function DoctorAvailabilityCard() {
       return;
     }
 
-    const start = new Date(`2000-01-01 ${startTime}`);
-    const end = new Date(`2000-01-01 ${endTime}`);
-
-    if (start >= end) {
-      alert("End time must be after start time");
-      return;
-    }
-
-    const timeSlots = [];
-
-    while (start < end) {
-      const timeStr = start.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
-      timeSlots.push({ time: timeStr });
-      start.setMinutes(start.getMinutes() + 30);
-    }
-
-    dispatch(addSlots({ day: activeDay, slots: timeSlots }));
+    // const start = new Date(`2000-01-01 ${startTime}`);
+    // const end = new Date(`2000-01-01 ${endTime}`);
+    dispatch(
+      addTimeSlot({
+        day: activeDay,
+        timeSlot: {
+          startTime,
+          endTime,
+        },
+      })
+    );
     setIsModalOpen(false);
   };
 
@@ -76,7 +115,7 @@ export default function DoctorAvailabilityCard() {
   };
 
   const handleDeleteAll = () => {
-    dispatch(clearSlots(activeDay));
+    dispatch(clearTimeSlots(activeDay));
   };
 
   const handleFeeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,13 +132,6 @@ export default function DoctorAvailabilityCard() {
         alert(`Failed to save slots: ${error}`);
       });
   };
-
-  // Calculate the sidebar width based on its state
-  // const sidebarWidth = isExpanded || isHovered ? "290px" : "90px";
-
-  // const toggleSidebar = () => {
-  //   setIsSidebarOpen(!isSidebarOpen);
-  // };
 
   return (
     <div className="p-4">
@@ -122,7 +154,7 @@ export default function DoctorAvailabilityCard() {
                 "Friday",
                 "Saturday",
                 "Sunday",
-              ] as const
+              ] as Day[]
             ).map((day) => (
               <li key={day} className="mr-2">
                 <button
@@ -131,7 +163,7 @@ export default function DoctorAvailabilityCard() {
                       ? "border-b-2 border-blue-600 text-white bg-blue-600"
                       : "border border-gray-300 bg-white text-gray-600 hover:text-white hover:bg-blue-600"
                   }`}
-                  onClick={() => setActiveDay(day as Day)}
+                  onClick={() => setActiveDay(day)}
                 >
                   {day}
                 </button>
@@ -160,13 +192,13 @@ export default function DoctorAvailabilityCard() {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap">
-            {slots[activeDay].length > 0 ? (
-              slots[activeDay].map((slot, index) => (
+            {availability[activeDay].length > 0 ? (
+              availability[activeDay].map((slot, index) => (
                 <button
                   key={index}
                   className="bg-gray-300 px-4 py-2 rounded-md"
                 >
-                  {slot.time}
+                  {slot.startTime} - {slot.endTime}
                 </button>
               ))
             ) : (
@@ -212,43 +244,79 @@ export default function DoctorAvailabilityCard() {
               <div>
                 <label className="block mb-1">Start Time</label>
                 <div className="flex items-center gap-2">
-                  <select
-                    value={parseTime(startTime).hours}
-                    onChange={(e) => {
-                      const { minutes, period } = parseTime(startTime);
-                      setStartTime(`${e.target.value}:${minutes} ${period}`);
-                    }}
-                    className="px-2 py-1 border border-gray-300 rounded-md"
-                  >
-                    {Array.from({ length: 12 }, (_, i) =>
-                      (i + 1).toString().padStart(2, "0")
-                    ).map((hour) => (
-                      <option key={hour} value={hour}>
-                        {hour}
-                      </option>
-                    ))}
-                  </select>
-                  <span>:</span>
-                  <select
-                    value={parseTime(startTime).minutes}
-                    onChange={(e) => {
-                      const { hours, period } = parseTime(startTime);
-                      setStartTime(`${hours}:${e.target.value} ${period}`);
-                    }}
-                    className="px-2 py-1 border border-gray-300 rounded-md"
-                  >
-                    {["00", "30"].map((minute) => (
-                      <option key={minute} value={minute}>
-                        {minute}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() =>
+                        increment(startTime, setStartTime, "hours")
+                      }
+                      className="px-3 py-1 rounded-t-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↑
+                    </button>
+                    <input
+                      type="text"
+                      value={parseTime(startTime).hours}
+                      onChange={(e) =>
+                        handleTimeChange(
+                          startTime,
+                          setStartTime,
+                          "hours",
+                          e.target.value
+                        )
+                      }
+                      className="w-12 px-2 py-1 border border-gray-300 text-center"
+                    />
+                    <button
+                      onClick={() =>
+                        decrement(startTime, setStartTime, "hours")
+                      }
+                      className="px-3 py-1 rounded-b-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↓
+                    </button>
+                  </div>
+                  <span className="text-xl">:</span>
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() =>
+                        increment(startTime, setStartTime, "minutes")
+                      }
+                      className="px-3 py-1 rounded-t-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↑
+                    </button>
+                    <input
+                      type="text"
+                      value={parseTime(startTime).minutes}
+                      onChange={(e) =>
+                        handleTimeChange(
+                          startTime,
+                          setStartTime,
+                          "minutes",
+                          e.target.value
+                        )
+                      }
+                      className="w-12 px-2 py-1 border border-gray-300 text-center"
+                    />
+                    <button
+                      onClick={() =>
+                        decrement(startTime, setStartTime, "minutes")
+                      }
+                      className="px-3 py-1 rounded-b-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↓
+                    </button>
+                  </div>
                   <select
                     value={parseTime(startTime).period}
-                    onChange={(e) => {
-                      const { hours, minutes } = parseTime(startTime);
-                      setStartTime(`${hours}:${minutes} ${e.target.value}`);
-                    }}
+                    onChange={(e) =>
+                      handleTimeChange(
+                        startTime,
+                        setStartTime,
+                        "period",
+                        e.target.value
+                      )
+                    }
                     className="px-2 py-1 border border-gray-300 rounded-md bg-blue-600 text-white"
                   >
                     {["AM", "PM"].map((period) => (
@@ -264,43 +332,71 @@ export default function DoctorAvailabilityCard() {
               <div>
                 <label className="block mb-1">End Time</label>
                 <div className="flex items-center gap-2">
-                  <select
-                    value={parseTime(endTime).hours}
-                    onChange={(e) => {
-                      const { minutes, period } = parseTime(endTime);
-                      setEndTime(`${e.target.value}:${minutes} ${period}`);
-                    }}
-                    className="px-2 py-1 border border-gray-300 rounded-md"
-                  >
-                    {Array.from({ length: 12 }, (_, i) =>
-                      (i + 1).toString().padStart(2, "0")
-                    ).map((hour) => (
-                      <option key={hour} value={hour}>
-                        {hour}
-                      </option>
-                    ))}
-                  </select>
-                  <span>:</span>
-                  <select
-                    value={parseTime(endTime).minutes}
-                    onChange={(e) => {
-                      const { hours, period } = parseTime(endTime);
-                      setEndTime(`${hours}:${e.target.value} ${period}`);
-                    }}
-                    className="px-2 py-1 border border-gray-300 rounded-md"
-                  >
-                    {["00", "30"].map((minute) => (
-                      <option key={minute} value={minute}>
-                        {minute}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() => increment(endTime, setEndTime, "hours")}
+                      className="px-3 py-1 rounded-t-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↑
+                    </button>
+                    <input
+                      type="text"
+                      value={parseTime(endTime).hours}
+                      onChange={(e) =>
+                        handleTimeChange(
+                          endTime,
+                          setEndTime,
+                          "hours",
+                          e.target.value
+                        )
+                      }
+                      className="w-12 px-2 py-1 border border-gray-300 text-center"
+                    />
+                    <button
+                      onClick={() => decrement(endTime, setEndTime, "hours")}
+                      className="px-3 py-1 rounded-b-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↓
+                    </button>
+                  </div>
+                  <span className="text-xl">:</span>
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() => increment(endTime, setEndTime, "minutes")}
+                      className="px-3 py-1 rounded-t-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↑
+                    </button>
+                    <input
+                      type="text"
+                      value={parseTime(endTime).minutes}
+                      onChange={(e) =>
+                        handleTimeChange(
+                          endTime,
+                          setEndTime,
+                          "minutes",
+                          e.target.value
+                        )
+                      }
+                      className="w-12 px-2 py-1 border border-gray-300 text-center"
+                    />
+                    <button
+                      onClick={() => decrement(endTime, setEndTime, "minutes")}
+                      className="px-3 py-1 rounded-b-md bg-gray-200 hover:bg-gray-300"
+                    >
+                      ↓
+                    </button>
+                  </div>
                   <select
                     value={parseTime(endTime).period}
-                    onChange={(e) => {
-                      const { hours, minutes } = parseTime(endTime);
-                      setEndTime(`${hours}:${minutes} ${e.target.value}`);
-                    }}
+                    onChange={(e) =>
+                      handleTimeChange(
+                        endTime,
+                        setEndTime,
+                        "period",
+                        e.target.value
+                      )
+                    }
                     className="px-2 py-1 border border-gray-300 rounded-md bg-blue-600 text-white"
                   >
                     {["AM", "PM"].map((period) => (

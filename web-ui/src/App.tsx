@@ -63,94 +63,18 @@ function AppContent() {
       <ScrollToTop />
       {showAppHome && <AppHome />}
       <Routes>
-        {/* Home page - only accessible to guests */}
+        {/* Public Routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/video-consult" element={<Banner />} />
+        <Route path="/specialization" element={<SpecialityMenu />} />
+        <Route path="/doctors/:speciality" element={<Doctors />} />
+        <Route path="/doctors/appointment/:docId" element={<Appointments />} />
         <Route
-          index
-          path="/"
-          element={
-            <GuestRoute>
-              <HomePage />
-            </GuestRoute>
-          }
+          path="/appointment/:doctorId/:patientId/:timeSlotId"
+          element={<AppointmentForm />}
         />
 
-        {/* Common protected routes */}
-        <Route element={<AppLayout />}>
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          {/* <Route path="/doctor-profile" element={<UserProfiles />} />
-          <Route path="/patient-profile" element={<PatientProfile />} /> */}
-
-          <Route
-            path="/doctor-profile"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <UserProfiles />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/patient-profile"
-            element={
-              <ProtectedRoute role="PATIENT">
-                <PatientProfile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route path="/blank" element={<Blank />} />
-
-          <Route
-            path="/doctor-available-timing"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <DoctorAvailabilityCard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/my-patients"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <MyPatientsCard />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Doctor routes - only accessible to authenticated doctors */}
-          <Route
-            path="/doctor-dashboard"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <DoctorDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/doctor-appointment"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <DoctorAppointment />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/doctor-appointment-request"
-            element={
-              <ProtectedRoute role="DOCTOR">
-                <DoctorAppointmentRequest />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-
-        {/* Auth Pages :  only accessible to guests */}
+        {/* Auth Routes - only for guests */}
         <Route
           path="/signin"
           element={
@@ -200,45 +124,110 @@ function AppContent() {
           }
         />
 
-        {/* Patient routes */}
-        {/* <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/patient-appointment" element={<PatientAppointment />} />
-        <Route path="/patient-records" element={<PatientMedicalRecord />} /> */}
+        {/* Protected Admin Routes */}
+        <Route element={<AppLayout />}>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-        <Route
-          path="/patient-dashboard"
-          element={
-            <ProtectedRoute role="PATIENT">
-              <PatientDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/patient-appointment"
-          element={
-            <ProtectedRoute role="PATIENT">
-              <PatientAppointment />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/patient-records"
-          element={
-            <ProtectedRoute role="PATIENT">
-              <PatientMedicalRecord />
-            </ProtectedRoute>
-          }
-        />
+        {/* Protected Doctor Routes */}
+        <Route element={<AppLayout />}>
+          <Route
+            path="/doctor-dashboard"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <DoctorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-appointment"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <DoctorAppointment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-appointment-request"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <DoctorAppointmentRequest />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-available-timing"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <DoctorAvailabilityCard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-patients"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <MyPatientsCard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-profile"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <UserProfiles />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-        {/* Doctor booking */}
-        <Route path="/video-consult" element={<Banner />} />
-        <Route path="/specialization" element={<SpecialityMenu />} />
-        <Route path="/doctors/:speciality" element={<Doctors />} />
-        <Route path="/doctors/appointment/:docId" element={<Appointments />} />
-        <Route
-          path="/appointment/:doctorId/:patientId/:timeSlotId"
-          element={<AppointmentForm />}
-        />
+        {/* Protected Patient Routes */}
+        <Route element={<AppLayout />}>
+          <Route
+            path="/patient-dashboard"
+            element={
+              <ProtectedRoute role="PATIENT">
+                <PatientDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-appointment"
+            element={
+              <ProtectedRoute role="PATIENT">
+                <PatientAppointment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-records"
+            element={
+              <ProtectedRoute role="PATIENT">
+                <PatientMedicalRecord />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-profile"
+            element={
+              <ProtectedRoute role="PATIENT">
+                <PatientProfile />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+
+        {/* Common Routes */}
+        <Route element={<AppLayout />}>
+          <Route path="/blank" element={<Blank />} />
+        </Route>
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

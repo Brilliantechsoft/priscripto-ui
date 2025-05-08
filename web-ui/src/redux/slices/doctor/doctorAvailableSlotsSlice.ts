@@ -1,29 +1,45 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../../config/apiConfig";
 
-type Day = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
+type Day =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
 
-interface Slot {
-  time: string;
+interface TimeSlot {
+  startTime: string;
+  endTime: string;
 }
-
-interface DayAvailability {
-  day: Day;
-  slots: string[];
+interface AvailabilityPayload {
+  days: string;
+  timeSlots: TimeSlot[];
+  appoinmentFees: number;
 }
-
 
 interface AvailabilityState {
   days: Day[];
-  slots: Record<Day, Slot[]>;
+  availability: Record<Day, TimeSlot[]>;
   appointmentFee: number;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AvailabilityState = {
-  days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-  slots: {
+  days: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ],
+  availability: {
     Monday: [],
     Tuesday: [],
     Wednesday: [],
@@ -43,23 +59,45 @@ export const saveAvailableSlots = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const state = getState() as { doctorAvailableSlots: AvailabilityState };
-      const { slots, appointmentFee, days } = state.doctorAvailableSlots;
+      const { availability, appointmentFee } = state.doctorAvailableSlots;
+      const token = localStorage.getItem("jwt");
+      // console.log("Token being sent:", token);
 
-    const availabilityPayload: DayAvailability[] = days.map((day) => ({
-        day,
-        slots: slots[day].map((slot) => slot.time),
-    }));
-      
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      // 1. 
+       const daysPayload = [
+        "Monday", "Tuesday", "Wednesday", "Thursday", 
+        "Friday", "Saturday", "Sunday"
+      ].map(day => ({
+        days: day.toUpperCase(),
+        timeSlots: availability[day as Day] || [] // Empty array if no slots
+      }));
+
+      // 2.
+      const payload = {
+        availability: daysPayload,
+        appointmentFees: appointmentFee
+      };
+
+
+      // const availabilityPayload: DayAvailability[] = days.map((day) => ({
+      //     day,
+      //     slots: slots[day].map((slot) => slot.time),
+      // }));
+
+      console.log("Request payload:", payload);
+      console.log("Request URL:", `${API_BASE_URL}/v1/doctors/schedule/create`);
+
       const response = await axios.post(
-        "your-api-endpoint/availability",
-        {
-           availability: availabilityPayload,
-          appointmentFee,
-        },
+        `${API_BASE_URL}/v1/doctors/schedule/create`,
+        payload,
         {
           headers: {
             "Content-Type": "application/json",
-             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -67,8 +105,18 @@ export const saveAvailableSlots = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data?.message || "Failed to save availability");
+        console.error("Axios error details:", {
+          message: error.message,
+          response: error.response,
+          request: error.request,
+        });
+        return rejectWithValue(
+          error.response?.data?.message ||
+            error.response?.data?.error ||
+            "Failed to save availability"
+        );
       }
+      console.error("Unknown error:", error);
       return rejectWithValue("An unknown error occurred");
     }
   }
@@ -78,12 +126,15 @@ const doctorAvailableSlotsSlice = createSlice({
   name: "doctorAvailableSlots",
   initialState,
   reducers: {
-    addSlots: (state, action: PayloadAction<{ day: Day; slots: Slot[] }>) => {
-      const { day, slots } = action.payload;
-      state.slots[day] = [...state.slots[day], ...slots];
+    addTimeSlot: (
+      state,
+      action: PayloadAction<{ day: Day; timeSlot: TimeSlot }>
+    ) => {
+      const { day, timeSlot } = action.payload;
+      state.availability[day].push(timeSlot);
     },
-    clearSlots: (state, action: PayloadAction<Day>) => {
-      state.slots[action.payload] = [];
+    clearTimeSlots: (state, action: PayloadAction<Day>) => {
+      state.availability[action.payload] = [];
     },
     setAppointmentFee: (state, action: PayloadAction<number>) => {
       state.appointmentFee = action.payload;
@@ -106,5 +157,11 @@ const doctorAvailableSlotsSlice = createSlice({
   },
 });
 
-export const { addSlots, clearSlots, setAppointmentFee, resetAvailability } = doctorAvailableSlotsSlice.actions;
+export const {
+  addTimeSlot,
+  clearTimeSlots,
+  setAppointmentFee,
+  resetAvailability,
+} = doctorAvailableSlotsSlice.actions;
+
 export default doctorAvailableSlotsSlice.reducer;
