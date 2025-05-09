@@ -37,6 +37,8 @@ export const fetchPatients = createAsyncThunk(
       const state = getState() as RootState;
 
       const doctorId = state.signInPatient.user?.id;
+      console.log("Doctor ID from state:", doctorId); 
+       console.log("JWT token exists:", !!token);
 
       if (!doctorId) {
         throw new Error("Doctor ID not found");
@@ -50,8 +52,13 @@ export const fetchPatients = createAsyncThunk(
           },
         }
       );
-      console.log("API response:", response.data);
-      return response.data;
+
+      
+      console.log("Full API response:", response);
+      
+      const patientsData = Array.isArray(response.data) ? response.data : [];
+      console.log("Patients data:", patientsData);
+      return patientsData;
     } catch (error: any) {
       console.error("Error fetching patients:", error);
       return rejectWithValue(
@@ -78,6 +85,7 @@ const patientsListSlice = createSlice({
       .addCase(fetchPatients.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+         state.list = []; // reseting list when an error occures
       });
   },
 });

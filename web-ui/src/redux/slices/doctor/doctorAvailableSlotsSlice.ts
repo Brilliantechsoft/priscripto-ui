@@ -67,21 +67,30 @@ export const saveAvailableSlots = createAsyncThunk(
         throw new Error("No authentication token found");
       }
 
-      // 1. 
-       const daysPayload = [
-        "Monday", "Tuesday", "Wednesday", "Thursday", 
-        "Friday", "Saturday", "Sunday"
-      ].map(day => ({
+      // 1.
+      const scheduleRequests = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ].map((day) => ({
         days: day.toUpperCase(),
-        timeSlots: availability[day as Day] || [] // Empty array if no slots
+        timeSlots: availability[day as Day].map((slot) => ({
+          startTime: slot.startTime,
+          endTime: slot.endTime,
+        })),
       }));
 
       // 2.
       const payload = {
-        availability: daysPayload,
-        appointmentFees: appointmentFee
+        appointmentFees: appointmentFee,
+        scheduleRequests,
       };
 
+      console.log("Final payload:", JSON.stringify(payload, null, 2));
 
       // const availabilityPayload: DayAvailability[] = days.map((day) => ({
       //     day,

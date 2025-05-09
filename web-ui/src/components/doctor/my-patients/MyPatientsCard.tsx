@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ChevronDownIcon, FilterIcon, SearchIcon } from "lucide-react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
@@ -51,13 +51,19 @@ export default function MyPatientsCard() {
     }
   }, [dispatch, doctorId]);
 
-  if (loading) return <div>Loading patients...</div>;
-  if (error) return <div>Error: {error}</div>;
+  //Memoizing Filter patients based on search query
+  const filteredPatients = useMemo(() => {
+    if (!searchQuery) return patients;
 
-  // Filter patients based on search query
-  const filteredPatients = patients.filter((patient) =>
-    patient.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    return patients.filter((patient) =>
+      patient.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [patients, searchQuery]);
+
+  if (loading)
+    return <div className="p-4 text-center">Loading patients...</div>;
+  if (error)
+    return <div className="p-4 text-red-500 text-center">Error: {error}</div>;
 
   return (
     <div className="bg-gray-100 rounded-lg shadow-md p-4">
@@ -143,7 +149,7 @@ export default function MyPatientsCard() {
         {filteredPatients.length > 0 ? (
           filteredPatients.map((patient) => (
             <div
-              key={`${patient.id}-${patient.name}`}
+              key={patient.id}
               className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col"
             >
               <div className="flex justify-between items-start mb-3">
@@ -190,7 +196,9 @@ export default function MyPatientsCard() {
           ))
         ) : (
           <p className="text-gray-500 text-sm col-span-full">
-            No such patient found.
+            {patients.length === 0
+              ? "No patients found"
+              : "No matching patients found"}
           </p>
         )}
       </div>
