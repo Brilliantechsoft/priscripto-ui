@@ -18,9 +18,9 @@ const initialState: DoctorState = {
 export const fetchDoctorSlots = createAsyncThunk(
   "doctor/fetchSlots",
   async (docId: string) => {
-    console.log("Fetching slots for docId:", docId);
+
     const response = await axios.get(
-      "https://3df7-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
+      "https://32c5-203-192-220-137.ngrok-free.app/api/v1/doctors/" + docId  +"/available-schedules",
       {
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const fetchDoctorSlots = createAsyncThunk(
         withCredentials: true,
       }
     );
-    console.log("Raw API response:", response.data);
+  
     return response.data;
   }
 );
@@ -40,11 +40,11 @@ const appointmentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchDoctorSlots.pending, (state) => {
-        console.log("Fetching slots: pending...");
+        
         state.status = "loading";
       })
       .addCase(fetchDoctorSlots.fulfilled, (state, action) => {
-        console.log("Fetched slots:", action.payload);
+  
 
         const groupedSlots = action.payload.map((item:any) =>
           item.timeSlots.map((slot:any) => ({

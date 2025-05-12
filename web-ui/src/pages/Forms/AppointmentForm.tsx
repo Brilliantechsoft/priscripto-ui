@@ -9,9 +9,10 @@ type AppointmentFormProps = {
   doctorId: number | undefined;
   patientId: number | undefined;
   timeSlotId: number | undefined;
+  appointmentDate : string | undefined;
 };
 
-const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, timeSlotId }) => {
+const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, timeSlotId ,appointmentDate}) => {
   
   const doctorIdNum = doctorId ?? 0;
   const patientIdNum = patientId ?? 0;
@@ -39,6 +40,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const today = new Date().toISOString().split("T")[0]; // format: YYYY-MM-DD
+    const dateToSend = appointmentDate ?? today; // fallback if undefined
+  
     console.log({ doctorIdNum, patientIdNum, timeSlotIdNum });
     dispatch(
       createAppointment({
@@ -49,6 +53,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, 
         timeSlotId: timeSlotIdNum,
         prescriptions: "",
         purpose,
+        appointmentDate: dateToSend,
       })
     );
   };

@@ -9,7 +9,7 @@ interface AppointmentPayload {
   timeSlotId: number;
   prescriptions: string;
   purpose: string;
-  
+  appointmentDate: string;
 }
 
 interface AppointmentState {
@@ -30,7 +30,7 @@ export const createAppointment = createAsyncThunk(
   "appointments/create",
   async (appointmentData: AppointmentPayload ) => {
     const response = await axios.post(
-      "https://3df7-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
+      "https://32c5-203-192-220-137.ngrok-free.app/api/v1/patient/appointments/new-appointment",
       appointmentData
     );
     

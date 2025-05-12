@@ -1,4 +1,4 @@
-// /import { Link } from "react-router-dom";
+import { useState } from "react";
 import IMAGE from "/images/doctors/consult.png";
 import group_profile from "/images/doctors/group_profiles.png";
 import SpecialityMenu from "./SpecialityMenu";
@@ -7,20 +7,18 @@ import { OurDoctors } from "./OurDoctors";
 import { TrustMetricSection } from "./TrustMetricSection";
 import Testimonials from "./Testimonials";
 import { Button } from "../ui/button";
-// import SpecialityMenu from "./SpecialityMenu";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "../ui/modal";
+import ConsultForm from "../../pages/Forms/ConsultForm";
 
 export default function Banner() {
 
-  const scrollToSpecialityMenu = () => {
-    // Find the SpecialityMenu element by ID and scroll to it
-    const specialityMenu = document.getElementById("speciality-menu");
-    if (specialityMenu) {
-      specialityMenu.scrollIntoView({
-        behavior: "smooth", // Smooth scroll
-        block: "start", // Align to the top of the container
-      });
-    }
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleConsultNow = () => {
+    setIsModalOpen(true);
   };
+
 
   return (
     <div className="">
@@ -38,11 +36,19 @@ export default function Banner() {
           </div>
           <div className="flex">
             <Button
-              onClick={scrollToSpecialityMenu}
+              onClick={handleConsultNow}
               className="bg-white text-sm sm:text-base text-black px-8 py-3 rounded-full mt-6 hover:scale-105 transition-all"
             >
               Consult Now
             </Button>
+             <Modal
+                            width="w-[400px]"
+                            height="h-[45vh]"
+                            isOpen={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                          >
+                            <ConsultForm/>
+                          </Modal>
           </div>
         </div>
 
