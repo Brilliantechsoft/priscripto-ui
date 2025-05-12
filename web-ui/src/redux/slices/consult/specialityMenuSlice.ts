@@ -25,7 +25,7 @@ export const fetchSpecialities = createAsyncThunk<
 >("specialities/fetchSpecialities", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      "https://e232-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName",
+     "https://32c5-203-192-220-137.ngrok-free.app/api/v1/doctors/getSpecName",
       {
         headers: {
           "Content-Type": "application/json",

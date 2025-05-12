@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAppointment } from "../../redux/slices/consult/appointmentFormSlice";
 import { AppDispatch, RootState } from "../../redux/store";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type AppointmentFormProps = {
   doctorId: number | undefined;
   patientId: number | undefined;
   timeSlotId: number | undefined;
+  appointmentDate : string | undefined;
 };
 
-const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, timeSlotId }) => {
+const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, timeSlotId ,appointmentDate}) => {
   
   const doctorIdNum = doctorId ?? 0;
   const patientIdNum = patientId ?? 0;
@@ -19,13 +22,27 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, 
   const [purpose, setPurpose] = useState("");
 
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error } = useSelector(
+  const { loading, error,success} = useSelector(
     (state: RootState) => state.appointmentForm
   );
-console.log (error)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Appointment booked successfully!");
+      setTimeout(() => {
+        navigate("/patient-appointment"); 
+      }, 1500); 
+    }
+  }, [success, navigate]);
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const today = new Date().toISOString().split("T")[0]; // format: YYYY-MM-DD
+    const dateToSend = appointmentDate ?? today; // fallback if undefined
+  
     console.log({ doctorIdNum, patientIdNum, timeSlotIdNum });
     dispatch(
       createAppointment({
@@ -36,6 +53,7 @@ console.log (error)
         timeSlotId: timeSlotIdNum,
         prescriptions: "",
         purpose,
+        appointmentDate: dateToSend,
       })
     );
   };
@@ -72,6 +90,7 @@ console.log (error)
 
       <button
         type="submit"
+        // onClick={() => toast.success("Appointment booked successfully!")}
         className="bg-blue-500 text-white px-4 py-2 rounded"
         disabled={loading}
       >
@@ -79,6 +98,8 @@ console.log (error)
       </button>
 
       {error && <p className="text-red-500 mt-2">{error}</p>}
+
+      <ToastContainer />
     </form>
   );
 };

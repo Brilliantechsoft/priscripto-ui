@@ -37,6 +37,7 @@ import { GuestRoute } from "./layout/ProtectedRoute";
 import AppHome from "./layout/AppHome";
 import PatientProfile from "./pages/patient/PatientProfile";
 import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
+import ConsultForm from "./pages/Forms/ConsultForm";
 
 
 function AppContent() {
@@ -205,6 +206,7 @@ function AppContent() {
           path="/appointment/:doctorId/:patientId/:timeSlotId"
           element={<AppointmentForm />}
         />
+         <Route path="/consult-form" element={<ConsultForm/>} />
 
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />

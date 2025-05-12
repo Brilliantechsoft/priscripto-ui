@@ -20,6 +20,8 @@ const Doctors: React.FC = () => {
 
   const { filteredDoctors, status, error, availabilityMap, allDoctors } =
     useSelector((state: RootState) => state.doctors);
+    console.log("Filtered doctors:", filteredDoctors);
+    
 
   const [selectedDoctorId, setSelectedDoctorId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../redux/store";
 import { fetchDoctorSlots } from "../../redux/slices/consult/appointmentSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Slot } from "../../types/appointmentTypes";
+import { Slot } from "../../types/appointment/appointmentTypes";
 import { ToastContainer, toast } from "react-toastify";
 import { Modal } from "../ui/modal";
 import AppointmentForm from "../../pages/Forms/AppointmentForm";
@@ -32,20 +32,18 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    console.log("Dispatching fetchDoctorSlots for docId:", docId);
+   
     if (docId) {
       dispatch(fetchDoctorSlots(docId));
-    } else {
-      console.error("docId is undefined");
-    }
+    } 
   }, [docId, dispatch]);
 
-  useEffect(() => {
-    console.log("docSlots after fetch:", docSlots);
-    if (docSlots.length > 0) {
-      console.log("First date group:", docSlots[0]);
-    }
-  }, [docSlots]);
+  // useEffect(() => {
+  //   console.log("docSlots after fetch:", docSlots);
+  //   if (docSlots.length > 0) {
+  //     console.log("First date group:", docSlots[0]);
+  //   }
+  // }, [docSlots]);
 
   if (status === "loading") return <p>Loading slots...</p>;
   if (status === "failed") return <p>Error loading slots: {error}</p>;
@@ -115,7 +113,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
                 }}
                 className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-full"
               >
-                Book Appointment
+                Confirm Time Slot
               </button>
 
               <Modal
@@ -132,6 +130,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
                       (slot) => slot.startTime === slotTime
                     )?.timeSlotId ?? 0
                   }
+                  // appointmentDate={docSlots[slotIndex][0].scheduleDate}
                 />
               </Modal>
 
