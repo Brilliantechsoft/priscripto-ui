@@ -38,12 +38,7 @@ const Appointments: React.FC<AppointmentsProps> = ({ docId }) => {
     } 
   }, [docId, dispatch]);
 
-  // useEffect(() => {
-  //   console.log("docSlots after fetch:", docSlots);
-  //   if (docSlots.length > 0) {
-  //     console.log("First date group:", docSlots[0]);
-  //   }
-  // }, [docSlots]);
+ 
 
   if (status === "loading") return <p>Loading slots...</p>;
   if (status === "failed") return <p>Error loading slots: {error}</p>;

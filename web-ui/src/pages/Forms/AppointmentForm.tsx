@@ -40,8 +40,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ doctorId, patientId, 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const today = new Date().toISOString().split("T")[0]; // format: YYYY-MM-DD
-    const dateToSend = appointmentDate ?? today; // fallback if undefined
+    const today = new Date().toISOString().split("T")[0]; 
+    const dateToSend = appointmentDate ?? today; 
   
     console.log({ doctorIdNum, patientIdNum, timeSlotIdNum });
     dispatch(
