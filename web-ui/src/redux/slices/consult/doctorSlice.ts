@@ -50,7 +50,7 @@ export const fetchDoctors = createAsyncThunk<Doctor[]>(
   "doctors/fetchDoctors",
   async () => {
     const response = await axios.get(
-       "https://32c5-203-192-220-137.ngrok-free.app/api/v1/doctors",
+       "https://b3c8-203-192-220-137.ngrok-free.app/api/v1/doctors",
       {
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const fetchDoctorAvailability = createAsyncThunk<
   Record<number, boolean>
 >("doctors/fetchDoctorAvailability", async () => {
   const response = await axios.get(
-    "https://32c5-203-192-220-137.ngrok-free.app/api/v1/doctors",
+    "https://b3c8-203-192-220-137.ngrok-free.app/api/v1/doctors",
     {
       headers: {
         "Content-Type": "application/json",
