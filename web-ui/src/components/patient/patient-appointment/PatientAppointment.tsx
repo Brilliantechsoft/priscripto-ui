@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AppSidebar from "../../../layout/AppSidebar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -102,11 +101,11 @@ const PatientAppointment = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <div>
+      {/* <div>
         <AppSidebar />
-      </div>
+      </div> */}
 
-      <div className="flex-1 p-6 ml-72">
+      <div className="flex-1 p-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Appointments</h1>
 

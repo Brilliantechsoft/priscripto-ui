@@ -5,10 +5,7 @@ const PatientMedicalRecord = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <div>
-        <AppSidebar />
-      </div>
-      <div className="flex-1 p-6 ml-72">
+      <div className="flex-1 p-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Medical Records</h1>         
           <div className="mb-6">

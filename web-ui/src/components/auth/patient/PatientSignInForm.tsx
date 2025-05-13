@@ -101,7 +101,7 @@ export default function PatientSignInForm() {
         // localStorage.setItem("jwt", result.token);
 
         // navigate("/doctor-profile");
-        navigate("/patient-dashboard");
+        navigate("/video-consult");
       } catch (error) {
         console.error("Sign in failed:", error);
       }

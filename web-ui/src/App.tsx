@@ -139,6 +139,12 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* Patient routes */}
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route path="/patient-appointment" element={<PatientAppointment />} />
+        <Route path="/patient-records" element={<PatientMedicalRecord />} />
+        
         </Route>
 
         {/* Auth Pages :  only accessible to guests */}
@@ -191,10 +197,8 @@ function AppContent() {
           }
         />
 
-        {/* Patient routes */}
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/patient-appointment" element={<PatientAppointment />} />
-        <Route path="/patient-records" element={<PatientMedicalRecord />} />
+        
+
 
         {/* Doctor booking */}
         <Route path="/video-consult" element={<Banner />} />

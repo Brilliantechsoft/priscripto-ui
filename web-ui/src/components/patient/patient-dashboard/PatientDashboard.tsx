@@ -6,8 +6,7 @@ import NotificationCard from "../patient-appointment/cards/NotificationCard";
 const PatientDashboard = () => {
   return (
     <div className="flex min-h-screen ">
-      <div className="w-1/5">
-        <AppSidebar />
+      <div className="">
       </div>
       <div className="flex-1 bg-gray-50 p-8">
         <div className="flex flex-wrap gap-8">

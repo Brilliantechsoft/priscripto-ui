@@ -20,6 +20,8 @@ import healthConcernsReducer from "../redux/slices/consult/healthConcersSlice";
 import doctorAvailabilityReducer from "../redux/slices/doctor/doctorAvailibility";
 import doctorAvailableSlotsReducer from "./slices//doctor/doctorAvailableSlotsSlice";
 
+import patientProfileUpdateReducer from "./slices/patient/profile/patientProfileSlice";
+
 export const store = configureStore({
   reducer: {
     registerDoctor: registerDoctorReducer,
@@ -34,7 +36,8 @@ export const store = configureStore({
     doctorAppointmentRequest: doctorAppointmentRequestReducer,
 
     patientAppointmentList: patientAppointmentsListReducer,
-
+    patientProfileUpdate: patientProfileUpdateReducer,
+    
     specialities:specialityReducer,
     doctors: doctorReducer,
     doctor: appointmentReducer,

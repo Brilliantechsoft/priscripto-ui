@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 const REGISTER_PATIENT_URL = import.meta.env.VITE_BACKEND_URL+"/api/v1/patient/register";
-
 interface PatientRegistrationState {
   firstName: string;
   lastName: string;

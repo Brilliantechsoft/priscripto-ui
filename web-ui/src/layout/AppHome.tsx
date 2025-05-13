@@ -11,17 +11,18 @@ const AppHome: React.FC = () => {
   const { toggleSidebar, toggleMobileSidebar } = useSidebar();
 
   const navigate = useNavigate();
-  const { isLoggedIn } = useAppSelector((state) => state.signInDoctor);
-  const [checkAuth, setcheckAuth] = useState(false);
-  console.log(isLoggedIn);
 
-  // Check authentication status on mount
+  const { isLoggedIn: isDoctorLoggedIn } = useAppSelector((state) => state.signInDoctor);
+  const { isLoggedIn: isPatientLoggedIn } = useAppSelector((state) => state.signInPatient);
+  const isLoggedIn = isDoctorLoggedIn || isPatientLoggedIn;
+
+  console.log("Doctor isLoggedIn:", isDoctorLoggedIn);
+  console.log("Patient isLoggedIn:", isPatientLoggedIn);
+  console.log("Combined isLoggedIn:", isLoggedIn);
+
   useEffect(() => {
-    if (typeof isLoggedIn === "undefined") {
-      if (!isLoggedIn) {
-        navigate("/");
-      }
-      setcheckAuth(true);
+    if (!isLoggedIn) {
+      navigate("/"); 
     }
   }, [isLoggedIn, navigate]);
 
