@@ -37,6 +37,7 @@ import { GuestRoute } from "./layout/ProtectedRoute";
 import AppHome from "./layout/AppHome";
 import PatientProfile from "./pages/patient/PatientProfile";
 import DoctorAppointmentDetails from "./components/doctor/doctor-appointment/DoctorAppointmentDetails";
+import PatientDetails from "./components/doctor/my-patients/patient-details/PatientDetails";
 
 function AppContent() {
   const location = useLocation();
@@ -175,6 +176,14 @@ function AppContent() {
             element={
               <ProtectedRoute role="DOCTOR">
                 <MyPatientsCard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-details/:patientId"
+            element={
+              <ProtectedRoute role="DOCTOR">
+                <PatientDetails />
               </ProtectedRoute>
             }
           />

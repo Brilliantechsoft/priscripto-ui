@@ -3,8 +3,10 @@ import { ChevronDownIcon, FilterIcon, SearchIcon } from "lucide-react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPaperclip } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/appDispatchHook";
 import { fetchPatients } from "../../../redux/slices/doctor/patientsListSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function MyPatientsCard() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     list: patients,
@@ -150,7 +152,12 @@ export default function MyPatientsCard() {
           filteredPatients.map((patient) => (
             <div
               key={patient.id}
-              className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col"
+              className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col cursor-pointer"
+              onClick={() =>
+                navigate(`/patient-details/${patient.id}`, {
+                  state: { patient },
+                })
+              }
             >
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-start">

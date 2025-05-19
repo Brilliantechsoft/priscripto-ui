@@ -18,17 +18,6 @@ export const ProtectedRoute = ({ children, role }: ProtectedRouteProps) => {
   }
 
   if (role && user?.role !== role) {
-    // return null;
-    // return (
-    //   <div className="p-20 text-center">
-    //     <h2 className="text-red-600 text-4xl font-bold mb-4">
-    //       Access Denied !
-    //     </h2>
-    //     <p className="text-2xl text-gray-700">
-    //       You don't have permission to view this page.
-    //     </p>
-    //   </div>
-    // );
     return <Navigate to="/unauthorized" replace />;
   }
 
